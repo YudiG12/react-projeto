@@ -1,18 +1,14 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 
 class Index extends Component {
-    constuctor() {
-        this.routeChange = this.routeChange.bind(this);
-    }
-
-    routeChange() {
-        let path = '/login';
-        this.props.history.push(path);
-    }
-
     render() {
         return (
-            <button onClick={this.routeChange}>LOGIN</button>
+
+            <div>
+                INDEX PAGE
+                <Redirect to='/login' />
+            </div>
         )
     }
 }
