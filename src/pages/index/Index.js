@@ -1,13 +1,11 @@
 import React, {Component} from 'react'
-import {Redirect} from 'react-router-dom'
 
 class Index extends Component {
     render() {
         return (
-
             <div>
-                INDEX PAGE
-                <Redirect to='/login' />
+                INDEX PAGE <br />
+                <a href='/login'>Fazer Login</a>
             </div>
         )
     }
