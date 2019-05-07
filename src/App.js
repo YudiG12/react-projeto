@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Player from './pages/index/player/Player'
 import Index from './pages/index/Index'
 import Login from './pages/login/Login'
