@@ -1,42 +1,24 @@
-import React, {Component} from 'react'
-import PropTypes from 'prop-types';
-import {Card, Grid, TextField} from '@material-ui/core'
-import { withStyles} from '@material-ui/core/styles'
-import purple from '@material-ui/core/colors/purple'
+import React from 'react'
+import {Card, Grid, TextField, Button} from '@material-ui/core'
 import './styles.css'
 import logo from './txtlogo-deitado.png'
 
-
-const styles = theme => ({
-    cssLabel: {
-        '&$cssFocused': {
-          color: purple[500],
-        },
-      }
-})
-
 function Login(props) {
-    const {classes} = props
 
     return (
-        <Grid container direction="row" justify="center" alignItems="center">
-            <Card className='card'>
-                <img alt='' src={logo}/><br/>
+        <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
+            <Card className='card' style={{maxWidth:'30%'}}>
                 <Grid container direction="row" justify="center" alignItems="center">
-                    <TextField InputLabelProps={{
-                        classes: {
-                            root: classes.cssLabel
-                        }
-                        }}
-                        label="CPF ou CNPJ" margin="normal"/>
+                    <img alt='' style={{width:'60vh', marginTop:'3%'}}  src={logo}/><br/>
+                    <TextField style={{marginLeft: '11%', marginRight: '11%', marginTop: '0'}} fullWidth label="CPF ou CNPJ" margin="normal"/>
+                    <TextField style={{marginLeft: '11%', marginRight: '11%'}} fullWidth label="Senha" type="password" margin="normal"/>
+                    <Button style={{margin:'11%'}} fullWidth variant="contained" color="secondary">
+                        Secondary
+                    </Button>
                 </Grid>
             </Card>
         </Grid>
     )
 }
 
-Login.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Login);
+export default Login;
