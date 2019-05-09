@@ -2,7 +2,7 @@ import React from 'react'
 
 function Login(props) {
     return(
-        <p>ae</p>
+        <p>Eu sou a página de administrador</p>
         )
 }
 
