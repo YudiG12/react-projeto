@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
+import {NavLink} from 'react-router-dom'
 
 class Index extends Component {
     render() {
         return (
             <div>
                 INDEX PAGE <br />
-                <a href='/login'>Fazer Login</a>
+                <NavLink to ='/login'>Fazer Login </NavLink>
             </div>
         )
     }
