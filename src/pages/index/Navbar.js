@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
-import classNames from 'classnames'
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import {NavLink} from 'react-router-dom'
 import logoText from './txtlogo-deitado.png'
-import { Grid, Hidden, CssBaseline, Typography, Drawer, Divider, List, ListItemIcon, ListItem, ListItemText } from '@material-ui/core';
-import { Person, ChevronRight, ChevronLeft, Menu, Inbox, Mail } from '@material-ui/icons'
+import { Grid, Hidden, CssBaseline, Drawer, List, ListItemIcon, ListItem, ListItemText } from '@material-ui/core'
+import { Person, StarBorderOutlined } from '@material-ui/icons'
 
-const drawerWidth = 250;
+const drawerWidth = 250
 
 const styles = theme => ({
   root: {
@@ -35,7 +33,8 @@ class NavBar extends Component {
   render() {
     const { classes } = this.props
     return (
-        <div className={classes.root}>
+      <div className={classes.root}>
+        {/* <div style={{height:'100vh',width:'42px'}} /> */}
       <CssBaseline />
       <AppBar position='fixed' className={classes.appBar} style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
           <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'10px'}}>
@@ -49,23 +48,20 @@ class NavBar extends Component {
             <Person style={{marginLeft:'5px'}} />
           </Toolbar>
         </AppBar>
-        <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div style={{height:'40px'}} />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <Inbox/> : <Mail/>}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+        <Hidden xsDown>
+          <Drawer className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
+            <div style={{height:'40px'}} />
+            <List>
+              <NavLink to='/admin' activeStyle={{backgroundColor:'white', color:'#ff3f3f', fontWeight:'bold'}}>
+                <ListItem button key={'Campeonatos'}>
+                  <StarBorderOutlined activeStyle={{color:'#ff3f3f'}} style={{color:'#96a0a0'}}/>
+                  <span style={{color:'#96a0a0'}}>Campeonatos</span>
+                </ListItem>
+              </NavLink>
+            </List>
+          </Drawer>
+        </Hidden>
+        <div style={{height:'48.05px'}} />
       </div>
     );
   }
