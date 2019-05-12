@@ -3,11 +3,9 @@ import React, {Component} from 'react'
 class Player extends Component{
   render() {
     return (
-
-    <div>
-      PAGINA JOGADOR
-    </div>
-
+    <p style={{marginLeft:'270px'}}>
+      EU SOU A PAGINA JOGADOR VEI
+    </p>
     )
   }
 }

@@ -34,7 +34,6 @@ class NavBar extends Component {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-        {/* <div style={{height:'100vh',width:'42px'}} /> */}
       <CssBaseline />
       <AppBar position='fixed' className={classes.appBar} style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
           <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'10px'}}>
@@ -52,10 +51,16 @@ class NavBar extends Component {
           <Drawer className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
             <div style={{height:'40px'}} />
             <List>
-              <NavLink to='/admin' activeStyle={{backgroundColor:'white', color:'#ff3f3f', fontWeight:'bold'}}>
+              <NavLink to='/admin' activeStyle={{fontWeight:'bold'}}>
                 <ListItem button key={'Campeonatos'}>
                   <StarBorderOutlined activeStyle={{color:'#ff3f3f'}} style={{color:'#96a0a0'}}/>
                   <span style={{color:'#96a0a0'}}>Campeonatos</span>
+                </ListItem>
+              </NavLink>
+              <NavLink to='/player' activeStyle={{fontWeight:'bold'}}>
+                <ListItem button key={'Jogadores'}>
+                  <StarBorderOutlined activeStyle={{color:'#ff3f3f'}} style={{color:'#96a0a0'}}/>
+                  <span style={{color:'#96a0a0'}}>Jogadores</span>
                 </ListItem>
               </NavLink>
             </List>
