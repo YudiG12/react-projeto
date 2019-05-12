@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 
 function Login(props) {
     return(
-        <div>
+        <div style={{paddingLeft:'270px', paddingTop:'48.05px'}}>
             <p>Eu sou a página de administrador</p>
             <Link to='/login'>
                 Sair

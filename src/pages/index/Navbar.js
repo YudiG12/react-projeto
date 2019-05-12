@@ -20,7 +20,6 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 1,
   },
   drawer: {
-    color: 'white',
     width: drawerWidth,
     flexShrink: 0,
   },
@@ -29,30 +28,16 @@ const styles = theme => ({
     width: drawerWidth,
     backgroundColor: '#383c42',
   },
-  content: {
-    color: 'white',
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-  },
 });
 
 class NavBar extends Component {
-  state = { open: false}
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
 
   render() {
-    const { classes, theme } = this.props
+    const { classes } = this.props
     return (
-      <div>
         <div className={classes.root}>
       <CssBaseline />
-      <AppBar className={classes.appBar} position="static" style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
+      <AppBar position='fixed' className={classes.appBar} style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
           <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'10px'}}>
             <Hidden xsDown>          
               <img style={{width:'230px'}} alt='' src={logoText} />
@@ -64,14 +49,14 @@ class NavBar extends Component {
             <Person style={{marginLeft:'5px'}} />
           </Toolbar>
         </AppBar>
-      <Drawer
+        <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-      <div style={{height:'48px'}} />
+        <div style={{height:'40px'}} />
         <List>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem button key={text}>
@@ -82,7 +67,6 @@ class NavBar extends Component {
         </List>
       </Drawer>
       </div>
-      </div>
     );
   }
 }
@@ -91,4 +75,4 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(NavBar);
+export default withStyles(styles)(NavBar);
