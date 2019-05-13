@@ -12,7 +12,7 @@ const drawerWidth = 250
 
 const styles = theme => ({
   root: {
-    display: 'flex',
+    display: 'flex'
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -36,12 +36,12 @@ class NavBar extends Component {
       <div className={classes.root}>
       <CssBaseline />
       <AppBar position='fixed' className={classes.appBar} style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
-          <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'10px'}}>
+          <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'13px'}}>
             <Hidden xsDown>          
               <img style={{width:'230px'}} alt='' src={logoText} />
             </Hidden>
             <Grid container direction='row' justify='center' alignItems='center'>
-              <span style={{verticalAlign:'text-bottom'}}>CAMPEONATO<Hidden smDown><span style={{fontSize: '2vh', verticalAlign:'10%', paddingLeft:'20px', paddingRight:'20px'}}>|</span></Hidden><Hidden mdUp><br /></Hidden><span style={{fontWeight: '300', fontSize:'2vh', color: '#ff3f3f', textTransform: 'UPPERCASE'}}>Nome Campeonato</span></span>
+              <span style={{verticalAlign:'text-bottom', fontSize:'2.5vh',}}>CAMPEONATO<Hidden smDown><span style={{fontSize: '2vh', verticalAlign:'10%', paddingLeft:'20px', paddingRight:'20px'}}>|</span></Hidden><Hidden mdUp><br /></Hidden><span style={{fontWeight: '300', fontSize:'3vh', color: '#ff3f3f'}}>Nome Campeonato</span></span>
             </Grid>
             <span>User</span>
             <Person style={{marginLeft:'5px'}} />
