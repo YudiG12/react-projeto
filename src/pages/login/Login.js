@@ -11,6 +11,15 @@ const styles = theme => ({
       display: 'flex',
       flexWrap: 'wrap',
     },
+    cardResponsive: {
+        backgroundColor: '#383c42',
+        padding: '30px',
+        [theme.breakpoints.only('xs')]: {
+        backgroundColor: '#2d3035',
+        boxShadow: 'none',
+        padding: '0',
+      },
+    },
     margin: {
       margin: theme.spacing.unit,
     },
@@ -46,7 +55,7 @@ function Login(props) {
     const { classes } = props;
     return (
         <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
-            <Card className='card' style={{padding:'30px', paddingBottom:'0', maxWidth:'400px'}}>
+            <Card className={classes.cardResponsive} style={{ paddingBottom:'0', maxWidth:'400px'}}>
                 <Grid  container direction="row" justify="center" alignItems="center">
                     <img alt='' style={{width:'100%', margin:'3%'}}  src={logo}/><br/>
                     <FormControl style={{marginLeft: '11%', marginRight: '11%', marginTop: '-20px'}} fullWidth className={classes.margin}>

@@ -1,15 +1,37 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
 
-function Login(props) {
-    return(
-        <div style={{paddingLeft:'270px'}}>
-            <p>Eu sou a página de administrador</p>
-            <Link to='/login'>
-                Sair
-            </Link>
-        </div>
-    )
+const styles = theme => ({
+    root: {
+      paddingLeft: '20px',
+      [theme.breakpoints.only('xs')]: {
+        paddingLeft: '20px',
+      },
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: '270px',
+      },
+    },
+  });
+
+class Login extends Component {
+    
+    render() {
+        const { classes } = this.props
+        return(
+            <div className={classes.root}>
+                <p>Eu sou a página de administrador</p>
+                <Link to='/login'>
+                    Sair
+                </Link>
+            </div>
+        )
+    }
 }
 
-export default Login
+Login.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
+  
+  export default withStyles(styles)(Login);

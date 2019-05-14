@@ -41,7 +41,7 @@ class NavBar extends Component {
               <img style={{width:'230px'}} alt='' src={logoText} />
             </Hidden>
             <Grid container direction='row' justify='center' alignItems='center'>
-              <span style={{verticalAlign:'text-bottom', fontSize:'2.5vh',}}>CAMPEONATO<Hidden smDown><span style={{fontSize: '2vh', verticalAlign:'10%', paddingLeft:'20px', paddingRight:'20px'}}>|</span></Hidden><Hidden mdUp><br /></Hidden><span style={{fontWeight: '300', fontSize:'3vh', color: '#ff3f3f'}}>Nome Campeonato</span></span>
+            <Hidden smDown><span style={{verticalAlign:'text-bottom', fontSize:'2.5vh',}}>CAMPEONATO<span style={{fontSize: '2vh', verticalAlign:'10%', paddingLeft:'20px', paddingRight:'20px'}}>|</span></span></Hidden><Hidden mdUp><br /></Hidden><span style={{fontWeight: '300', fontSize:'3vh', color: '#ff3f3f'}}>Nome Campeonato</span>
             </Grid>
             <span>User</span>
             <Person style={{marginLeft:'5px'}} />
@@ -66,7 +66,7 @@ class NavBar extends Component {
             </List>
           </Drawer>
         </Hidden>
-        <div style={{height:'48.05px'}} />
+        <div style={{height:'58.05px'}} />
       </div>
     );
   }
