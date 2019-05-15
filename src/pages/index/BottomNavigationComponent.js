@@ -3,14 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
-import Icon from '@material-ui/core/Icon';
-import Restore from '@material-ui/icons/Restore';
-import Favorite from '@material-ui/icons/Favorite';
-import LocationOn from '@material-ui/icons/LocationOn';
+import {NavLink} from 'react-router-dom'
+import { Person, StarBorderOutlined } from '@material-ui/icons';
 
 const styles = {
   root: {
-    width: 500,
     backgroundColor: '#383c42',
     width: '100%',
     color: '#96a0a0',
@@ -23,7 +20,7 @@ const styles = {
 
 class BottomNavigationComponent extends React.Component {
   state = {
-    value: 'recents',
+    value: this.props.location.pathname.split('/')[1]
   };
 
   handleChange = (event, value) => {
@@ -36,10 +33,10 @@ class BottomNavigationComponent extends React.Component {
     const { value } = this.state;
 
     return (
-      <BottomNavigation value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction label="Recents" value="recents" classes={actionClasses} icon={<Restore />} />
-        <BottomNavigationAction label="Favorites" value="favorites" classes={actionClasses} icon={<Favorite />} />
-        <BottomNavigationAction label="Nearby" value="nearby" classes={actionClasses} icon={<LocationOn />} />
+      <BottomNavigation style={{position: 'fixed',bottom:'0'}} value={value} onChange={this.handleChange} className={classes.root}>
+        <BottomNavigationAction component={NavLink} to='/admin' label="Campeonatos" value="campeonatos" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/player' label="Jogadores" value="jogadores" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction label="Conta" value="conta" classes={actionClasses} icon={<Person />} />
       </BottomNavigation>
     );
   }

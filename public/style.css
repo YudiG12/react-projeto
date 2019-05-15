@@ -9,8 +9,13 @@ body {
     height: '100%' !important;
 }
 
-  a {
+a.redLink {
     color: #ff3f3f !important;
     text-decoration: none;
     font-family: 'Muli', sans-serif;
+}
+
+::selection {
+    background: #ff8080;
+    text-shadow: none;
 }

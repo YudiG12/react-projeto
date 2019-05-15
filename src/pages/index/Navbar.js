@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import logoText from './txtlogo-deitado.png'
-import { Grid, Hidden, CssBaseline, Drawer, List, ListItemIcon, ListItem, ListItemText } from '@material-ui/core'
+import { Grid, Hidden, CssBaseline, Drawer, List, ListItem } from '@material-ui/core'
 import { Person, StarBorderOutlined } from '@material-ui/icons'
 
 const drawerWidth = 250
@@ -29,44 +29,51 @@ const styles = theme => ({
 });
 
 class NavBar extends Component {
+  state = {
+    userType: 'admin'
+  }
 
   render() {
     const { classes } = this.props
     return (
       <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position='fixed' className={classes.appBar} style={{boxShadow: 'none', verticalAlign:'text-bottom', color:'#96a0a0', backgroundColor:'#383c42'}}>
-          <Toolbar style={{paddingLeft:'15px', minHeight:0, padding:'13px'}}>
-            <Hidden xsDown>          
-              <img style={{width:'230px'}} alt='' src={logoText} />
+        <CssBaseline />
+        <AppBar position='fixed' className={classes.appBar} style={{ boxShadow: 'none', verticalAlign: 'text-bottom', color: '#96a0a0', backgroundColor: '#383c42' }}>
+          <Toolbar style={{ paddingLeft: '15px', minHeight: 0, padding: '13px' }}>
+            <Hidden xsDown>
+              <img style={{ width: '230px' }} alt='' src={logoText} />
             </Hidden>
             <Grid container direction='row' justify='center' alignItems='center'>
-            <Hidden smDown><span style={{verticalAlign:'text-bottom', fontSize:'2.5vh',}}>CAMPEONATO<span style={{fontSize: '2vh', verticalAlign:'10%', paddingLeft:'20px', paddingRight:'20px'}}>|</span></span></Hidden><Hidden mdUp><br /></Hidden><span style={{fontWeight: '300', fontSize:'3vh', color: '#ff3f3f'}}>Nome Campeonato</span>
+              <Hidden smDown><span style={{ verticalAlign: 'text-bottom', fontSize: '2.5vh', }}>CAMPEONATO<span style={{ fontSize: '2vh', verticalAlign: '10%', paddingLeft: '20px', paddingRight: '20px' }}>|</span></span></Hidden><Hidden mdUp><br /></Hidden><span style={{ fontWeight: '300', fontSize: '3vh', color: '#ff3f3f' }}>Nome Campeonato</span>
             </Grid>
-            <span>User</span>
-            <Person style={{marginLeft:'5px'}} />
+            <Hidden xsDown>
+              <span>User</span>
+              <Person style={{ marginLeft: '5px' }} />
+            </Hidden>
           </Toolbar>
         </AppBar>
         <Hidden xsDown>
           <Drawer className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
-            <div style={{height:'40px'}} />
+            <div style={{ height: '46.05px' }} />
             <List>
-              <NavLink to='/admin' activeStyle={{fontWeight:'bold'}}>
-                <ListItem button key={'Campeonatos'}>
-                  <StarBorderOutlined activeStyle={{color:'#ff3f3f'}} style={{color:'#96a0a0'}}/>
-                  <span style={{color:'#96a0a0'}}>Campeonatos</span>
-                </ListItem>
-              </NavLink>
-              <NavLink to='/player' activeStyle={{fontWeight:'bold'}}>
+              {this.state.userType == 'admin' &&
+                <NavLink className='redLink' to='/admin' activeStyle={{ fontWeight: 'bold' }}>
+                  <ListItem button key={'Campeonatos'}>
+                    <StarBorderOutlined activeStyle={{ color: '#ff3f3f' }} style={{ color: '#96a0a0' }} />
+                    <span style={{ color: '#96a0a0' }}>Campeonatos</span>
+                  </ListItem>
+                </NavLink>
+              }
+              <NavLink className='redLink' to='/player' activeStyle={{ fontWeight: 'bold' }}>
                 <ListItem button key={'Jogadores'}>
-                  <StarBorderOutlined activeStyle={{color:'#ff3f3f'}} style={{color:'#96a0a0'}}/>
-                  <span style={{color:'#96a0a0'}}>Jogadores</span>
+                  <StarBorderOutlined activeStyle={{ color: '#ff3f3f' }} style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>Jogadores</span>
                 </ListItem>
               </NavLink>
             </List>
           </Drawer>
         </Hidden>
-        <div style={{height:'58.05px'}} />
+        <div style={{ height: '68.05px' }} />
       </div>
     );
   }

@@ -21,8 +21,8 @@ class Login extends Component {
         const { classes } = this.props
         return(
             <div className={classes.root}>
-                <p>Eu sou a página de administrador</p>
-                <Link to='/login'>
+                Eu sou a página de administrador
+                <Link to='/login' className='redLink'>
                     Sair
                 </Link>
             </div>
