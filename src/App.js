@@ -5,14 +5,16 @@ import Index from './pages/index/Index'
 import Login from './pages/login/Login'
 import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
+import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
 import Admin from './pages/index/admin/Admin'
+import { Hidden, Grid } from '@material-ui/core';
 
 class App extends Component {
 	render() {
 		return (
 
 			<BrowserRouter>
-					<Route path="/(player|admin)" component={Navbar}/>
+				<Route path="/(player|admin)" component={Navbar}/>
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
@@ -20,6 +22,7 @@ class App extends Component {
 					<Route path="/player" component={Player} />
 					<Route component={Error} />
 				</Switch>
+				<Hidden smUp><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
 
 		)
