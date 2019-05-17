@@ -34,8 +34,8 @@ class BottomNavigationComponent extends React.Component {
 
     return (
       <BottomNavigation style={{position: 'fixed',bottom:'0'}} value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction component={NavLink} to='/admin' label="Campeonatos" value="campeonatos" classes={actionClasses} icon={<StarBorderOutlined />} />
-        <BottomNavigationAction component={NavLink} to='/player' label="Jogadores" value="jogadores" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/admin' label="Campeonatos" value="admin" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/player' label="Jogadores" value="player" classes={actionClasses} icon={<StarBorderOutlined />} />
         <BottomNavigationAction label="Conta" value="conta" classes={actionClasses} icon={<Person />} />
       </BottomNavigation>
     );

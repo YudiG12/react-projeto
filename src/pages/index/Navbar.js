@@ -12,8 +12,14 @@ const drawerWidth = 250
 
 const styles = theme => ({
   root: {
-    display: 'flex'
+    backgroundColor: '#383c42',
+    width: '100%',
+    color: '#96a0a0',
+    "&$selected": {
+      color: "#ff3f3f"
+    }
   },
+  selected: {},
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -30,13 +36,21 @@ const styles = theme => ({
 
 class NavBar extends Component {
   state = {
-    userType: 'admin'
-  }
+    userType: 'admin',
+    value: this.props.location.pathname.split('/')[1]
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   render() {
-    const { classes } = this.props
+    const actionClasses = this.props.classes;
+    const { classes } = this.props;
+    const { value } = this.state;
+
     return (
-      <div className={classes.root}>
+      <div>
         <CssBaseline />
         <AppBar position='fixed' className={classes.appBar} style={{ boxShadow: 'none', verticalAlign: 'text-bottom', color: '#96a0a0', backgroundColor: '#383c42' }}>
           <Toolbar style={{ paddingLeft: '15px', minHeight: 0, padding: '13px' }}>
@@ -53,23 +67,19 @@ class NavBar extends Component {
           </Toolbar>
         </AppBar>
         <Hidden xsDown>
-          <Drawer className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
+          <Drawer value={value} onChange={this.handleChange} className={classes.root} className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
             <div style={{ height: '46.05px' }} />
-            <List>
+            <List value={value} onChange={this.handleChange}>
               {this.state.userType == 'admin' &&
-                <NavLink className='redLink' to='/admin' activeStyle={{ fontWeight: 'bold' }}>
-                  <ListItem button key={'Campeonatos'}>
-                    <StarBorderOutlined activeStyle={{ color: '#ff3f3f' }} style={{ color: '#96a0a0' }} />
-                    <span style={{ color: '#96a0a0' }}>Campeonatos</span>
+                  <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/admin' button key={'Campeonatos'}>
+                    <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
                   </ListItem>
-                </NavLink>
               }
-              <NavLink className='redLink' to='/player' activeStyle={{ fontWeight: 'bold' }}>
-                <ListItem button key={'Jogadores'}>
-                  <StarBorderOutlined activeStyle={{ color: '#ff3f3f' }} style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>Jogadores</span>
+                <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/player' button key={'Jogadores'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
                 </ListItem>
-              </NavLink>
             </List>
           </Drawer>
         </Hidden>
