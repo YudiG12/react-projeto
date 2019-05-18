@@ -21,37 +21,37 @@ const styles = theme => ({
   },
 });
 
-class Login extends Component {
+class Admin extends Component {
     
-    render() {
-        const { classes } = this.props
-        return(
-            <div className={classes.root}>
-              <Grid container spacing={12}>
-                <Grid item xs={6}>
-                  <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
-                  <Card className={classes.card}>
-                    oieaesaaaaaaaaaaa
-                  </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
-                  <Card className={classes.card}>
-                    oieaesaaaaaaaaaaa
-                  </Card>
-                </Grid>
+  render() {
+    const { classes } = this.props
+    return(
+        <div className={classes.root}>
+          <Grid container spacing={12}>
+            <Grid item xs={6}>
+              <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
+              <Card className={classes.card}>
+                oieaesaaaaaaaaaaa
+              </Card>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
+              <Card className={classes.card}>
+                oieaesaaaaaaaaaaa
+              </Card>
+            </Grid>
 
-                <Link to='/login' className='redLink'>
-                    Sair
-                </Link>
-              </Grid>
-            </div>
-        )
-    }
+            <Link to='/login' className='redLink'>
+                Sair
+            </Link>
+          </Grid>
+        </div>
+    )
+  }
 }
 
-Login.propTypes = {
+Admin.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Admin);

@@ -68,7 +68,7 @@ class NavBar extends Component {
         </AppBar>
         <Hidden xsDown>
           <Drawer value={value} onChange={this.handleChange} className={classes.root} className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
-            <div style={{ height: '46.05px' }} />
+            <div style={{ height: '49px' }} />
             <List value={value} onChange={this.handleChange}>
               {this.state.userType == 'admin' &&
                   <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/admin' button key={'Campeonatos'}>
