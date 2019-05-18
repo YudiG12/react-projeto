@@ -83,7 +83,7 @@ class NavBar extends Component {
             </List>
           </Drawer>
         </Hidden>
-        <div style={{ height: '68.05px' }} />
+        <div style={{ height: '75.05px' }} />
       </div>
     );
   }

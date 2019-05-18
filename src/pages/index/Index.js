@@ -6,7 +6,7 @@ class Index extends Component {
         return (
             <div>
                 INDEX PAGE <br />
-                <NavLink to ='/login'>Fazer Login </NavLink>
+                <NavLink className='redLink' to ='/login'>Fazer Login </NavLink>
             </div>
         )
     }
