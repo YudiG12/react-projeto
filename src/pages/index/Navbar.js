@@ -76,6 +76,10 @@ class NavBar extends Component {
                     <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
                   </ListItem>
               }
+                <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/convites' button key={'Convidar jogadores'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Convidar jogadores</span>
+                </ListItem>
                 <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/player' button key={'Jogadores'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
