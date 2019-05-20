@@ -32,15 +32,37 @@ class Admin extends Component {
         'metricDate',
         'metricTime',1,1))
     }
+    for (let i = 0; i < playerDatas.length; i++) {
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>)
+      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useCPU+'%'}<br/></Typography>)
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
+      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
+      final.push(<br />)
+      if (!(i == playerDatas.length - 1))
+        final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
+    }
+    return final
+  }
 
-    playerDatas.forEach(player => {
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU</Typography>)
-      final.push(<Typography inline style={{color:'white', fontSize: '1.1rem', fontFamily: 'inherit'}}>{player.useCPU}<br/></Typography>)
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU</Typography>)
-      final.push(<Typography inline style={{color:'white', fontSize: '1.1rem', fontFamily: 'inherit'}}>{player.useGPU}</Typography>) 
-        final.push(<br />)
-      final.push(<hr style={{backgroundColor:'#96a0a0', widht:'60%'}}/>)
-    })
+  renderTeam2 = () => {
+    let final = []
+    let playerDatas = []
+    for (let i = 0; i < 5; i++) {
+      playerDatas.push(new MachineMetricData(33,33,67,55,33,33,33,
+        'usbDevice',
+        'metricDate',
+        'metricTime',1,1))
+    }
+
+    for (let i = 0; i < playerDatas.length; i++) {
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>)
+      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useCPU+'%'}<br/></Typography>)
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
+      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
+      final.push(<br />)
+      if (!(i == playerDatas.length - 1))
+        final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
+    }
 
     return final
   }
@@ -59,7 +81,7 @@ class Admin extends Component {
             <Grid item xs={6}>
               <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
               <Card className={classes.card}>
-                oieaesaaaaaaaaaaa
+                {this.renderTeam2()}
               </Card>
             </Grid>
           </Grid>
