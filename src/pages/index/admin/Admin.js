@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Typography } from '@material-ui/core'
-import { Box } from '@material-ui/core/Box'
+import { Grid, Card, Typography, Divider } from '@material-ui/core'
+import MachineMetricData from '../../../models/MachineMetricData'
 
 const styles = theme => ({
   root: {
@@ -22,7 +22,29 @@ const styles = theme => ({
 });
 
 class Admin extends Component {
-    
+  
+  renderTeam1 = () => {
+    let final = []
+    let playerDatas = []
+    for (let i = 0; i < 5; i++) {
+      playerDatas.push(new MachineMetricData(33,33,78,87,33,33,33,
+        'usbDevice',
+        'metricDate',
+        'metricTime',1,1))
+    }
+
+    playerDatas.forEach(player => {
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU</Typography>)
+      final.push(<Typography inline style={{color:'white', fontSize: '1.1rem', fontFamily: 'inherit'}}>{player.useCPU}<br/></Typography>)
+      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU</Typography>)
+      final.push(<Typography inline style={{color:'white', fontSize: '1.1rem', fontFamily: 'inherit'}}>{player.useGPU}</Typography>) 
+        final.push(<br />)
+      final.push(<hr style={{backgroundColor:'#96a0a0', widht:'60%'}}/>)
+    })
+
+    return final
+  }
+
   render() {
     const { classes } = this.props
     return(
@@ -31,7 +53,7 @@ class Admin extends Component {
             <Grid item xs={6}>
               <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
               <Card className={classes.card}>
-                oieaesaaaaaaaaaaa
+                {this.renderTeam1()}
               </Card>
             </Grid>
             <Grid item xs={6}>
@@ -40,10 +62,6 @@ class Admin extends Component {
                 oieaesaaaaaaaaaaa
               </Card>
             </Grid>
-
-            <Link to='/login' className='redLink'>
-                Sair
-            </Link>
           </Grid>
         </div>
     )
