@@ -80,6 +80,11 @@ class NavBar extends Component {
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
                 </ListItem>
+                
+                <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/streams' button key={'Streams'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Streams</span>
+                </ListItem>
             </List>
           </Drawer>
         </Hidden>

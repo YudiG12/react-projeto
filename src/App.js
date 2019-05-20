@@ -7,6 +7,7 @@ import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
 import Admin from './pages/index/admin/Admin'
+import Streams from './pages/index/admin/Streams'
 import { Hidden, Grid } from '@material-ui/core';
 
 class App extends Component {
@@ -14,12 +15,13 @@ class App extends Component {
 		return (
 
 			<BrowserRouter>
-				<Route path="/(player|admin)" component={Navbar}/>
+				<Route path="/(player|admin|streams)" component={Navbar}/>
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
 					<Route path='/admin' component={Admin}/>
 					<Route path="/player" component={Player} />
+					<Route path="/streams" component={Streams}/>
 					<Route component={Error} />
 				</Switch>
 				<Hidden smUp><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin)" component={BottomNavigationComponent}/></Grid></Hidden>
