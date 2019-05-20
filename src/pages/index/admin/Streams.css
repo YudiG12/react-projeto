@@ -1,0 +1,10 @@
+.cardTwo{
+
+    display: flex;
+}
+
+.cardPart1{
+    flex-grow: 1 auto;
+}
+
+/*https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/
