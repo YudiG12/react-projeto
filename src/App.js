@@ -9,6 +9,7 @@ import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
 import Admin from './pages/index/admin/Admin'
+
 import { Hidden, Grid } from '@material-ui/core';
 
 class App extends Component {

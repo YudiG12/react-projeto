@@ -49,7 +49,7 @@ const styles = theme => ({
     input: {
       color: '#96a0a0',
       borderBottom: '1px solid #96a0a0',
-    },
+    }
   });
 
 function Singup(props) {
