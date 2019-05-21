@@ -72,12 +72,12 @@ function Login(props) {
                         <Input inputProps={{className: classes.input}} type="password" id="pass" classes={{ underline: classes.cssUnderline }} />
                     </FormControl>
                     <Grid container direction='row' justify='flex-end'>
-                        <a rel='' href='#' className='redLink' style={{marginRight:'11%'}}>Esqueci minha senha</a>
+                        <Link onTouchStartCapture='#' className='redLink' style={{marginRight:'11%'}}>Esqueci minha senha</Link>
                     </Grid>
                     <Button id='button' component={Link} to='/admin' type='submit' style={{fontWeight: '300', a: 'none', margin:'11%',marginTop:'10%', marginBottom:'3%', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f'}} fullWidth variant="contained" color="secondary">
                         Login
                     </Button>
-                    <p style={{marginBottom:'8%'}}><span style={{color:'rgb(96,103,112)'}}>Não tem uma conta?</span> <a rel='clea' href='#' className='redLink'>Cadastre-se!</a></p>
+                    <p style={{marginBottom:'8%'}}><span style={{color:'rgb(96,103,112)'}}>Não tem uma conta?</span> <Link to='#' className='redLink'>Cadastre-se!</Link></p>
                 </Grid>
             </Card>
         </Grid>

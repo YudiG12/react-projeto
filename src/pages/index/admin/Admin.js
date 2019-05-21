@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography, Divider } from '@material-ui/core'
@@ -38,7 +37,7 @@ class Admin extends Component {
       final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
       final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
       final.push(<br />)
-      if (!(i == playerDatas.length - 1))
+      if (!(i === playerDatas.length - 1))
         final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
     }
     return final
@@ -60,7 +59,7 @@ class Admin extends Component {
       final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
       final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
       final.push(<br />)
-      if (!(i == playerDatas.length - 1))
+      if (!(i === playerDatas.length - 1))
         final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
     }
 
