@@ -49,10 +49,10 @@ const styles = theme => ({
     input: {
       color: '#96a0a0',
       borderBottom: '1px solid #96a0a0',
-    },
+    }
   });
 
-function Login(props) {
+function Singup(props) {
     const { classes } = props;
     return (
         <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
@@ -71,21 +71,23 @@ function Login(props) {
                         </InputLabel>
                         <Input inputProps={{className: classes.input}} type="password" id="pass" classes={{ underline: classes.cssUnderline }} />
                     </FormControl>
-                    <Grid container direction='row' justify='flex-end'>
-                        <a rel='' href='#' className='redLink' style={{marginRight:'11%'}}>Esqueci minha senha</a>
-                    </Grid>
-                    <Button id='button' component={Link} to='/admin' type='submit' style={{fontWeight: '300', a: 'none', margin:'11%',marginTop:'10%', marginBottom:'3%', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f'}} fullWidth variant="contained" color="secondary">
-                        Login
+                    <FormControl style={{marginLeft: '11%', marginRight: '11%', marginTop: 'px'}} fullWidth className={classes.margin}>
+                        <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                        Confirme sua Senha
+                        </InputLabel>
+                        <Input inputProps={{className: classes.input}} type="password" id="passConf" classes={{ underline: classes.cssUnderline }} />
+                    </FormControl>                    
+                    <Button id='button' component={Link} to='/login' type='submit' style={{fontWeight: '300', a: 'none', margin:'11%',marginTop:'10%', marginBottom:'5%', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f'}} fullWidth variant="contained" color="secondary">
+                        Inscreva-se
                     </Button>
-                    <p style={{marginBottom:'8%'}}><span style={{color:'rgb(96,103,112)'}}>Não tem uma conta?</span> <a rel='clea' href='/singup' className='redLink'>Cadastre-se!</a></p>
-                </Grid>
+                    </Grid>
             </Card>
         </Grid>
     )
 }
 
-Login.propTypes = {
+Singup.propTypes = {
     classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(Singup);
