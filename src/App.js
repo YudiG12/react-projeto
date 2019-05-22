@@ -4,7 +4,7 @@ import Player from './pages/index/player/Player'
 import Index from './pages/index/Index'
 import Login from './pages/login/Login'
 import Singup from './pages/singup/Singup'
-import Convites from './pages/convites/Convites'
+import Convites from './pages/index/convites/Convites'
 import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
@@ -29,7 +29,7 @@ class App extends Component {
 					<Route path="/streams" component={Streams}/>
 					<Route component={Error} />
 				</Switch>
-				<Hidden smUp><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin|streams|convites)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
 
 		)
