@@ -22,6 +22,11 @@ const styles = theme => ({
             paddingLeft: '250px',
         },
     },
+    table:{
+        backgroundColor:'#383c42',
+        color: '#96a0a0',
+        fontSize: '15px'
+    },
     card: {
         backgroundColor: '#383c42',
         padding: theme.spacing.unit * 2,
@@ -70,22 +75,17 @@ const styles = theme => ({
     }
 
 });
-
+let data = [1,2];
+let rows = [];
 let id = 0;
-function createData(name, calories, fat, carbs, protein) {
-  id += 1;
-  return { id, name, calories, fat, carbs, protein };
+function createData(nomeJogador, campeonato, status) {
+    id += 1;
+    return { nomeJogador, campeonato, status };
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+for(let i=0;data.length>i;i++){
+  rows.push( createData('nomeJogador', 'campeonato', 'status'));
+};
 class Convites extends Component {
-
     state = {
         campeonato: '',
         open: false,
@@ -136,10 +136,10 @@ class Convites extends Component {
                                         inputProps={{
                                             name: 'campeonato',
                                             id: 'campeonato',
-                                            className: classes.input,
+                                            className: classes.input
                                         }}
                                     >
-                                        <MenuItem classes={{ root: classes.cssLabel, focused: classes.cssFocused }} value="">
+                                        <MenuItem classes={{ root: classes.cssLabel}} value="">
                                             <em>None</em>
                                         </MenuItem>
                                         <MenuItem value={"lol"}>LOL</MenuItem>
@@ -158,36 +158,27 @@ class Convites extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent>
-                            <Paper >
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Dessert (100g serving)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat (g)</TableCell>
-            <TableCell align="right">Carbs (g)</TableCell>
-            <TableCell align="right">Protein (g)</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.protein}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-                                
-
-
-
+                            <p style={{background:'#383c42', color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Convite Enviados</p>
+                                <Paper >
+                                    <Table className={classes.table}>
+                                        <TableHead className={classes.table} >
+                                            <TableRow >
+                                                <TableCell className={classes.table}>Jogador</TableCell>
+                                                <TableCell className={classes.table} align="right">Campeonato</TableCell>
+                                                <TableCell className={classes.table} align="right">Status</TableCell>
+                                            </TableRow>
+                                        </TableHead>
+                                        <TableBody>
+                                            {rows.map(row => (
+                                                <TableRow key={row.id} >                                                    
+                                                    <TableCell align="right" className={classes.table}>{row.nomeJogador}</TableCell>
+                                                    <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
+                                                    <TableCell align="center" className={classes.table}>{row.status}</TableCell>
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Paper>
                             </CardContent>
                         </Card>
                     </Grid>
