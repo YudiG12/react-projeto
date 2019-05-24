@@ -34,6 +34,7 @@ class Admin extends Component {
             <Grid container spacing={12}>
                 <Grid item xs={6}>
                     <Card className={`cardTwo ${classes.card}`}>
+                    {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
                         <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/>
                         <img style={{ width: '20px', height: '20px'}} align='center' alt='' src={eyeView} className={`cardPart1`}/>
                         <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
