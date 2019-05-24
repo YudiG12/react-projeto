@@ -23,10 +23,6 @@ const styles = theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-  },
   drawerPaper: {
     color: 'white',
     width: drawerWidth,
@@ -45,7 +41,6 @@ class NavBar extends Component {
   };
 
   render() {
-    const actionClasses = this.props.classes;
     const { classes } = this.props;
     const { value } = this.state;
 
@@ -67,21 +62,25 @@ class NavBar extends Component {
           </Toolbar>
         </AppBar>
         <Hidden xsDown>
-          <Drawer value={value} onChange={this.handleChange} className={classes.root} className={classes.drawer} variant="permanent" classes={{ paper: classes.drawerPaper }}>
+          <Drawer value={value} onChange={this.handleChange} className={classes.root} variant="permanent" classes={{ paper: classes.drawerPaper }}>
             <div style={{ height: '49px' }} />
             <List value={value} onChange={this.handleChange}>
-              {this.state.userType == 'admin' &&
-                  <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/admin' button key={'Campeonatos'}>
+              {this.state.userType === 'admin' &&
+                  <ListItem className='redLink' component={NavLink} to='/admin' button key={'Campeonatos'}>
                     <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
+                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
                   </ListItem>
               }
-                <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/player' button key={'Jogadores'}>
+                <ListItem className='redLink' component={NavLink} to='/convites' button key={'Convidar jogadores'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Convidar jogadores</span>
+                </ListItem>
+                <ListItem className='redLink' component={NavLink} to='/player' button key={'Jogadores'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
                 </ListItem>
                 
-                <ListItem classes={actionClasses} className='redLink' component={NavLink} to='/streams' button key={'Streams'}>
+                <ListItem className='redLink' component={NavLink} to='/streams' button key={'Streams'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Streams</span>
                 </ListItem>
