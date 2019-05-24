@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography } from '@material-ui/core'
+import {RemoveRedEye} from '@material-ui/icons'
 import twitchLogo from './../../../img/twitch.png'
 import youtubeLogo from './../../../img/youtube.png'
 import smashcastLogo from './../../../img/smashcast.png'
@@ -31,34 +32,45 @@ class Admin extends Component {
     const { classes } = this.props
     return(
         <div className={classes.root}>
-            <Grid container spacing={12}>
-                <Grid item xs={6}>
+            <Grid container>
+                <Grid item xs={12} sm={6}>
                     <Card className={`cardTwo ${classes.card}`}>
                     {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
-                        <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/>
-                        <img style={{ width: '20px', height: '20px'}} align='center' alt='' src={eyeView} className={`cardPart1`}/>
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
+                        <div className={`divisao`}>
+                            <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/>
+                            <RemoveRedEye style={{ color: '#96a0a0' }}/>
+                            <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
+                        </div>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.card}>
-                    <img style={{ width: '80px' }} alt='' src={youtubeLogo} />
-                        <img style={{ width: '20px', marginTop: '-120px', marginLeft: '60px' }} align='center' alt='' src={eyeView} />
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', marginTop: '-82px', marginLeft: '-60px', paddingBottom: '45px' }}>123456</Typography>
+                <Grid item xs={12} sm={6}>
+                    <Card className={`cardTwo ${classes.card}`}>
+                    {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
+                        <div className={`divisao`}>
+                            <img style={{ width: '80px', height: '75px'}} alt='' src={youtubeLogo} className={`cardPart1`}/>
+                            <RemoveRedEye style={{ color: '#96a0a0' }}/>
+                            <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
+                        </div>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.card}>
-                    <img style={{ width: '80px' }} alt='' src={smashcastLogo} />
-                        <img style={{ width: '20px', marginTop: '-120px', marginLeft: '60px' }} align='center' alt='' src={eyeView} />
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', marginTop: '-82px', marginLeft: '-60px', paddingBottom: '45px' }}>123456</Typography>
+                <Grid item xs={12} sm={6}>
+                    <Card className={`cardTwo ${classes.card}`}>
+                    {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
+                        <div className={`divisao`}>
+                            <img style={{ width: '80px', height: '75px'}} alt='' src={smashcastLogo} className={`cardPart1`}/>
+                            <RemoveRedEye style={{ color: '#96a0a0' }}/>
+                            <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
+                        </div>
                     </Card>
                 </Grid>
-                <Grid item xs={6}>
-                    <Card className={classes.card}>
-                    <img style={{ width: '80px' }} alt='' src={livestreamLogo} />
-                        <img style={{ width: '20px', marginTop: '-120px', marginLeft: '60px' }} align='center' alt='' src={eyeView} />
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', marginTop: '-82px', marginLeft: '-60px', paddingBottom: '45px' }}>123456</Typography>
+                <Grid item xs={12} sm={6}>
+                    <Card className={`cardTwo ${classes.card}`}>
+                    {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
+                        <div className={`divisao`}>
+                            <img style={{ width: '80px', height: '75px'}} alt='' src={livestreamLogo} className={`cardPart1`}/>
+                            <RemoveRedEye style={{ color: '#96a0a0' }}/>
+                            <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
+                        </div>
                     </Card>
                 </Grid>
 
