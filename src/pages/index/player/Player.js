@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
+import LineChartComponent from './LineChart'
 
 const styles = theme => ({
   root: {
@@ -15,11 +16,13 @@ const styles = theme => ({
 });
 
 class Player extends Component{
+
   render() {
     const { classes } = this.props
     return (
     <div className={classes.root}>
-      EU SOU A PAGINA JOGADOR VEI
+      isso aqui é na verdade a pagina de máquina
+      <LineChartComponent />
     </div>
     )
   }
