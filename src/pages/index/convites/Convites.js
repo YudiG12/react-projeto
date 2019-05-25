@@ -1,24 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-<<<<<<< HEAD:src/pages/convites/Convites.js
-import { Grid, Card, Typography, Button, FormControl, InputLabel, MenuItem, Select, Input, CardContent } from '@material-ui/core'
-import { red } from '@material-ui/core/colors';
-import CardActions from '@material-ui/core/CardActions';
-import { Box } from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import { DoneAll } from '@material-ui/icons'
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-=======
 import { Grid, Card, Button, FormControl, InputLabel, MenuItem,Select, Input, CardContent } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
->>>>>>> master:src/pages/index/convites/Convites.js
 
 const styles = theme => ({
     root: {
