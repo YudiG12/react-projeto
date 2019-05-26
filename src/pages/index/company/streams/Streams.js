@@ -35,7 +35,7 @@ class Admin extends Component {
                 <Grid item xs={12} sm={6}>
                     <Card className={`cardTwo ${classes.card}`}>
                     {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
-                        <div className={`divisao`}>
+                        <div className={`streams`}>
                             <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/>
                             <RemoveRedEye style={{ color: '#96a0a0' }}/>
                             <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
@@ -45,7 +45,7 @@ class Admin extends Component {
                 <Grid item xs={12} sm={6}>
                     <Card className={`cardTwo ${classes.card}`}>
                     {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
-                        <div className={`divisao`}>
+                        <div className={`streams`}>
                             <img style={{ width: '80px', height: '75px'}} alt='' src={youtubeLogo} className={`cardPart1`}/>
                             <RemoveRedEye style={{ color: '#96a0a0' }}/>
                             <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
@@ -55,7 +55,7 @@ class Admin extends Component {
                 <Grid item xs={12} sm={6}>
                     <Card className={`cardTwo ${classes.card}`}>
                     {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
-                        <div className={`divisao`}>
+                        <div className={`streams`}>
                             <img style={{ width: '80px', height: '75px'}} alt='' src={smashcastLogo} className={`cardPart1`}/>
                             <RemoveRedEye style={{ color: '#96a0a0' }}/>
                             <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
@@ -65,7 +65,7 @@ class Admin extends Component {
                 <Grid item xs={12} sm={6}>
                     <Card className={`cardTwo ${classes.card}`}>
                     {/* dentro do grid, uma div com display flex, justify-content: spacing, ajustar largura da div */}
-                        <div className={`divisao`}>
+                        <div className={`streams`}>
                             <img style={{ width: '80px', height: '75px'}} alt='' src={livestreamLogo} className={`cardPart1`}/>
                             <RemoveRedEye style={{ color: '#96a0a0' }}/>
                             <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>123456</Typography>
