@@ -71,6 +71,7 @@ const styles = theme => ({
     }
 
 });
+
 let data = [1,2];
 let rows = [];
 let id = 0;
@@ -123,12 +124,7 @@ class Convites extends Component {
                                 <FormControl fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>Campeonatos</InputLabel>
                                     <Select
-                                        className={classes.cssUnderline}
-                                        open={this.state.open}
-                                        onClose={this.handleClose}
-                                        onOpen={this.handleOpen}
-                                        value={this.state.campeonato}
-                                        onChange={this.handleChange}
+                                        className={classes.cssUnderline}                                        
                                         inputProps={{
                                             name: 'campeonato',
                                             id: 'campeonato',
