@@ -89,6 +89,11 @@ class NavBar extends Component {
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
                 </ListItem>
+
+                <ListItem className='redLink' component={NavLink} to='/convite' button key={'Convite'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Convite</span>
+                </ListItem>
             </List>
           </Drawer>
         </Hidden>
