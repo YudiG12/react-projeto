@@ -19,10 +19,16 @@ class Player extends Component{
 
   render() {
     const { classes } = this.props
+    var names = ['Jake', 'Jon', 'Thruster'];
     return (
     <div className={classes.root}>
       isso aqui é na verdade a pagina de máquina
       <LineChartComponent />
+      <ul>
+        {names.map(function(name, index){
+            return <li key={ index }>{name}</li>;
+          })}
+      </ul>
     </div>
     )
   }

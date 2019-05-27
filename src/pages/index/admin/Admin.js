@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Typography, Divider } from '@material-ui/core'
+import { Grid, Card, Typography, Divider, Button } from '@material-ui/core'
 import MachineMetricData from '../../../models/MachineMetricData'
 
 const styles = theme => ({
@@ -49,15 +49,21 @@ class Admin extends Component {
         'metricDate',
         'metricTime',1,1))
     }
-    for (let i = 0; i < playerDatas.length; i++) {
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>)
-      final.push(<Typography inline style={{color:valueColor, fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useCPU+'%'}<br/></Typography>)
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
-      final.push(<Typography inline style={{color:valueColor, fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
-      final.push(<br />)
-      if (!(i === playerDatas.length - 1))
-        final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
-    }
+    final = playerDatas.map((metrics,index) => {
+      return (
+        <div style={{position:'relative'}}>
+          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
+          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
+          <Button style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button>
+          <br/>
+          {!(index === playerDatas.length - 1) &&
+            <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
+          }
+        </div>
+        )
+      })
     return final
   }
 
@@ -72,15 +78,21 @@ class Admin extends Component {
         'metricTime',1,1))
     }
 
-    for (let i = 0; i < playerDatas.length; i++) {
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>)
-      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useCPU+'%'}<br/></Typography>)
-      final.push(<Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>)
-      final.push(<Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{playerDatas[i].useGPU+'%'}</Typography>) 
-      final.push(<br />)
-      if (!(i === playerDatas.length - 1))
-        final.push(<Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>)
-    }
+    final = playerDatas.map((metrics,index) => {
+      return (
+        <div style={{position: 'relative'}}>
+          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
+          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
+          <Button style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button>
+          <br/>
+          {!(index === playerDatas.length - 1) &&
+            <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
+          }
+        </div>
+        )
+      })
 
     return final
   }
