@@ -6,6 +6,7 @@ import './styles.css'
 import logo from './txtlogo-deitado.png'
 import PropTypes from 'prop-types';
 import { red } from '@material-ui/core/colors';
+
 import { error, isError } from 'util';
 
 const styles = theme => ({
@@ -57,10 +58,10 @@ class Singup extends Component {
   constructor() {
     super()
     this.state = {
-      userName:'',
-      userData:'',
-      password:'',
-      passwordConfirm:''
+      userName: '',
+      userData: '',
+      password: '',
+      passwordConfirm: ''
     }
   }
   handleUsername(text) {
@@ -68,7 +69,7 @@ class Singup extends Component {
   }
   handleUserData(text) {
     this.setState({ userData: text.target.value })
-   
+
   }
   handlePassword(text) {
     this.setState({ password: text.target.value })
@@ -77,63 +78,81 @@ class Singup extends Component {
     this.setState({ passwordConfirm: text.target.value })
   }
   validateUserData = (data) => {
-   let dataPerson = data.replace(/\D+/g, '');
-   
-    if(dataPerson.length==11){
-      var cpf= dataPerson;
-      var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
-      var soma1=0, soma2=0;
-      var vlr =11;
+    let dataPerson = data.replace(/\D+/g, '');
 
-      for(let i=0;i<9;i++){
-              soma1+=eval(cpf.charAt(i)*(vlr-1));
-              soma2+=eval(cpf.charAt(i)*vlr);
-              vlr--;
-      }       
-      soma1 = (((soma1*10)%11)==10 ? 0:((soma1*10)%11));
-      soma2=(((soma2+(2*soma1))*10)%11);
+    if (dataPerson.length > 11) {
 
-      var digitoGerado=(soma1*10)+soma2;
-      if(digitoGerado!=digitoDigitado){     
-              alert('CPF Invalido!');                    
-      
-      }
-    }if(dataPerson.length==14){
       var cnpj = dataPerson;
-      var valida = new Array(6,5,4,3,2,9,8,7,6,5,4,3,2);
-      var dig1= new Number;
-      var dig2= new Number;
+      var valida = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+      var dig1 = new Number;
+      var dig2 = new Number;
 
-      
       cnpj = cnpj.toString();
-      var digito = new Number(eval(cnpj.charAt(12)+cnpj.charAt(13)));
+      var digito = new Number(eval(cnpj.charAt(12) + cnpj.charAt(13)));
 
-      for(let i = 0; i<valida.length; i++){
-              dig1 += (i>0? (cnpj.charAt(i-1)*valida[i]):0);  
-              dig2 += cnpj.charAt(i)*valida[i];       
+      for (let i = 0; i < valida.length; i++) {
+        dig1 += (i > 0 ? (cnpj.charAt(i - 1) * valida[i]) : 0);
+        dig2 += cnpj.charAt(i) * valida[i];
       }
-      dig1 = (((dig1%11)<2)? 0:(11-(dig1%11)));
-      dig2 = (((dig2%11)<2)? 0:(11-(dig2%11)));
+      dig1 = (((dig1 % 11) < 2) ? 0 : (11 - (dig1 % 11)));
+      dig2 = (((dig2 % 11) < 2) ? 0 : (11 - (dig2 % 11)));
 
-      if(((dig1*10)+dig2) != digito){ 
-              alert('CNPJ Invalido!');
+      if (((dig1 * 10) + dig2) != digito) {
+        alert('CNPJ Invalido!');
+        this.setState({ userData: "" });
+
+      }
+    } else {
+      var cpf = dataPerson;
+      var digitoDigitado = eval(cpf.charAt(9) + cpf.charAt(10));
+      var soma1 = 0, soma2 = 0;
+      var vlr = 11;
+
+      for (let i = 0; i < 9; i++) {
+        soma1 += eval(cpf.charAt(i) * (vlr - 1));
+        soma2 += eval(cpf.charAt(i) * vlr);
+        vlr--;
+      }
+      soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
+      soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
+
+      var digitoGerado = (soma1 * 10) + soma2;
+      if (digitoGerado != digitoDigitado) {
+        alert('CPF Invalido!');
+        this.setState({ userData: "" });
       }
     }
   }
-  
 
-  singUp=()=>{
-    alert(this.state.password+this.state.passwordConfirm+this.state.userData+this.state.userName);
-    fetch('http://35.199.74.137:3000/', {
-      method: 'post',
-      body: {"persondata":this.state.userData,
-      "password":this.state.password,
-      "username":this.state.userName
-      }
-      }).then(response => console.log(response.json()),
-      error => console.log('erro',error)
+  validatePassword = (password) => {
+    if (password != this.state.passwordConfirm) {
+      alert('As senhas devem ser iguais');
+      this.setState({ passwordConfirm: "" });
+
+    }
+  }
+
+  singUp = () => {
+    
+    if (this.state.userData != "" && this.state.userName != "" && this.state.password != "" && this.state.passwordConfirm != "") {
+      
+      fetch('http://35.199.74.137:7000/signup', {
+        method: 'post',
+        headers:{
+          Accept:'application/json',
+          'Content-type':'apllication/json',
+        },
+        body: JSON.stringify({
+          "persondata": `${this.state.userData}`,
+          "password": `${this.state.password}`,
+          "username": `${this.state.userName}`
+        })
+      }).then(response => console.log(response),
+        error => console.log('erro', error)
       );
-
+    }else(
+      alert("Todos os campos devem ser preenchidos")
+    )
   }
   render() {
     const { classes } = this.props;
@@ -147,33 +166,33 @@ class Singup extends Component {
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                 Username
                         </InputLabel>
-              <Input inputProps={{ className: classes.input }} id="userName" classes={{ underline: classes.cssUnderline }}  onChange={(text)=>{this.handleUsername(text)}}/>
+              <Input inputProps={{ className: classes.input }} id="userName" classes={{ underline: classes.cssUnderline }} onChange={(text) => { this.handleUsername(text) }} />
             </FormControl>
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                 CPF ou CNPJ
               </InputLabel>
-              <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text"  onBlur={this.validateUserData(this.state.userData)} onBlur={(text)=>{this.handleUserData(text)}}/>
+              <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
             </FormControl>
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                Senha
+                Senha 
               </InputLabel>
-              <Input inputProps={{ className: classes.input }} type="password" id="pass" classes={{ underline: classes.cssUnderline }} onChange={(text)=>{this.handlePassword(text)}}  />
+              <Input inputProps={{ className: classes.input }} type="password" id="pass" classes={{ underline: classes.cssUnderline }} value={this.password} onChange={(text) => { this.handlePassword(text) }} />
             </FormControl>
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                 Confirme sua Senha
               </InputLabel>
-              <Input inputProps={{ className: classes.input }} type="password" id="passwordCheck" classes={{ underline: classes.cssUnderline }} onChange={(text)=>{this.handleUserData(text)}}/>
+              <Input inputProps={{ className: classes.input }} type="password" id="passwordCheck" classes={{ underline: classes.cssUnderline }} value={this.state.passwordConfirm} onBlur={(text) => { this.validatePassword(this.state.password) }} onChange={(text) => { this.handlePasswordConfirm(text) }} />
             </FormControl>
 
             <FormControl>
               <Button id='button' component={Link} onClick={() => this.singUp()} type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '5%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
-                Inscreva-se 
+                Inscreva-se
               </Button>
             </FormControl>
           </Grid>

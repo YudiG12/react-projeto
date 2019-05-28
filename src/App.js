@@ -3,7 +3,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Player from './pages/index/player/Player'
 import Index from './pages/index/Index'
 import Login from './pages/login/Login'
-import Singup from './pages/singup/Singup'
+import Signup from './pages/signup/Signup'
 import Convites from './pages/index/convites/Convites'
 import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
@@ -22,7 +22,7 @@ class App extends Component {
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
-					<Route path='/singup' component={Singup}/>
+					<Route path='/signup' component={Signup}/>
 					<Route path='/convites' component={Convites}/>
 					<Route path='/admin' component={Admin}/>
 					<Route path="/player" component={Player} />
