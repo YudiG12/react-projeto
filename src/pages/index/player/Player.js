@@ -15,11 +15,12 @@ const styles = theme => ({
 });
 
 class Player extends Component{
+
   render() {
     const { classes } = this.props
     return (
     <div className={classes.root}>
-      EU SOU A PAGINA JOGADOR VEI
+      JOGADORRRR
     </div>
     )
   }
