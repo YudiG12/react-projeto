@@ -7,7 +7,7 @@ import logo from './txtlogo-deitado.png'
 import PropTypes from 'prop-types';
 import { red } from '@material-ui/core/colors';
 
-import { error, isError } from 'util';
+
 
 const styles = theme => ({
   root: {
@@ -132,7 +132,7 @@ class Singup extends Component {
     }
   }
 
-  singUp = () => {
+  signup = () => {
     
     if (this.state.userData != "" && this.state.userName != "" && this.state.password != "" && this.state.passwordConfirm != "") {
       
