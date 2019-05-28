@@ -7,6 +7,7 @@ import logo from './txtlogo-deitado.png'
 import PropTypes from 'prop-types';
 import { red } from '@material-ui/core/colors';
 import { error, isError } from 'util';
+import { sha512 } from 'react-native-sha512';
 
 const styles = theme => ({
   root: {
@@ -124,16 +125,7 @@ class Singup extends Component {
 
   singUp=()=>{
     alert(this.state.password+this.state.passwordConfirm+this.state.userData+this.state.userName);
-    fetch('http://35.199.74.137:3000/', {
-      method: 'post',
-      body: {"persondata":this.state.userData,
-      "password":this.state.password,
-      "username":this.state.userName
-      }
-      }).then(response => console.log(response.json()),
-      error => console.log('erro',error)
-      );
-
+     
   }
   render() {
     const { classes } = this.props;
