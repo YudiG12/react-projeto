@@ -77,7 +77,7 @@ function Login(props) {
                     <Button id='button' component={Link} to='campeonato' type='submit' style={{fontWeight: '300', a: 'none', margin:'11%',marginTop:'10%', marginBottom:'3%', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f'}} fullWidth variant="contained" color="secondary">
                         Login
                     </Button>
-                    <p style={{marginBottom:'8%'}}><span style={{color:'rgb(96,103,112)'}}>Não tem uma conta?</span> <Link to='#' className='redLink'>Cadastre-se!</Link></p>
+                    <p style={{marginBottom:'8%'}}><span style={{color:'rgb(96,103,112)'}}>Não tem uma conta?</span> <Link to='/singup' className='redLink'>Cadastre-se!</Link></p>
                 </Grid>
             </Card>
         </Grid>
