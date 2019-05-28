@@ -29,7 +29,7 @@ class App extends Component {
 					<Route path="/streams" component={Streams}/>
 					<Route component={Error} />
 				</Switch>
-				<Hidden smUp><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin|streams|convites)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><Route path="/(player|admin|streams|convites)" render={() => <div style={{height:'56px', width: '100%'}} />}/><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|admin|streams|convites)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
 
 		)
