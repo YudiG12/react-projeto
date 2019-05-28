@@ -8,11 +8,11 @@ import Convites from './pages/index/convites/Convites'
 import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
-import Campeonato from './pages/index/admin/Campeonato'
-import Detalhes from './pages/index/admin/Detalhes'
-import Streams from './pages/index/admin/Streams'
+import Campeonato from './pages/index/campeonato/Campeonato'
+import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
+import Streams from './pages/index/campeonato/Streams'
 
-import { Hidden, Grid } from '@material-ui/core';
+import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
 	render() {

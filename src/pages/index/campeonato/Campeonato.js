@@ -56,7 +56,7 @@ class Admin extends Component {
           <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
           <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
           <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
-          <Hidden smDown><Button component={NavLink} to={'detalhes/'+metrics.useCPU} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
+          <Hidden smDown><Button component={NavLink} to={'detalhes/'+metrics.useCPU} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', width:'36px', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
           <br/>
           {!(index === playerDatas.length - 1) &&
             <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
@@ -85,7 +85,7 @@ class Admin extends Component {
           <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
           <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
           <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
-          <Hidden smDown><Button component={NavLink} to={'detalhes/'+metrics.useCPU} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
+          <Hidden smDown><Button component={NavLink} to={'detalhes/'+metrics.useCPU} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', width:'36px', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
           <br/>
           {!(index === playerDatas.length - 1) &&
             <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
