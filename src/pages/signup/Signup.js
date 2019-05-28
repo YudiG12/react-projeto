@@ -54,7 +54,7 @@ const styles = theme => ({
     borderBottom: '1px solid #96a0a0',
   }
 });
-class Singup extends Component {
+class Signup extends Component {
   constructor() {
     super()
     this.state = {
@@ -185,13 +185,13 @@ class Singup extends Component {
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                Confirme sua Senha
+                Confirme sua Senha 
               </InputLabel>
               <Input inputProps={{ className: classes.input }} type="password" id="passwordCheck" classes={{ underline: classes.cssUnderline }} value={this.state.passwordConfirm} onBlur={(text) => { this.validatePassword(this.state.password) }} onChange={(text) => { this.handlePasswordConfirm(text) }} />
             </FormControl>
 
             <FormControl>
-              <Button id='button' component={Link} onClick={() => this.singUp()} type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '5%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
+              <Button id='button' component={Link} onClick={() => this.signup()} type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '5%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
                 Inscreva-se
               </Button>
             </FormControl>
@@ -201,8 +201,8 @@ class Singup extends Component {
     )
   }
 }
-Singup.propTypes = {
+Signup.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(Singup);
+export default withStyles(styles)(Signup);
