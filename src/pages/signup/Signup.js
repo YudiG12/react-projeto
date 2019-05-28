@@ -136,7 +136,7 @@ class Signup extends Component {
     
     if (this.state.userData != "" && this.state.userName != "" && this.state.password != "" && this.state.passwordConfirm != "") {
       
-      fetch('http://localhost:7000/signup', {
+      fetch('http://35.199.74.137:7000/signup', {
         method: 'post',
         headers:{
           Accept:'application/json',
