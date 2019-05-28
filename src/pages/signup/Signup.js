@@ -104,13 +104,13 @@ class Signup extends Component {
       }
     } else {
       var cpf = dataPerson;
-      var digitoDigitado = eval(cpf.charAt(9) + cpf.charAt(10));
+      var digitoDigitado = Number(cpf.charAt(9) + cpf.charAt(10));
       var soma1 = 0, soma2 = 0;
       var vlr = 11;
 
       for (let i = 0; i < 9; i++) {
-        soma1 += eval(cpf.charAt(i) * (vlr - 1));
-        soma2 += eval(cpf.charAt(i) * vlr);
+        soma1 += Number(cpf.charAt(i) * (vlr - 1));
+        soma2 += Number(cpf.charAt(i) * vlr);
         vlr--;
       }
       soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
@@ -131,6 +131,21 @@ class Signup extends Component {
 
     }
   }
+   errorOcorred = (response) => {
+    console.log(response)
+    console.log("kdfnlknsdfkl")
+
+    if (response.ok)
+        return response;
+    else {
+        return response.json()
+            .then(body => {
+                return Promise.reject({
+                    message: body
+                })
+            })
+    }
+}
 
   signup = () => {
     
@@ -148,9 +163,19 @@ class Signup extends Component {
           "password": `${this.state.password}`,
           "username": `${this.state.userName}`
         })
-      }).then(response => console.log(response),
-        error => console.log('erro', error)
-      );
+      })
+      .then(res => this.errorOcorred(res))
+      .then(res => res.json())
+      .then((resultado) => {
+          window.location.href = "/index";
+      })
+      .catch(error => {
+          if (error.message)
+              console.log(error.message)
+          else
+              console.log(error);
+      });
+
     }else(
       alert("Todos os campos devem ser preenchidos")
     )
@@ -172,7 +197,7 @@ class Signup extends Component {
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                CPF ou CNPJ
+                CPF ou CNPJ 
               </InputLabel>
               <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
             </FormControl>
