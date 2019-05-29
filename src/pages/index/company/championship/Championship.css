@@ -1,0 +1,15 @@
+.cardTwo{
+    display: flex;
+}
+
+.cardPart1{
+    flex-grow: 1 auto;
+}
+
+.championship{
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+
+/*https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/
