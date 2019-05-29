@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles, Card, Grid } from '@material-ui/core';
+import { withStyles, Card, Grid, Typography } from '@material-ui/core';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
@@ -23,44 +23,55 @@ const styles = theme => ({
 class Detalhes extends Component {
   state = {
     tempo: 0,
-    cpuData: [],
-    useCPU: 46,
-    useGPU: 89,
-    useRam: 79,
-    useDisc: 66,
-    tempCPU: 30,
-    tempGPU: 35,
+    useCPUData: [],
+    useGPUData: [],
   }
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      // pegar novos dados:
-      let novoUso = Math.random() * 10
+      let newUseCPUDataUnit = Math.random() * 10
+      let newUseGPUDataUnit = Math.random() * 10
       this.setState(state => {
-        // setar novos dados:
-        this.state.tempo++
-        const cpuData = this.state.cpuData.concat({ name: this.state.tempo, uso: novoUso })
+        state.tempo++
+        let newUseCPUData = state.useCPUData.concat({ name: state.tempo, dataX: newUseCPUDataUnit })
+        let newUseGPUData = state.useGPUData.concat({ name: state.tempo, dataX: newUseGPUDataUnit })
+        if (state.tempo > 10) {
+          newUseCPUData.shift()
+          newUseGPUData.shift()
+        }
         return {
-          cpuData,
+          useCPUData: newUseCPUData,
+          useGPUData: newUseGPUData,
         };
       });
     }, 1000)
   }
+
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  renderLineChart = (data) => {
+  renderLineChart = (data, label) => {
     return (
-      <ResponsiveContainer width='100%' aspect={3.0/1.5}>
+      <ResponsiveContainer width='100%' aspect={3.0 / 1.5}>
         <LineChart data={data}>
-          <Line name='Uso de CPU' isAnimationActive={false} type="monotone" dataKey="uso" stroke="#8884d8" />
+          <Line name={label} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#8884d8" />
           <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="name" />
-          <YAxis label={{value:'Uso de CPU (%)', angle: -90, position: 'insideLeft', textAnchor: 'middle'}} />
+          <YAxis label={{ value: label, angle: -90, position: 'insideLeft', textAnchor: 'middle' }} />
           <Tooltip />
         </LineChart>
       </ResponsiveContainer>
+    )
+  }
+
+  renderScorecard = (data,label,metric) => {
+    return (
+      <div>
+        <span style={{fontSize:'5vh'}}>{data}</span>&nbsp;{metric}
+        <br />
+        {label}
+      </div>
     )
   }
 
@@ -69,11 +80,41 @@ class Detalhes extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={0}>
-          <Grid item xs={12} md={6}>
-            <Card className={classes.card}>{this.renderLineChart(this.state.cpuData)}</Card>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'USO DE CPU','%')}
+            </Card>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'USO DE GPU','%')}
+            </Card>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'TEMPERATURA CPU','C°')}
+            </Card>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'TEMPERATURA GPU','C°')}
+            </Card>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'USO DE RAM','%')}
+            </Card>
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <Card className={classes.card}>
+              {this.renderScorecard(this.state.tempo,'USO DE DISCO','%')}
+            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card className={classes.card}>{this.renderLineChart(this.state.cpuData)}</Card>
+            <Card className={classes.card}>{this.renderLineChart(this.state.useCPUData, 'Uso em %')}</Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card className={classes.card}>{this.renderLineChart(this.state.useGPUData, 'Temperatura em C')}</Card>
           </Grid>
         </Grid>
       </div>
