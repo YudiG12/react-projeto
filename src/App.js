@@ -10,7 +10,9 @@ import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
 import Campeonato from './pages/index/campeonato/Campeonato'
 import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
-import Streams from './pages/index/campeonato/Streams'
+import Streams from './pages/index/company/streams/Streams'
+import Championship from './pages/index/company/championship/Championship'
+import Invite from './pages/index/player/invite/Inivite'
 
 import { Hidden, Grid } from '@material-ui/core'
 
@@ -19,7 +21,7 @@ class App extends Component {
 		return (
 
 			<BrowserRouter>
-				<Route path="/(player|campeonato|detalhes|streams|convites)" component={Navbar}/>
+				<Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={Navbar}/>
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
@@ -29,9 +31,11 @@ class App extends Component {
 					<Route path='/detalhes' component={Detalhes}/>
 					<Route path="/player" component={Player} />
 					<Route path="/streams" component={Streams}/>
+					<Route path="/campeonatos" component={Championship}/>
+					<Route path="/convite" component={Invite}/>
 					<Route component={Error} />
 				</Switch>
-				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
 
 		)
