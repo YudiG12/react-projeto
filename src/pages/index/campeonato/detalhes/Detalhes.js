@@ -1,83 +1,81 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles } from '@material-ui/core';
+import { withStyles, Card, Grid } from '@material-ui/core';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import Tooltip from 'recharts/lib/component/Tooltip';
+import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
 
 const styles = theme => ({
   root: {
-    paddingLeft: '20px',
-    [theme.breakpoints.only('xs')]: {
-      paddingLeft: '20px',
-    },
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: '270px',
+      paddingLeft: '250px',
     },
   },
+  card: {
+    backgroundColor: '#383c42',
+    padding: theme.spacing.unit * 2,
+    margin: theme.spacing.unit * 2,
+    textAlign: 'center',
+    height: 'inherit'
+  }
 });
 
 class Detalhes extends Component {
   state = {
-    data: [],
+    tempo: 0,
+    cpuData: [],
     useCPU: 46,
     useGPU: 89,
     useRam: 79,
     useDisc: 66,
     tempCPU: 30,
     tempGPU: 35,
-    // fetch('http://35.199.74.137:7000/machine/', {
-    //     method: 'get',
-    //     headers:{
-    //       Accept:'application/json',
-    //       'Content-type':'apllication/json',
-    //     },
-    //     credentials: "include",
-    //     body: JSON.stringify({
-    //       "persondata": `${this.state.userData}`,
-    //       "password": `${this.state.password}`,
-    //       "username": `${this.state.userName}`
-    //     })
-    //   })
-    //   .then(res => this.errorOcorred(res))
-    //   .then(res => res.json())
-    //   .catch(error => {
-    //       if (error.message)
-    //           console.log(error.message)
-    //       else
-    //           console.log(error);
-    //   })
   }
 
-  // https://www.robinwieruch.de/react-state-array-add-update-remove/
   componentDidMount() {
     this.interval = setInterval(() => {
+      // pegar novos dados:
       let novoUso = Math.random() * 10
-      let novoTempo = this.state.tempo + 1
       this.setState(state => {
-        return this.state.data.push({name:novoTempo,uso:novoUso})
+        // setar novos dados:
+        this.state.tempo++
+        const cpuData = this.state.cpuData.concat({ name: this.state.tempo, uso: novoUso })
+        return {
+          cpuData,
+        };
       });
-    }, 500)
+    }, 1000)
   }
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  useCPUChart = () => {
-    let data = this.state.data
+  renderLineChart = (data) => {
     return (
-      <LineChart width={600} height={300} data={data}>
-        <Line type="monotone" dataKey="uso" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
-        <YAxis />
-      </LineChart>
+      <ResponsiveContainer width='100%' aspect={3.0/1.5}>
+        <LineChart data={data}>
+          <Line name='Uso de CPU' isAnimationActive={false} type="monotone" dataKey="uso" stroke="#8884d8" />
+          <CartesianGrid stroke="#ccc" />
+          <XAxis dataKey="name" />
+          <YAxis label={{value:'Uso de CPU (%)', angle: -90, position: 'insideLeft', textAnchor: 'middle'}} />
+          <Tooltip />
+        </LineChart>
+      </ResponsiveContainer>
     )
   }
 
   render() {
     const { classes } = this.props
     return (
-      <div className={classes.root}>DETALHESSS
-        {this.useCPUChart()}
+      <div className={classes.root}>
+        <Grid container spacing={0}>
+          <Grid item xs={12} md={6}>
+            <Card className={classes.card}>{this.renderLineChart(this.state.cpuData)}</Card>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Card className={classes.card}>{this.renderLineChart(this.state.cpuData)}</Card>
+          </Grid>
+        </Grid>
       </div>
     )
   }
