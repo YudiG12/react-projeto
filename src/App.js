@@ -20,10 +20,10 @@ class App extends Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<Route path="/" exact component={Index} />
-				<Route path='/login' componaent={Login}/>
-				<Route path='/signup' component={Signup}/>
-				<Route path="/(convites|campeonato|administro)" component={Navbar}/>
+				<Route path="/(index)" exact component={Index} />
+				<Route path='(login)' component={Login}/>
+				<Route path='(signup)' component={Signup}/>
+				<Route path="/(player|campeonato|administro)" component={Navbar}/>
 				<Route path="empresa/(campeonatos|stream|times)" component={Navbar}/>
 				<Switch>
 					<Route path='/convites' component={Convites}/>
