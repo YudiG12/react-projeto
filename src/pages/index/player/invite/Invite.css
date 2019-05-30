@@ -1,0 +1,22 @@
+.cardTwo{
+    display: flex;
+}
+
+.cardPart1{
+    flex-grow: 1 auto;
+}
+
+.invite{
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+}
+
+.inviteData{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 800px;
+}
+
+/*https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/

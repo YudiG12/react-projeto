@@ -1,0 +1,15 @@
+.cardTwo{
+    display: flex;
+}
+
+.cardPart1{
+    flex-grow: 1 auto;
+}
+
+.streams{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+/*https://css-tricks.com/snippets/css/a-guide-to-flexbox/*/
