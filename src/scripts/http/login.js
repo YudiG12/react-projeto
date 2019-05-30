@@ -5,7 +5,7 @@ import basePOST from '../basePOST'
 const login = {
     login: (body) => {
         basePOST.body = body
-        return fetch(baseURL + '/login', basePOST)
+        return fetch(baseURL + 'login', basePOST)
             .then(res => res.json())
     }
 }

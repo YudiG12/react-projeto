@@ -12,20 +12,20 @@ import Campeonato from './pages/index/campeonato/Campeonato'
 import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
 import Streams from './pages/index/company/streams/Streams'
 import Championship from './pages/index/company/championship/Championship'
-import Invite from './pages/index/player/invite/Inivite'
+import Invite from './pages/index/player/invite/Invite'
 
 import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
 	render() {
 		return (
-
 			<BrowserRouter>
-				<Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={Navbar}/>
+				<Route path="/" exact component={Index} />
+				<Route path='/login' componaent={Login}/>
+				<Route path='/signup' component={Signup}/>
+				<Route path="/(convites|campeonato|administro)" component={Navbar}/>
+				<Route path="empresa/(campeonatos|stream|times)" component={Navbar}/>
 				<Switch>
-					<Route path="/" exact component={Index} />
-					<Route path='/login' component={Login}/>
-					<Route path='/signup' component={Signup}/>
 					<Route path='/convites' component={Convites}/>
 					<Route path='/campeonato' component={Campeonato}/>
 					<Route path='/detalhes' component={Detalhes}/>

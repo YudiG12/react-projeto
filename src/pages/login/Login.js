@@ -63,16 +63,14 @@ class Login extends Component {
         password: "",
         makeRequest: false
       }
-      data.isLogOn()
-        .then(resultado => {
-          this.setState({ 
-            makeRequest: true
-          })
-          if(resultado == true) {
-            window.location.href = "/";
-          }
+      data.isLogOn(() => {
+        window.location.href = "/";
+      }, () => {
+        this.setState({ 
+          makeRequest: true
         })
-        .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
     }
 
     setPersonData(newPersonData) {
@@ -109,7 +107,6 @@ class Login extends Component {
 
     render() {
       const { classes } = this.props
-      // console.log("klsajdlksajdlask");
       return (
           <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
               { this.state.makeRequest == true ? (

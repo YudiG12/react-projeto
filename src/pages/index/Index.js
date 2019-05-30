@@ -6,14 +6,11 @@ class Index extends Component {
 
     constructor(props) {
         super(props);
-        console.log("ljdsalkdasldkjsa");
-        data.isLogOn()
-            .then(resultado => {
-                if(resultado == true) {
-                    return data.getRole()
-                } else {
-                    window.location.href = "/login"
-                }
+        data
+            .isLogOn(() => {
+                return data.getRole()
+            }, () => {
+                window.location.href = "/login"
             })
             .then(resultado => {
                 console.log(resultado);
