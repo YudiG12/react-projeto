@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Card, Button, FormControl, InputLabel, MenuItem, Select, Input, CardContent } from '@material-ui/core';
+import { Grid, Card, Button,CardContent, Icon } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,6 +9,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import Fab from '@material-ui/core/Fab';
+import ChevronRight from '@material-ui/icons/ChevronRight';
 
 const styles = theme => ({
     root: {
@@ -64,17 +68,28 @@ const styles = theme => ({
             marginTop: theme.spacing.unit * 3,
         },
     },
+    button:{
+        color:'#ff3f3f'
+    },
     input: {
         color: '#96a0a0',
         borderBottom: '1px solid #96a0a0',
+    },
+    fab: {
+        position: 'realtive',
+        marginLeft: '90%',
+        marginTop: '2%',
+        backgroundColor: '#ff3f3f',
+        '&:hover': {
+            backgroundColor: '#8e2323'
+        }
     }
-
 });
 
 
 
 
-let data = [];
+let data = [1, 2, 3, 5];
 let rows = [];
 let rows2 = [];
 let id = 0;
@@ -94,28 +109,28 @@ for (let i = 0; data.length > i; i++) {
 };
 
 class Partidas extends Component {
-    get = () =>{
-    fetch('http://35.199.74.137:7000/campeonato/get', {
-    method: 'get',
-    headers: {
-        'Accept': 'application/json',
-        'Content-type': 'apllication/json',
-    },
-    credentials: "include"
-}).then(res => this.errorOcorred(res))
-    .then(res => res.json())
-    .then((resultado) => data.push(resultado))
-    .catch(error => {
-        if (error.message)
-            console.log(error.message)
-        else
-            console.log(error);
-    });
-}
+    get = () => {
+        fetch('http://35.199.74.137:7000/campeonato/get', {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'apllication/json',
+            },
+            credentials: "include"
+        }).then(res => this.errorOcorred(res))
+            .then(res => res.json())
+            .then((resultado) => data.push(resultado))
+            .catch(error => {
+                if (error.message)
+                    console.log(error.message)
+                else
+                    console.log(error);
+            });
+    }
     errorOcorred = (response) => {
         console.log(response)
         console.log("kdfnlknsdfkl")
-    
+
         if (response.ok)
             return response;
         else {
@@ -127,38 +142,46 @@ class Partidas extends Component {
                 })
         }
     }
-
+    redirect = (link) => {
+        window.location.href = "/campeonato" + link;
+    }
     render() {
         const { classes } = this.props
-     
+
         return (
-            <div className={classes.root} onLoad={()=>this.get()}>
+            <div className={classes.root} onLoad={() => this.get()}>
                 <Grid container spacing={12}>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent>
                                 <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Partidas</p>
                                 <Paper >
-                                    <Table className={classes.table}>
+                                    <Table fullWidth className={classes.table}>
                                         <TableHead className={classes.table} >
                                             <TableRow >
-                                                <TableCell className={classes.table}>Jogador</TableCell>
-                                                <TableCell className={classes.table} align="right">Campeonato</TableCell>
-                                                <TableCell className={classes.table} align="right">Stat us</TableCell>
+                                                <TableCell className={classes.table} align="center">Campeonato</TableCell>
+                                                <TableCell className={classes.table} align="right">Game</TableCell>
+                                                <TableCell className={classes.table} align="right">XPTO</TableCell>
+                                                <TableCell className={classes.table} align="right"></TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             {rows.map(row => (
                                                 <TableRow key={row.id} >
-                                                    <TableCell align="right" className={classes.table}>{row.nomeJogador}</TableCell>
+                                                    <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.status}</TableCell>
+                                                    <TableCell><IconButton  onClick={() => this.redirect('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+
                                                 </TableRow>
                                             ))}
                                         </TableBody>
                                     </Table>
                                 </Paper>
-                                <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button>
+                                {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}>
+                                    <AddIcon />
+                                </Fab>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -167,25 +190,31 @@ class Partidas extends Component {
                             <CardContent>
                                 <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Convites Enviados</p>
                                 <Paper >
-                                    <Table className={classes.table}>
+                                    <Table fullWidth className={classes.table}>
                                         <TableHead className={classes.table} >
                                             <TableRow >
-                                                <TableCell className={classes.table}>Jogador</TableCell>
+                                                <TableCell className={classes.table} align="center">Jogador</TableCell>
                                                 <TableCell className={classes.table} align="right">Campeonato</TableCell>
                                                 <TableCell className={classes.table} align="right">Status</TableCell>
+                                                <TableCell className={classes.table} align="right"></TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             {rows2.map(row => (
-                                                <TableRow key={row.id} >
-                                                    <TableCell align="right" className={classes.table}>{row.nomeJogador}</TableCell>
+                                                <TableRow key={row.id}>
+                                                    <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.status}</TableCell>
+                                                    <TableCell><IconButton  onClick={() => this.redirect('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+
                                                 </TableRow>
                                             ))}
                                         </TableBody>
                                     </Table>
                                 </Paper>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}>
+                                    <AddIcon />
+                                </Fab>
                             </CardContent>
                         </Card>
                     </Grid>
