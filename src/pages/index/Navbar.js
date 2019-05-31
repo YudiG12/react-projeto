@@ -66,15 +66,12 @@ class NavBar extends Component {
             <div style={{ height: '49px' }} />
             <List value={value} onChange={this.handleChange}>
               {this.state.userType === 'admin' &&
-                  <ListItem className='redLink' component={NavLink} to='/campeonato' button key={'Campeonato'}>
+                  <ListItem className='redLink' component={NavLink} to='/campeonatos' button key={'Campeonato'}>
                     <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
-                  </ListItem>                  
-              }
-                 <ListItem className='redLink' component={NavLink} to='/partidas' button key={'Partidas'}>
-                    <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Partidas</span>
+                    <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
                   </ListItem>
+              }
+
                 <ListItem className='redLink' component={NavLink} to='/convites' button key={'Convidar jogadores'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Convidar jogadores</span>
@@ -83,15 +80,15 @@ class NavBar extends Component {
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
                 </ListItem>
-                
+
                 <ListItem className='redLink' component={NavLink} to='/streams' button key={'Streams'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Streams</span>
                 </ListItem>
 
-                <ListItem className='redLink' component={NavLink} to='/campeonatos' button key={'Campeonatos'}>
+                <ListItem className='redLink' component={NavLink} to='/campeonato' button key={'Campeonato'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
                 </ListItem>
 
                 <ListItem className='redLink' component={NavLink} to='/convite' button key={'Convite'}>

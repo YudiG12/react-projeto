@@ -88,9 +88,6 @@ const styles = theme => ({
     }
 });
 
-
-
-
 let data = [1, 2, 3, 5];
 let rows = [];
 let rows2 = [];
@@ -110,7 +107,7 @@ for (let i = 0; data.length > i; i++) {
     rows2.push(dataConvite('nomeJogador'+[i], 'campeonato', 'status'));
 };
 
-class Partidas extends Component {
+class Campeonato extends Component {
     get = () => {
         fetch('http://35.199.74.137:7000/campeonato/get', {
             method: 'get',
@@ -144,7 +141,7 @@ class Partidas extends Component {
         }
     }
     redirectDetalhes = (link) => {
-        window.location.href = "/campeonato" + link;
+        window.location.href = "/partida" + link;
     }
     redirectNovaPartida = (link) => {
         window.location.href = "/nova_partida" + link;
@@ -191,6 +188,7 @@ class Partidas extends Component {
                                 </Fab>
                             </CardContent>
                         </Card>
+
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
@@ -230,8 +228,8 @@ class Partidas extends Component {
     }
 }
 
-Partidas.propTypes = {
+Campeonato.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Partidas);
+export default withStyles(styles)(Campeonato);
