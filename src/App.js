@@ -14,7 +14,7 @@ import Streams from './pages/index/company/streams/Streams'
 import Championship from './pages/index/company/championship/Championship'
 import Invite from './pages/index/player/invite/Inivite'
 import Partidas from './pages/index/campeonatos/Partidas'
-
+import NovaPartida from './pages/index/company/novaPartida/NovaPartida'
 import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
@@ -22,7 +22,7 @@ class App extends Component {
 		return (
 
 			<BrowserRouter>
-				<Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite|partidas)" component={Navbar}/>
+				<Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite|partidas|nova_partida)" component={Navbar}/>
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
@@ -35,6 +35,7 @@ class App extends Component {
 					<Route path="/partidas" component={Partidas}/>
 					<Route path="/campeonatos" component={Championship}/>
 					<Route path="/convite" component={Invite}/>
+					<Route path="/nova_partida" component={NovaPartida}/>
 					<Route component={Error} />
 				</Switch>
 				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={BottomNavigationComponent}/></Grid></Hidden>

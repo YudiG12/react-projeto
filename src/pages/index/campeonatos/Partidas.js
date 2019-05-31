@@ -105,7 +105,7 @@ for (let i = 0; data.length > i; i++) {
     rows.push(dataPartida('partida', 'times', 'xpto'));
 };
 for (let i = 0; data.length > i; i++) {
-    rows2.push(dataConvite('nomeJogador', 'campeonato', 'status'));
+    rows2.push(dataConvite('nomeJogador'+[i], 'campeonato', 'status'));
 };
 
 class Partidas extends Component {
@@ -142,8 +142,14 @@ class Partidas extends Component {
                 })
         }
     }
-    redirect = (link) => {
+    redirectDetalhes = (link) => {
         window.location.href = "/campeonato" + link;
+    }
+    redirectNovaPartida = (link) => {
+        window.location.href = "/nova_partida" + link;
+    }
+    redirectConvite = (link) => {
+        window.location.href = "/convites" + link;
     }
     render() {
         const { classes } = this.props
@@ -171,7 +177,7 @@ class Partidas extends Component {
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-                                                    <TableCell><IconButton  onClick={() => this.redirect('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+                                                    <TableCell><IconButton  onClick={() => this.redirectPartida('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}
@@ -179,7 +185,7 @@ class Partidas extends Component {
                                     </Table>
                                 </Paper>
                                 {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.redirectNovaPartida('#')}>
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
@@ -193,10 +199,10 @@ class Partidas extends Component {
                                     <Table fullWidth className={classes.table}>
                                         <TableHead className={classes.table} >
                                             <TableRow >
-                                                <TableCell className={classes.table} align="center">Jogador</TableCell>
+                                                <TableCell className={classes.table} align="center">Jogador </TableCell>
                                                 <TableCell className={classes.table} align="right">Campeonato</TableCell>
                                                 <TableCell className={classes.table} align="right">Status</TableCell>
-                                                <TableCell className={classes.table} align="right"></TableCell>
+
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
@@ -205,14 +211,13 @@ class Partidas extends Component {
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-                                                    <TableCell><IconButton  onClick={() => this.redirect('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}
                                         </TableBody>
                                     </Table>
                                 </Paper>
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.redirectConvite('#')}>
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
