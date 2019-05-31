@@ -33,17 +33,7 @@ class Player extends Component {
     data
       .isLogOn(() => {
         data.isJogador((idPlayerRole) => {
-          return player.allInvites()
-            .then(invites => {
-              this.setState({ invites: [] })
-              let invitesRender = []
-              for(let i = 0; i < invites.length; i++) {
-                invitesRender.push(this.renderInvite(invites[i]));
-              }
-              this.setState({ invites: invitesRender })
-              this.setState({ makeRequest: true })
-            })
-            .catch(err => console.log(err));
+          return this.getAllInvitesAvailable();
         }, () => {
           window.location.href = "/"
         })
@@ -53,9 +43,21 @@ class Player extends Component {
       
   }
 
+  getAllInvitesAvailable = () => {
+    player.allInvites()
+    .then(invites => {
+      this.setState({ invites: [] })
+      let invitesRender = []
+      for(let i = 0; i < invites.length; i++) {
+        invitesRender.push(this.renderInvite(invites[i]));
+      }
+      this.setState({ invites: invitesRender })
+      this.setState({ makeRequest: true })
+    })
+    .catch(err => console.log(err));
+  }
+
   renderInvites = () => {
-    console.log("lksdjlsakdjas");
-    console.log(this.state.invites);
     return (
       <div>
         { this.state.invites }
@@ -64,11 +66,21 @@ class Player extends Component {
   }
 
   refuseInvite = (idChampionship) => {
-      console.log("Recusou o convite do campeonato " + idChampionship);
+      this.setState({ makeRequest: false })
+      player.refuseInvite(idChampionship)
+        .then(resultado => {
+          return this.getAllInvitesAvailable();
+        })
+        .catch(err => console.log(err));
   }
 
   acceptInvite = (idChampionship) => {
-      console.log("Aceitou o convite do campeonato " + idChampionship);
+    this.setState({ makeRequest: false })
+    player.acceptInvite(idChampionship)
+      .then(resultado => {
+        return this.getAllInvitesAvailable();
+      })
+      .catch(err => console.log(err));
   }
 
   renderInvite = (invite) => {

@@ -20,7 +20,15 @@ const player = {
     invitesAccepted: () => {
         return fetch(baseURL + "player/all-invites/accepted", baseGET)
             .then(res => res.json());
-    } 
+    },
+    acceptInvite: (idChampionship) => {
+        return fetch(baseURL + "player/invites/"+idChampionship+"/accept", baseGET)
+            .then(res => res.json());
+    },
+    refuseInvite: (idChampionship) => {
+        return fetch(baseURL + "player/invites/"+idChampionship+"/refuse", baseGET)
+            .then(res => res.json());
+    }
 }
 
 export default player;
