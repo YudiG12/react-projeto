@@ -24,7 +24,8 @@ const styles = theme => ({
     table: {
         backgroundColor: '#383c42',
         color: '#96a0a0',
-        fontSize: '15px'
+        fontSize: '15px',
+        boxShadow:'none'
     },
     card: {
         backgroundColor: '#383c42',
@@ -70,6 +71,7 @@ const styles = theme => ({
     },
     button:{
         color:'#ff3f3f'
+
     },
     input: {
         color: '#96a0a0',
@@ -78,7 +80,7 @@ const styles = theme => ({
     fab: {
         position: 'realtive',
         marginLeft: '90%',
-        marginTop: '2%',
+        marginTop: '7%',
         backgroundColor: '#ff3f3f',
         '&:hover': {
             backgroundColor: '#8e2323'
@@ -129,7 +131,6 @@ class Partidas extends Component {
     }
     errorOcorred = (response) => {
         console.log(response)
-        console.log("kdfnlknsdfkl")
 
         if (response.ok)
             return response;
@@ -160,10 +161,10 @@ class Partidas extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent>
-                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Partidas</p>
-                                <Paper >
-                                    <Table fullWidth className={classes.table}>
-                                        <TableHead className={classes.table} >
+                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px',  marginBottom:'7%'  }}>Partidas</p>
+                                <Paper className={classes.table}>
+                                    <Table fullWidth >
+                                        <TableHead  >
                                             <TableRow >
                                                 <TableCell className={classes.table} align="center">Campeonato</TableCell>
                                                 <TableCell className={classes.table} align="right">Game</TableCell>
@@ -177,7 +178,7 @@ class Partidas extends Component {
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-                                                    <TableCell><IconButton  onClick={() => this.redirectPartida('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+                                                    <TableCell><IconButton  onClick={() => this.redirectDetalhes('#')} color="#ff3f3f"  className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}
@@ -194,9 +195,9 @@ class Partidas extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent>
-                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Convites Enviados</p>
-                                <Paper >
-                                    <Table fullWidth className={classes.table}>
+                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom:'5%' }}>Convites Enviados</p>
+                                <Paper className={classes.table}>
+                                    <Table fullWidth >
                                         <TableHead className={classes.table} >
                                             <TableRow >
                                                 <TableCell className={classes.table} align="center">Jogador </TableCell>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, MenuItem,Select, Input, CardContent } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, MenuItem,NativeSelect, Input, CardContent } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 
@@ -64,14 +64,27 @@ const styles = theme => ({
 
 });
 
+let data = [1, 2, 3,4,5,6,7,8,9];
+let rows = [];
+
+let id = 0;
+function dataPartida(time) {
+    id += 1;
+    return { time};
+}
+
+for (let i = 0; data.length > i; i++) {
+    rows.push(dataPartida('partida'+i));
+};
+
 
 class NovaPartida extends Component {
     state = {
-        userData: '',
+        time: '',
 
     };
-    handleUserData(text) {
-        this.setState({ userData: text.target.value })
+    handleUserData(time) {
+        this.setState({ time: time.target.value })
     }
 
 
@@ -83,23 +96,35 @@ class NovaPartida extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent >
-                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo Convite</p>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      Time 1
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
+                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Nova Partida</p>
+
+                                <FormControl style={{width:'70%'}} className={classes.margin}>
+                                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                                    Time 1
+                                </InputLabel>
+                                <NativeSelect   className={classes.cssUnderline}  >
+                                <option classes={{ root: classes.cssLabel}} value=""></option>
+                                {rows.map(row => (
+                                    <option  inputProps={{className: classes.input}}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
+                                ))}
+                                </NativeSelect>
                                 </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      Time 2
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
+                                <FormControl style={{width:'70%'}} className={classes.margin}>
+                                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                                    Time 2
+                                </InputLabel>
+                                <NativeSelect   className={classes.cssUnderline}  >
+                                <option classes={{ root: classes.cssLabel}} value=""></option>
+                                {rows.map(row => (
+                                    <option  className={classes.input}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
+                                ))}
+                                </NativeSelect>
                                 </FormControl>
                                 <CardActions>
                                     <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
                                         Enviar
-                            </Button>
+                                    </Button>
+
                                 </CardActions>
                             </CardContent>
                         </Card>
