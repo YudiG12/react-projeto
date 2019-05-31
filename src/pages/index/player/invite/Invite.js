@@ -22,7 +22,9 @@ const styles = theme => ({
 
 class Admin extends Component {
 
-    render() {
+    
+
+    render(invite) {
         const { classes } = this.props
         return(
             <div className={classes.root}>

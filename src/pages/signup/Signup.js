@@ -167,7 +167,7 @@ class Signup extends Component {
       .then(res => this.errorOcorred(res))
       .then(res => res.json())
       .then((resultado) => {
-          window.location.href = "/index";
+          // window.location.href = "/index";
       })
       .catch(error => {
           if (error.message)
