@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import Player from './pages/index/player/Player'
 import Index from './pages/index/Index'
 import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
@@ -9,12 +8,13 @@ import Error from './pages/Error'
 import NavbarEmpresa from './pages/index/NavbarEmpresa'
 import NavbarJogador from './pages/index/NavbarJogador'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
-import Campeonato from './pages/index/campeonato/Campeonato'
+import Partida from './pages/index/campeonato/Partida'
 import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
 import Streams from './pages/index/company/streams/Streams'
 import Championship from './pages/index/company/championship/Championship'
 import Invite from './pages/index/player/invite/Invite'
-
+import Campeonato from './pages/index/campeonatos/Campeonato'
+import NovaPartida from './pages/index/company/novaPartida/NovaPartida'
 import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
@@ -22,25 +22,32 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<Route path="/(index)" exact component={Index} />
-				<Route path='(login)' component={Login}/>
-				<Route path='(signup)' component={Signup}/>
-				<Route path="/(player|campeonato|administro)" component={NavbarJogador}/>
-				<Route path="empresa/(campeonatos|stream|times)" component={NavbarEmpresa}/>
+				<Route path='/login' component={Login}/>
+				<Route path='/signup' component={Signup}/>
+				<Route path="/(player|administro|campeonatos|campeonato|partida|detalhes)" component={NavbarJogador}/>
+				<Route path="/empresa/(campeonatos|streams|times|campeonato|partida|detalhes)" component={NavbarEmpresa}/>
 				<Switch>
 					{/* Jogador */}
-					<Route path="/player" component={Player} />
-					<Route path='/campeonato' component={Campeonato}/>
-					<Route path='/administro' component={Convites}/>
-
+					<Route path="/" exact component={Index} />
+					<Route path='/partida' component={Partida}/>
+					<Route path='/detalhes' component={Detalhes}/>
+					<Route path="/player" component={Invite} />
+					<Route path="/campeonato" component={Campeonato}/>
+					<Route path='/administro' component={Championship}/>
+				
 					{/* Empresa */}
 					<Route path='/convites' component={Convites}/>
-					<Route path="/streams" component={Streams}/>
-					<Route path="/campeonatos" component={Championship}/>
+					<Route path='/empresa/partida' component={Partida}/>
+					<Route path='/empresa/detalhes' component={Detalhes}/>
+					<Route path="/empresa/streams" component={Streams}/>
+					<Route path="/empresa/campeonato" component={Campeonato}/>
+					<Route path="/empresa/campeonatos" component={Championship}/>
+					<Route path="/convite" component={Invite}/>
+					<Route path="/nova_partida" component={NovaPartida}/>
 					<Route component={Error} />
 				</Switch>
 				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
-
 		)
 	}
 }

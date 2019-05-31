@@ -22,8 +22,6 @@ const styles = theme => ({
 
 class Admin extends Component {
 
-    
-
     render(invite) {
         const { classes } = this.props
         return(

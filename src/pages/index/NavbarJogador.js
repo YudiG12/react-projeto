@@ -71,12 +71,12 @@ class NavBar extends Component {
                 </ListItem>
                 <ListItem className='redLink' component={NavLink} to='/campeonato' button key={'Minhas estatísticas'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
                 </ListItem>
                 
                 <ListItem className='redLink' component={NavLink} to='/administro' button key={'Streams'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Administro</span>
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Camps Administrados</span>
                 </ListItem>
             </List>
           </Drawer>
