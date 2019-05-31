@@ -79,7 +79,8 @@ class Signup extends Component {
   }
   validateUserData = (data) => {
     let dataPerson = data.replace(/\D+/g, '');
-
+    this.setState({userData:dataPerson});
+    
     if (dataPerson.length > 11) {
 
       var cnpj = dataPerson;
@@ -88,7 +89,7 @@ class Signup extends Component {
       var dig2 = new Number;
 
       cnpj = cnpj.toString();
-      var digito = new Number(eval(cnpj.charAt(12) + cnpj.charAt(13)));
+      var digito =  Number(cnpj.charAt(12) + cnpj.charAt(13));
 
       for (let i = 0; i < valida.length; i++) {
         dig1 += (i > 0 ? (cnpj.charAt(i - 1) * valida[i]) : 0);
@@ -145,16 +146,16 @@ class Signup extends Component {
                 })
             })
     }
-}
+  }
 
   signup = () => {
-    
+    alert(this.state.userData);
     if (this.state.userData != "" && this.state.userName != "" && this.state.password != "" && this.state.passwordConfirm != "") {
       
       fetch('http://35.199.74.137:7000/signup', {
         method: 'post',
         headers:{
-          Accept:'application/json',
+          'Accept':'application/json',
           'Content-type':'apllication/json',
         },
         credentials: "include",
@@ -167,7 +168,7 @@ class Signup extends Component {
       .then(res => this.errorOcorred(res))
       .then(res => res.json())
       .then((resultado) => {
-          window.location.href = "/index";
+           window.location.href = "/partidas";
       })
       .catch(error => {
           if (error.message)
@@ -176,6 +177,7 @@ class Signup extends Component {
               console.log(error);
       });
 
+      
     }else(
       alert("Todos os campos devem ser preenchidos")
     )

@@ -8,12 +8,13 @@ import Convites from './pages/index/convites/Convites'
 import Error from './pages/Error'
 import Navbar from './pages/index/Navbar'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
-import Campeonato from './pages/index/campeonato/Campeonato'
+import Partida from './pages/index/campeonato/Partida'
 import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
 import Streams from './pages/index/company/streams/Streams'
 import Championship from './pages/index/company/championship/Championship'
 import Invite from './pages/index/player/invite/Inivite'
-
+import Campeonato from './pages/index/campeonatos/Campeonato'
+import NovaPartida from './pages/index/company/novaPartida/NovaPartida'
 import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
@@ -21,23 +22,24 @@ class App extends Component {
 		return (
 
 			<BrowserRouter>
-				<Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={Navbar}/>
+				<Route path="/(player|detalhes|streams|convites|campeonatos|partida|convite|campeonato|nova_partida)" component={Navbar}/>
 				<Switch>
 					<Route path="/" exact component={Index} />
 					<Route path='/login' component={Login}/>
 					<Route path='/signup' component={Signup}/>
 					<Route path='/convites' component={Convites}/>
-					<Route path='/campeonato' component={Campeonato}/>
+					<Route path='/partida' component={Partida}/>
 					<Route path='/detalhes' component={Detalhes}/>
 					<Route path="/player" component={Player} />
 					<Route path="/streams" component={Streams}/>
+					<Route path="/campeonato" component={Campeonato}/>
 					<Route path="/campeonatos" component={Championship}/>
 					<Route path="/convite" component={Invite}/>
+					<Route path="/nova_partida" component={NovaPartida}/>
 					<Route component={Error} />
 				</Switch>
 				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
-
 		)
 	}
 }

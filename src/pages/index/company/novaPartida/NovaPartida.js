@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, MenuItem,Select, Input, CardContent } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, MenuItem,NativeSelect, Input, CardContent } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 
@@ -64,42 +64,29 @@ const styles = theme => ({
 
 });
 
+let data = [1, 2, 3,4,5,6,7,8,9];
+let rows = [];
 
-class Convites extends Component {
+let id = 0;
+function dataPartida(time) {
+    id += 1;
+    return { time};
+}
+
+for (let i = 0; data.length > i; i++) {
+    rows.push(dataPartida('partida'+i));
+};
+
+
+class NovaPartida extends Component {
     state = {
-        userData: '',
+        time: '',
 
     };
-    handleUserData(text) {
-        this.setState({ userData: text.target.value })
+    handleUserData(time) {
+        this.setState({ time: time.target.value })
     }
-    validateUserData = (data) => {
-      let dataPerson = data.replace(/\D+/g, '');
-      this.setState({userData:dataPerson});
 
-      if (dataPerson.length > 11) {
-        alert('CPF inválido');
-        }else{
-            var cpf = dataPerson;
-            var digitoDigitado = Number(cpf.charAt(9) + cpf.charAt(10));
-            var soma1 = 0, soma2 = 0;
-            var vlr = 11;
-
-            for (let i = 0; i < 9; i++) {
-              soma1 += Number(cpf.charAt(i) * (vlr - 1));
-              soma2 += Number(cpf.charAt(i) * vlr);
-              vlr--;
-            }
-            soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
-            soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
-
-            var digitoGerado = (soma1 * 10) + soma2;
-            if (digitoGerado != digitoDigitado) {
-              alert('CPF Invalido!');
-              this.setState({ userData: "" });
-            }
-          }
-        }
 
     render() {
         const { classes } = this.props
@@ -109,17 +96,35 @@ class Convites extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent >
-                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo Convite</p>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
+                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Nova Partida</p>
+
+                                <FormControl style={{width:'70%'}} className={classes.margin}>
+                                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                                    Time 1
+                                </InputLabel>
+                                <NativeSelect   className={classes.cssUnderline}  >
+                                <option classes={{ root: classes.cssLabel}} value=""></option>
+                                {rows.map(row => (
+                                    <option  inputProps={{className: classes.input}}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
+                                ))}
+                                </NativeSelect>
+                                </FormControl>
+                                <FormControl style={{width:'70%'}} className={classes.margin}>
+                                <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                                    Time 2
+                                </InputLabel>
+                                <NativeSelect   className={classes.cssUnderline}  >
+                                <option classes={{ root: classes.cssLabel}} value=""></option>
+                                {rows.map(row => (
+                                    <option  className={classes.input}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
+                                ))}
+                                </NativeSelect>
                                 </FormControl>
                                 <CardActions>
                                     <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
                                         Enviar
-                            </Button>
+                                    </Button>
+
                                 </CardActions>
                             </CardContent>
                         </Card>
@@ -130,8 +135,8 @@ class Convites extends Component {
     }
 }
 
-Convites.propTypes = {
+NovaPartida.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Convites);
+export default withStyles(styles)(NovaPartida);
