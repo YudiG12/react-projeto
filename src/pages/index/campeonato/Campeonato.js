@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Typography, Divider, Button, Link, Hidden } from '@material-ui/core'
+import { Grid, Card, Typography, Divider, Button, Hidden } from '@material-ui/core'
 import MachineMetricData from '../../../models/MachineMetricData'
 
 const styles = theme => ({
