@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, MenuItem,NativeSelect, Input, CardContent } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, NativeSelect, Input, CardContent } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 
@@ -64,17 +64,17 @@ const styles = theme => ({
 
 });
 
-let data = [1, 2, 3,4,5,6,7,8,9];
-let rows = [];
+let dataTime = [1, 2, 3,4,5,6,7,8,9];
+let times = [];
 
-let id = 0;
-function dataPartida(time) {
-    id += 1;
+let idTime = 0;
+function dataNovaPartida(time) {
+    idTime += 1;
     return { time};
 }
 
-for (let i = 0; data.length > i; i++) {
-    rows.push(dataPartida('partida'+i));
+for (let i = 0; dataTime.length > i; i++) {
+    times.push(dataNovaPartida('time'+i));
 };
 
 
@@ -104,7 +104,7 @@ class NovaPartida extends Component {
                                 </InputLabel>
                                 <NativeSelect   className={classes.cssUnderline}  >
                                 <option classes={{ root: classes.cssLabel}} value=""></option>
-                                {rows.map(row => (
+                                {times.map(row => (
                                     <option  inputProps={{className: classes.input}}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
                                 ))}
                                 </NativeSelect>
@@ -115,7 +115,7 @@ class NovaPartida extends Component {
                                 </InputLabel>
                                 <NativeSelect   className={classes.cssUnderline}  >
                                 <option classes={{ root: classes.cssLabel}} value=""></option>
-                                {rows.map(row => (
+                                {times.map(row => (
                                     <option  className={classes.input}  value={row.time} onChange={(value) => { this.handleUserData(value) }}>{row.time}</option>
                                 ))}
                                 </NativeSelect>
