@@ -86,6 +86,10 @@ class NavBar extends Component {
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
                 </ListItem>
+                <ListItem className='redLink' component={NavLink} to='/empresa/novotime' button key={'Novo time'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Novo Time</span>
+                </ListItem>
             </List>
           </Drawer>
         </Hidden>
