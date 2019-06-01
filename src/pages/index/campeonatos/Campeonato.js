@@ -208,14 +208,9 @@ class Campeonato extends Component {
  }
 
     redirectDetalhes = (link) => {
-        window.location.href = "/partida" + link;
+        window.location.href = "/empresa/partida" + link;
     }
-    redirectNovaPartida = (link) => {
-        window.location.href = "/nova_partida" + link;
-    }
-    redirectConvite = (link) => {
-        window.location.href = "/convites" + link;
-    }
+  
     render() {
         const { classes } = this.props
         const actions1 = [
@@ -281,7 +276,7 @@ class Campeonato extends Component {
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions1}  modal={true} open={this.state.open1}>
+                        <Dialog actions={actions1} onClose={this.handleClose1}  modal={true} open={this.state.open1}>
                             <DialogTitle className={classes.dialogTitle} disableTypography  >Nova Partida</DialogTitle>
                               <DialogContent className={classes.dialog}>
                                 <FormControl style={{width:'100%'}} className={classes.margin}>
@@ -348,7 +343,7 @@ class Campeonato extends Component {
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2}>
+                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleClose2}>
                             <DialogTitle className={classes.dialogTitle} style={{paddingLeft:'35%'}} fullWidth disableTypography  >Convidar Jogador</DialogTitle>
                                 <DialogContent className={classes.dialog}>
                                 <FormControl  fullWidth className={classes.margin}>
