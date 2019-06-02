@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withStyles, Card, Grid, Typography } from '@material-ui/core';
+import { withStyles, Card, Grid } from '@material-ui/core';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';

@@ -85,8 +85,8 @@ class Signup extends Component {
 
       var cnpj = dataPerson;
       var valida = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
-      var dig1 = new Number;
-      var dig2 = new Number;
+      var dig1 = new Number();
+      var dig2 = new Number();
 
       cnpj = cnpj.toString();
       var digito =  Number(cnpj.charAt(12) + cnpj.charAt(13));
@@ -98,7 +98,7 @@ class Signup extends Component {
       dig1 = (((dig1 % 11) < 2) ? 0 : (11 - (dig1 % 11)));
       dig2 = (((dig2 % 11) < 2) ? 0 : (11 - (dig2 % 11)));
 
-      if (((dig1 * 10) + dig2) != digito) {
+      if (((dig1 * 10) + dig2) !== digito) {
         alert('CNPJ Invalido!');
         this.setState({ userData: "" });
 
@@ -114,11 +114,11 @@ class Signup extends Component {
         soma2 += Number(cpf.charAt(i) * vlr);
         vlr--;
       }
-      soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
+      soma1 = (((soma1 * 10) % 11) === 10 ? 0 : ((soma1 * 10) % 11));
       soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
 
       var digitoGerado = (soma1 * 10) + soma2;
-      if (digitoGerado != digitoDigitado) {
+      if (digitoGerado !== digitoDigitado) {
         alert('CPF Invalido!');
         this.setState({ userData: "" });
       }
@@ -126,7 +126,7 @@ class Signup extends Component {
   }
 
   validatePassword = (password) => {
-    if (password != this.state.passwordConfirm) {
+    if (password !== this.state.passwordConfirm) {
       alert('As senhas devem ser iguais');
       this.setState({ passwordConfirm: "" });
 
@@ -150,7 +150,7 @@ class Signup extends Component {
 
   signup = () => {
     alert(this.state.userData);
-    if (this.state.userData != "" && this.state.userName != "" && this.state.password != "" && this.state.passwordConfirm != "") {
+    if (this.state.userData !== "" && this.state.userName !== "" && this.state.password !== "" && this.state.passwordConfirm !== "") {
       
       fetch('http://35.199.74.137:7000/signup', {
         method: 'post',
@@ -188,7 +188,7 @@ class Signup extends Component {
       <Grid style={{ height: '100vh' }} container direction="row" justify="center" alignItems="center">
         <Card className={classes.cardResponsive} style={{ paddingBottom: '0', maxWidth: '400px' }}>
           <Grid container direction="row" justify="center" alignItems="center">
-            <img alt='' style={{ width: '100%', margin: '3%' }} src={logo} /><br />
+            <img alt='' style={{ width: '100%', margin: '3%', marginBottom:'0' }} src={logo} /><br />
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: '-20px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
@@ -219,7 +219,7 @@ class Signup extends Component {
             </FormControl>
 
             <FormControl>
-              <Button id='button' component={Link} onClick={() => this.signup()} type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '5%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
+              <Button id='button' component={Link} onClick={() => this.signup()} type='submit' style={{ fontWeight: '300', a: 'none', marginTop: '20%', marginBottom: '20%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary">
                 Inscreva-se
               </Button>
             </FormControl>

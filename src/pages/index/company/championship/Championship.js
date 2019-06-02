@@ -43,7 +43,7 @@ class Admin extends Component {
     getAllChampionships = () => {
         championships.allChampionships()
         .then(championship => {
-            if(typeof(championship) == "object" && championship.length != 0){
+            if(typeof(championship) == "object" && championship.length !== 0){
                 this.setState({ championships: [] })
                 let championshipsRender = []
 
