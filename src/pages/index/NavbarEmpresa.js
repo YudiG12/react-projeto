@@ -47,7 +47,7 @@ class NavBar extends Component {
     return (
       <div>
         <CssBaseline />
-        <AppBar position='fixed' className={classes.appBar} style={{ boxShadow: 'none', verticalAlign: 'text-bottom', color: '#96a0a0', backgroundColor: '#383c42' }}>
+        <AppBar position='fixed' className={classes.appBar} style={{height:'56px', boxShadow: 'none', verticalAlign: 'text-bottom', color: '#96a0a0', backgroundColor: '#383c42' }}>
           <Toolbar style={{ paddingLeft: '15px', minHeight: 0, padding: '13px' }}>
             <Hidden xsDown>
               <img style={{ width: '230px' }} alt='' src={logoText} />

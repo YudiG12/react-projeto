@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {NavLink} from 'react-router-dom'
 import data from '../../scripts/http/data'
 
 class Index extends Component {
@@ -14,7 +13,7 @@ class Index extends Component {
             })
             .then(resultado => {
                 console.log(resultado);
-                if(resultado == 'jogador') {
+                if(resultado === 'jogador') {
                     window.location.href = "/player"
                 }
             })
@@ -23,7 +22,7 @@ class Index extends Component {
 
     render() {
         return (
-            <p>fdsfdsfdsfdsfds</p>
+            <p></p>
         )
     }
 }

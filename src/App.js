@@ -47,7 +47,8 @@ class App extends Component {
 					<Route path="/empresa/novotime"component={NovoTime}/>
 					<Route component={Error} />
 				</Switch>
-				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|campeonato|detalhes|streams|convites|campeonatos|convite)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|administro|campeonatos|campeonato|partida|detalhes|novotime)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/empresa/(campeonatos|streams|times|campeonato|partida|detalhes|novotime)" component={BottomNavigationComponent}/></Grid></Hidden>
 			</BrowserRouter>
 		)
 	}
