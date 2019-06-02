@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom'
 import logoText from './txtlogo-deitado.png'
 import { Grid, Hidden, CssBaseline, Drawer, List, ListItem } from '@material-ui/core'
 import { Person, StarBorderOutlined } from '@material-ui/icons'
+import NavbarMenu from './NavbarMenu'
 
 const drawerWidth = 250
 
@@ -43,7 +44,7 @@ class NavBar extends Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-    
+
     return (
       <div>
         <CssBaseline />
@@ -56,8 +57,7 @@ class NavBar extends Component {
               <Hidden smDown><span style={{ verticalAlign: 'text-bottom', fontSize: '2.5vh', }}>CAMPEONATO<span style={{ fontSize: '2vh', verticalAlign: '10%', paddingLeft: '20px', paddingRight: '20px' }}>|</span></span></Hidden><Hidden mdUp><br /></Hidden><span style={{ fontWeight: '300', fontSize: '3vh', color: '#ff3f3f' }}>Nome Campeonato</span>
             </Grid>
             <Hidden xsDown>
-              <span>User</span>
-              <Person style={{ marginLeft: '5px' }} />
+            <NavbarMenu/>
             </Hidden>
           </Toolbar>
         </AppBar>
