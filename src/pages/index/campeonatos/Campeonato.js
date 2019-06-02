@@ -120,10 +120,6 @@ for (let i = 0; dataTime.length > i; i++) {
     times.push(dataNovaPartida('time'+i));
 };
 
-
-
-
-
 let data = [1, 2, 3, 5];
 let rows = [];
 let rows2 = [];
@@ -210,7 +206,7 @@ class Campeonato extends Component {
     redirectDetalhes = (link) => {
         window.location.href = "/empresa/partida" + link;
     }
-  
+
     render() {
         const { classes } = this.props
         const actions1 = [

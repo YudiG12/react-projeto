@@ -16,6 +16,8 @@ class Index extends Component {
                 console.log(resultado);
                 if(resultado == 'jogador') {
                     window.location.href = "/player"
+                }else{
+                    window.location.href = "empresa/campeonato"
                 }
             })
             .catch(err => console.log(err));

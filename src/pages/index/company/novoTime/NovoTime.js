@@ -66,6 +66,8 @@ const styles = theme => ({
 
 
 class NovoTime extends Component {
+
+
     state = {
         teamName:'',
         userData1: '',
@@ -118,6 +120,13 @@ class NovoTime extends Component {
           }
         }
 
+    submit = () => {
+      const data = {
+        'teamName':`${this.state.teamName}`,
+        'usersData': `${this.state.userData1},${this.state.userData2},${this.state.userData3},${this.state.userData4}`,
+      };
+      alert(data.usersData);
+    }
     render() {
         const { classes } = this.props
         return (
