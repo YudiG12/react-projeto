@@ -43,7 +43,7 @@ class NavBar extends Component {
   render() {
     const { classes } = this.props;
     const { value } = this.state;
-
+    
     return (
       <div>
         <CssBaseline />
