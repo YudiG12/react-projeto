@@ -5,7 +5,6 @@ const championships = {
     allChampionships: () => {
         return fetch(baseURL + "campeonato/get", baseGET)
             .then(res => {
-                console.log(res)
                 return res.json()
             })
     }

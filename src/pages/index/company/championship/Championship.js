@@ -43,15 +43,16 @@ class Admin extends Component {
     getAllChampionships = () => {
         championships.allChampionships()
         .then(championship => {
-            this.setState({ championships: [] })
-            let championshipsRender = []
+            if(typeof(championship) == "object" && championship.length != 0){
+                this.setState({ championships: [] })
+                let championshipsRender = []
 
-            for(let i = 0; i < championship.length; i++){
-                championshipsRender.push(this.renderChampionship(championship[i].nmChampionship, championship[i].idChampionship))
+                for(let i = 0; i < championship.length; i++){
+                    championshipsRender.push(this.renderChampionship(championship[i].nmChampionship, championship[i].idChampionship))
+                }
+
+                this.setState({ championships: championshipsRender })
             }
-
-            this.setState({ championships: championshipsRender })
-
         })
     }
    
