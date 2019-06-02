@@ -181,6 +181,9 @@ class Campeonato extends Component {
         super(props);
         this.state = { open1: false };
         this.state = { open2: false };
+        this.state = { 
+            invites: []
+        }
 
         this.handleClose1 = this._handleClose1.bind(this);
 
@@ -204,8 +207,22 @@ class Campeonato extends Component {
     getAllInvites = (idChampionship) => {
         championships.allInvites(idChampionship)
         .then(invite => {
-            console.log(invite)
+            if(typeof(invite) == "object" && invite.length != 0){
+
+                this.setState({ invites: [] })
+                let invitesRender = []
+
+                for(let i = 0; i < invite.length; i++){
+                    invitesRender.push(this.dataInvite(invite[i].idPlayer, invite[i].idChampionship, invite[i].accepted))
+                }
+
+                this.setState({ invites: invitesRender })
+            }
         })
+    }
+
+    dataInvite = (nomeJogador, campeonato, status) => {
+        return { nomeJogador, campeonato, status };
     }
 
     _handleClose1() {
@@ -341,7 +358,7 @@ class Campeonato extends Component {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows2.map(row => (
+                                            {this.state.invites.map(row => (
                                                 <TableRow key={row.id}>
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
