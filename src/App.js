@@ -22,11 +22,12 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<Route path="/(index)" exact component={Index} />
-				<Route path='/login' component={Login}/>
-				<Route path='/signup' component={Signup}/>
 				<Route path="/(player|administro|campeonatos|campeonato|partida|detalhes|novotime)" component={NavbarJogador}/>
 				<Route path="/empresa/(campeonatos|streams|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
 				<Switch>
+					<Route path='/login' component={Login}/>
+					<Route path='/signup' component={Signup}/>
+
 					{/* Jogador */}
 					<Route path="/" exact component={Index} />
 					<Route path='/partida' component={Partida}/>
