@@ -149,6 +149,15 @@ class Campeonato extends Component {
     handleUserData(text) {
         this.setState({ userData: text.target.value })
     }
+
+    handleTeam1(team) {
+        this.setState({ userData: team.target.value })
+    }
+
+    handleTeam2(team) {
+        this.setState({ userData: team.target.value })
+    }
+
     validateUserData = (data) => {
         let dataPerson = data.replace(/\D+/g, '');
         this.setState({ userData: dataPerson });
@@ -182,7 +191,8 @@ class Campeonato extends Component {
         this.state = { open1: false };
         this.state = { open2: false };
         this.state = { 
-            invites: []
+            invites: [],
+            teams: []
         }
 
         this.handleClose1 = this._handleClose1.bind(this);
@@ -193,6 +203,7 @@ class Campeonato extends Component {
         let pathnameVet = pathname.split("/")
 
         this.getAllMatchs(pathnameVet[3])
+        this.getAllTeams(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
 
     }
@@ -221,8 +232,30 @@ class Campeonato extends Component {
         })
     }
 
+    getAllTeams = (idChampionship) => {
+        championships.allTeams(idChampionship)
+        .then(team => {
+            if(typeof(team) == "object" && team.length != 0){
+
+                this.setState({ teams: [] })
+                let teamsRender = []
+
+                for(let i = 0; i < team.length; i++){
+                    teamsRender.push(this.dataNewMatch(team[i].nmTime))
+                }
+
+                this.setState({ teams: teamsRender })
+
+            }
+        })
+    }
+
     dataInvite = (nomeJogador, campeonato, status) => {
         return { nomeJogador, campeonato, status };
+    }
+
+    dataNewMatch = (team) => {
+        return { team }
     }
 
     _handleClose1() {
@@ -316,8 +349,8 @@ class Campeonato extends Component {
                                   </InputLabel>
                                     <NativeSelect className={classes.cssUnderline}  >
                                         <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {times.map(time => (
-                                            <option inputProps={{ className: classes.input }} value={time.time} onChange={(value) => { this.handleUserData(value) }}>{time.time}</option>
+                                        {this.state.teams.map(team => (
+                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>
@@ -327,8 +360,8 @@ class Campeonato extends Component {
                                   </InputLabel>
                                     <NativeSelect className={classes.cssUnderline}  >
                                         <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {times.map(time => (
-                                            <option inputProps={{ className: classes.input }} value={time.time} onChange={(value) => { this.handleUserData(value) }}>{time.time}</option>
+                                        {this.state.teams.map(team => (
+                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>

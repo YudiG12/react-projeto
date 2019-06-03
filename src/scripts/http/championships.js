@@ -21,6 +21,13 @@ const championships = {
             .then(res => {
                 return res.json()
             })
+    },
+
+    allTeams: (idChampionship) => {
+        return fetch(baseURL + "player/times/" + idChampionship, baseGET)
+            .then(res => {
+                return res.json()
+            })
     }
 }
 
