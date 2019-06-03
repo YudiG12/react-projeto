@@ -72,11 +72,6 @@ class NavBar extends Component {
                   </ListItem>
               }
 
-                <ListItem className='redLink' component={NavLink} to='/player' button key={'Minhas estatísticas'}>
-                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Jogadores</span>
-                </ListItem>
-
                 <ListItem className='redLink' component={NavLink} to='/empresa/streams' button key={'Streams'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Streams</span>
