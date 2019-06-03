@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography, Button } from '@material-ui/core'
-import data from '../../scripts/http/data
-import player from '../../scripts/http/player
+import data from '../../scripts/http/data'
+import player from '../../scripts/http/player'
 import Invite from './invite/Invite'
 
 
