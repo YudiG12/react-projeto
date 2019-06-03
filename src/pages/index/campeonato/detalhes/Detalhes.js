@@ -51,20 +51,6 @@ class Detalhes extends Component {
     clearInterval(this.interval)
   }
 
-  renderLineChart = (data, label) => {
-    return (
-      <ResponsiveContainer width='100%' aspect={3.0 / 1.5}>
-        <LineChart data={data}>
-          <Line name={label} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#8884d8" />
-          <CartesianGrid stroke="#ccc" />
-          <XAxis dataKey="name" />
-          <YAxis label={{ value: label, angle: -90, position: 'insideLeft', textAnchor: 'middle' }} />
-          <Tooltip />
-        </LineChart>
-      </ResponsiveContainer>
-    )
-  }
-
   renderScorecard = (data,label,metric) => {
     return (
       <div>
@@ -111,10 +97,34 @@ class Detalhes extends Component {
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card className={classes.card}>{this.renderLineChart(this.state.useCPUData, 'Uso em %')}</Card>
+            <Card className={classes.card}>
+            <ResponsiveContainer width='100%' aspect={3.0 / 1.5}>
+              <LineChart data={this.state.useCPUData}>
+                <Line dot={false} name={'CPU %'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#C755FF" />
+                <Line dot={false} name={'GPU %'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#5ABF73" />
+                <Line dot={false} name={'Disco %'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#FCB951" />
+                <Line dot={false} name={'RAM %'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#84D8FF" />
+                <CartesianGrid stroke="#ccc" />
+                <XAxis dataKey="name" />
+                <YAxis label={{ value: 'Uso em %', angle: -90, position: 'insideLeft', textAnchor: 'middle' }} />
+                <Tooltip />
+              </LineChart>
+            </ResponsiveContainer>
+            </Card>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Card className={classes.card}>{this.renderLineChart(this.state.useGPUData, 'Temperatura em C')}</Card>
+            <Card className={classes.card}>
+            <ResponsiveContainer width='100%' aspect={3.0 / 1.5}>
+              <LineChart data={this.state.useGPUData}>
+                <Line dot={false} name={'CPU C°'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#C755FF" />
+                <Line dot={false} name={'GPU C°'} isAnimationActive={false} type="monotone" dataKey="dataX" stroke="#5ABF73" />
+                <CartesianGrid stroke="#ccc" />
+                <XAxis dataKey="name" />
+                <YAxis label={{ value: 'Uso em %', angle: -90, position: 'insideLeft', textAnchor: 'middle' }} />
+                <Tooltip />
+              </LineChart>
+            </ResponsiveContainer>
+            </Card>
           </Grid>
         </Grid>
       </div>

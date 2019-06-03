@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -26,11 +27,11 @@ function NavbarMenu() {
           height:'100%',
         }}
       >
-        Usuário
+        Lucas
         <Person style={{ marginLeft: '5px' }} />
       </Button>
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-        <MenuItem onClick={handleClose}>Sair</MenuItem>
+        <MenuItem component={NavLink} to='/login' onClick={handleClose}>Sair</MenuItem>
       </Menu>
     </div>
   );
