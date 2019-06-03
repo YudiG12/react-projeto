@@ -56,8 +56,8 @@ class Admin extends Component {
                     <div className={`streams`}>
                         {/* <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/> */}
                         <RemoveRedEye style={{ color: '#96a0a0' }}/>
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>{stream.title}</Typography>
-                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>{stream.viewCount}</Typography>
+                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} >{stream.title}</Typography>
+                        <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} >{stream.viewCount}</Typography>
                     </div>
                 </Card>
             </Grid>
@@ -76,17 +76,12 @@ class Admin extends Component {
     const { classes } = this.props
     return(
         <div className={classes.root}>
-            <Grid container>
                 { this.state.makeRequest == true ? (
-                    <div>
-                        {
-                            this.renderStreams()
-                        }
-            
-                    </div>
+                    <Grid container>
+                        { this.renderStreams() }
+                    </Grid>
                     ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> )
                 }
-            </Grid>
         </div>
     )
   }

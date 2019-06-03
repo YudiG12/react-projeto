@@ -253,6 +253,8 @@ class Campeonato extends Component {
         return { team }
     }
 
+    
+
     _handleCloseModalPartida() {
         this.setState({ open1: false });
     }
@@ -345,7 +347,7 @@ class Campeonato extends Component {
                                     <NativeSelect className={classes.cssUnderline}  >
                                         <option classes={{ root: classes.cssLabel }} value=""></option>
                                         {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
+                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam1(value) }}>{team.team}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>

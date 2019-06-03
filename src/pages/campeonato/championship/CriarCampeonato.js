@@ -66,14 +66,17 @@ const styles = theme => ({
 
 
 class CriarCampeonato extends Component {
-    state = {
-        teamName:'',
-        userData1: '',
-        userData2: '',
-        userData3: '',
-        userData4: '',
-
-    };
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+            teamName:'',
+            userData1: '',
+            userData2: '',
+            userData3: '',
+            userData4: ''
+        }
+    }
 
     handleTeam(text){
       this.setState({teamName: text.target.value})

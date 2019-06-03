@@ -47,9 +47,8 @@ class App extends Component {
 
 					{/* Empresa */}
 					<Route path='/empresa/partida' component={Partida}/>
-					<Route path='/empresa/detalhes' component={Detalhes}/>
 					<Route path="/empresa/streams" component={Streams}/>
-					<Route path="/empresa/criar/campeonato" componet={CriarCampeonato}/>
+					<Route path="/empresa/criar/campeonato" component={CriarCampeonato}/>
 					<Route path="/empresa/campeonato" component={Campeonato}/>
 					<Route path="/empresa/campeonatos" component={Championship}/>
 					<Route path="/convite" component={Invite}/>
