@@ -4,6 +4,7 @@ import { withStyles, Card, Grid } from '@material-ui/core';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import ResponsiveContainer from 'recharts/lib/component/ResponsiveContainer';
+import machine from './../../../../scripts/http/machine'
 
 const styles = theme => ({
   root: {
@@ -34,6 +35,13 @@ class Detalhes extends Component {
     this.interval = setInterval(() => {
       let newUseCPUDataUnit = Math.random() * 10
       let newUseGPUDataUnit = Math.random() * 10
+
+
+
+      let metric = this.renderMetrics().then(resultado => {
+        
+      })
+      
       this.setState(state => {
         state.tempo++
         let newUseCPUData = state.useCPUData.concat({ name: state.tempo, dataX: newUseCPUDataUnit })
@@ -52,6 +60,15 @@ class Detalhes extends Component {
 
   componentWillUnmount() {
     clearInterval(this.interval)
+  }
+
+  renderMetrics = () => {
+    machine.getLastMetric()
+      .then(resultado => {
+        console.log(resultado)
+        this.setState({ metric: resultado })
+        return resultado
+      }) 
   }
 
   renderScorecard = (data,label,metric) => {

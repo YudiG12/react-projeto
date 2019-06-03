@@ -132,28 +132,26 @@ class Admin extends Component {
     const { classes } = this.props
     return (
         <div className={classes.root}>
-          <Grid container spacing={12}>
           { this.state.alreadyMakeRequest == true ? (
-                <div className={classes.root}>
-                <Grid item xs={6}>
-                  <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
-                    <Card className={classes.card}>
-                      {this.renderTeam1()}
-                    </Card>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
-                    <Card className={classes.card}>
-                      {this.renderTeam2()}
-                    </Card>
-                </Grid>
-                </div>
-              )
-            : 
-              ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> ) 
-          }
-          </Grid>
-        </div>
+            <Grid container spacing={12}>
+              <Grid item xs={6}>
+                <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
+                  <Card className={classes.card}>
+                    {this.renderTeam1()}
+                  </Card>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
+                  <Card className={classes.card}>
+                    {this.renderTeam2()}
+                  </Card>
+              </Grid>
+            </Grid>
+          )
+        : 
+          ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid>
+        )}
+      </div>
     )
   }
 }
