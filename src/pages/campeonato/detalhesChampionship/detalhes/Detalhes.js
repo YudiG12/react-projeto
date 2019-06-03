@@ -35,12 +35,6 @@ class Detalhes extends Component {
     this.interval = setInterval(() => {
       let newUseCPUDataUnit = Math.random() * 10
       let newUseGPUDataUnit = Math.random() * 10
-
-
-
-      let metric = this.renderMetrics().then(resultado => {
-        
-      })
       
       this.setState(state => {
         state.tempo++
