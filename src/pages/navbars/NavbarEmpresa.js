@@ -73,6 +73,10 @@ class NavBar extends Component {
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Criar Campeonato</span>
                 </ListItem>
+                <ListItem className='redLink' component={NavLink} to='/empresa/slack' button key={'Campeonato'}>
+                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Configuração Slack</span>
+                </ListItem>
             </List>
           </Drawer>
         </Hidden>
