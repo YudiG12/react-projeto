@@ -1,28 +1,36 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import data from '../../scripts/http/data'
 
 class Index extends Component {
 
+    state = {
+        route: ''
+    }
     constructor(props) {
         super(props);
         data
             .isLogOn(() => {
                 return data.getRole()
             }, () => {
-                window.location.href = "/login"
+                this.setState({route:"/login"})
             })
             .then(resultado => {
                 console.log(resultado);
                 if(resultado === 'jogador') {
-                    window.location.href = "/player"
+                    this.setState({route:"/player"})
+                } else if (resultado === 'empresa') {
+                    this.setState({route:'/empresa/campeonato'})
                 }
             })
             .catch(err => console.log(err));
     }
-
+    
     render() {
         return (
-            <p></p>
+            <div>
+                {this.state.route ? (<Redirect to = {this.state.route} />) : (<div></div>)}
+            </div>
         )
     }
 }

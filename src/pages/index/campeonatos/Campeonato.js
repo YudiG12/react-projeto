@@ -20,6 +20,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import championships from '../../../scripts/http/championships'
+import {NavLink} from 'react-router-dom'
+import data from '../../../scripts/http/data';
 
 const styles = theme => ({
     root: {
@@ -174,13 +176,20 @@ class Campeonato extends Component {
                        open2: false,
                        invites: [],
                        matches: [],
-                       teams: []
+                       teams: [],
+                       userRole: ''
         }
+        data.getRole()
+            .then(res => {
+                this.setState({userRole: res})
+            })
+            .catch(err => { console.log(err) })
+            console.log(this.state.userRole)
 
         this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
 
         this.handleCloseModalConvite = this._handleCloseModalConvite.bind(this);
-
+        
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
 
@@ -271,6 +280,8 @@ class Campeonato extends Component {
     }
 
     render() {
+        console.log(this.state.userRole)
+
         const { classes } = this.props
         const actions1 = [
 
@@ -303,6 +314,7 @@ class Campeonato extends Component {
             <div className={classes.root}>
                 <Grid container spacing={12}>
                     <Grid item xs={12} lg={6}>
+                    <IconButton component={NavLink} to={ this.state.userRole === 'empresa' ? ('/empresa/partida/'+'row.idPartida') : ('/partida/'+'row.idPartida') } color="#ff3f3f" className={classes.button}><ChevronRight /></IconButton>
                         <Card className={classes.card}>
                             <CardContent>
                                 <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom: '7%' }}>Partidas</p>
@@ -322,7 +334,7 @@ class Campeonato extends Component {
                                                     <TableCell align="center" className={classes.table}>{row.idPartida}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.nomeTime1}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.nomeTime2}</TableCell>
-                                                    <TableCell><IconButton onClick={() => this.redirectDetalhes(row.idPartida)} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+                                                    <TableCell><IconButton component={NavLink} to={ this.state.userRole === 'empresa' ? ('/empresa') : ('') + '/partida/'+row.idPartida} color="#ff3f3f" className={classes.button}><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}
