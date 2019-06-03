@@ -65,11 +65,7 @@ class Admin extends Component {
     }
 
     renderStreams = () => {
-        return (
-          <div>
-            { this.state.streams }
-          </div>
-        )
+        return ( this.state.streams )
       }
     
   render() {
