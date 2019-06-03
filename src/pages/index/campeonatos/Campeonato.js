@@ -192,7 +192,7 @@ class Campeonato extends Component {
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
 
-        // this.getAllMatchs(pathnameVet[3])
+        this.getAllMatchs(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
 
     }
@@ -213,7 +213,7 @@ class Campeonato extends Component {
                 let invitesRender = []
 
                 for(let i = 0; i < invite.length; i++){
-                    invitesRender.push(this.dataInvite(invite[i].idPlayer, invite[i].idChampionship, invite[i].accepted))
+                    invitesRender.push(this.dataInvite(invite[i].nmPlayer, invite[i].nmChampionship, invite[i].accepted))
                 }
 
                 this.setState({ invites: invitesRender })
