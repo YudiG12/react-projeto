@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent, NativeSelect } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
+import Championship from './../../../scripts/http/championships'
 
 
 const styles = theme => ({
@@ -70,28 +71,17 @@ class CriarCampeonato extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            teamName:'',
-            userData1: '',
-            userData2: '',
-            userData3: '',
-            userData4: ''
+            campeonatoName:'',
+            idGame: -1,
         }
     }
 
-    handleTeam(text){
-      this.setState({teamName: text.target.value})
+    handleNmCampeonato(text){
+        this.setState({ campeonatoName: text.target.value })
+        console.log(this.state.campeonatoName);
     }
-    handleUserData1(text) {
-        this.setState({ userData1: text.target.value })
-    }
-    handleUserData2(text) {
-        this.setState({ userData2: text.target.value })
-    }
-    handleUserData3(text) {
-        this.setState({ userData3: text.target.value })
-    }
-    handleUserData4(text) {
-        this.setState({ userData4: text.target.value })
+    handleIdGame(text) {
+        this.setState({ idGame: text.target.value })
     }
 
     validateUserData = (data) => {
@@ -121,6 +111,19 @@ class CriarCampeonato extends Component {
           }
         }
 
+    insertCampeonato = () => {
+        console.log("asdasdsa");
+        console.log(this.state.idGame);
+        console.log(this.state.campeonatoName);
+        if(this.state.idGame == -1) return;
+
+        Championship.insertChampionship(this.state.campeonatoName, this.state.idGame)
+            .then(res => {
+                window.location.href = "/empresa/criar/campeonato"
+            })
+            .catch(err => console(err))
+    }
+
     render() {
         const { classes } = this.props
         return (
@@ -129,41 +132,35 @@ class CriarCampeonato extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent >
-                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo TIme</p>
+                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo Campeonato</p>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      Nome do Time
+                                      Nome do Campeonato
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(text) => { this.handleTeam(text) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador 1
+                                        Jogos
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData1}  onChange={(text) => { this.handleUserData1(text) }} onBlur={(text) => { this.validateUserData(this.state.userData1) }} />
-                                </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador 2
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData2} onChange={(text) => { this.handleUserData2(text) }} onBlur={(text) => { this.validateUserData(this.state.userData2) }} />
-                                </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador 3
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData3} onChange={(text) => { this.handleUserData3(text) }} onBlur={(text) => { this.validateUserData(this.state.userData3) }}/>
-                                </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador 4
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData4} onChange={(text) => { this.handleUserData4(text) }} onBlur={(text) => { this.validateUserData(this.state.userData4) }}/>
+                                    <NativeSelect className={classes.cssUnderline}  >
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="-1"></option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="1">Dota 2</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="2">Fifa 19</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="3">Fortnite</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="4">Hearthstone</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="5">League of Legends</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="6">Overwatch</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="7">PUBG</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="8">Rainbow Six Siege</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="9">Street Fighter V</option>
+                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="10">Starcraft 2</option>
+                                    </NativeSelect>
                                 </FormControl>
                                 <CardActions>
-                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.submit()} >
+                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >
                                         Enviar
-                            </Button>
+                                    </Button>
                                 </CardActions>
                             </CardContent>
                         </Card>

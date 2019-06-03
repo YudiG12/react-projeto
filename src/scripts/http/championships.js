@@ -1,5 +1,6 @@
 import baseURL from '../baseurl'
 import baseGET from '../baseGET'
+import basePOST from '../basePOST'
 
 const championships = {
     allChampionships: () => {
@@ -28,6 +29,17 @@ const championships = {
     },
     allTeams: (idChampionship) => {
         return fetch(baseURL + "player/times/" + idChampionship, baseGET)
+            .then(res => {
+                return res.json()
+            })
+    },
+    insertChampionship: (nmChampionship, idGame) => {
+        const body = basePOST;
+        body.body = {
+            "nameChampionship": nmChampionship,
+            "idGame": idGame
+        }
+        return fetch(baseURL + "campeonato/signup", basePOST)
             .then(res => {
                 return res.json()
             })
