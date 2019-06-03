@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid, Card, Button, CardContent, FormControl, Input, InputLabel, NativeSelect } from '@material-ui/core';
+import { Grid, Card, Button, CardContent, Icon, FormControl, Input, InputLabel, NativeSelect } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,11 +13,13 @@ import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Fab from '@material-ui/core/Fab';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import championships from '../../../scripts/http/championships'
 
 const styles = theme => ({
     root: {
@@ -98,7 +99,7 @@ const styles = theme => ({
     fab: {
         position: 'realtive',
         marginLeft: '90%',
-        marginTop: '3%',
+        marginTop: '7%',
         backgroundColor: '#ff3f3f',
         '&:hover': {
             backgroundColor: '#8e2323'
@@ -108,13 +109,11 @@ const styles = theme => ({
 
 let dataTime = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let times = [];
-
 let idTime = 0;
 function dataNovaPartida(time) {
     idTime += 1;
     return { time };
 }
-
 for (let i = 0; dataTime.length > i; i++) {
     times.push(dataNovaPartida('time' + i));
 };
@@ -122,27 +121,8 @@ for (let i = 0; dataTime.length > i; i++) {
 
 
 
-
-let data = [1, 2, 3, 5];
-let rows = [];
-let rows2 = [];
-let id = 0;
-function dataPartida(nomeJogador, campeonato, status) {
-    id += 1;
-    return { nomeJogador, campeonato, status };
-}
-function dataConvite(nomeJogador, campeonato, status) {
-    id += 1;
-    return { nomeJogador, campeonato, status };
-}
-for (let i = 0; data.length > i; i++) {
-    rows.push(dataPartida('partida', 'times', 'xpto'));
-};
-for (let i = 0; data.length > i; i++) {
-    rows2.push(dataConvite('nomeJogador' + [i], 'campeonato', 'status'));
-};
-
 class Campeonato extends Component {
+
     state = {
         userData: '',
         open1: '',
@@ -152,56 +132,101 @@ class Campeonato extends Component {
         this.setState({ userData: text.target.value })
     }
     validateUserData = (data) => {
-        if (data) {
-            let dataPerson = data.replace(/\D+/g, '');
-            this.setState({ userData: dataPerson });
+        let dataPerson = data.replace(/\D+/g, '');
+        this.setState({ userData: dataPerson });
 
-            if (dataPerson.length > 11) {
-                alert('CPF inválido');
-            } else {
-                var cpf = dataPerson;
-                var digitoDigitado = Number(cpf.charAt(9) + cpf.charAt(10));
-                var soma1 = 0, soma2 = 0;
-                var vlr = 11;
+        if (dataPerson.length > 11) {
+            alert('CPF inválido');
+        } else {
+            var cpf = dataPerson;
+            var digitoDigitado = Number(cpf.charAt(9) + cpf.charAt(10));
+            var soma1 = 0, soma2 = 0;
+            var vlr = 11;
 
-                for (let i = 0; i < 9; i++) {
-                    soma1 += Number(cpf.charAt(i) * (vlr - 1));
-                    soma2 += Number(cpf.charAt(i) * vlr);
-                    vlr--;
-                }
-                soma1 = (((soma1 * 10) % 11) === 10 ? 0 : ((soma1 * 10) % 11));
-                soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
+            for (let i = 0; i < 9; i++) {
+                soma1 += Number(cpf.charAt(i) * (vlr - 1));
+                soma2 += Number(cpf.charAt(i) * vlr);
+                vlr--;
+            }
+            soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
+            soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
 
-                var digitoGerado = (soma1 * 10) + soma2;
-                if (digitoGerado !== digitoDigitado) {
-                    alert('CPF Invalido!');
-                    this.setState({ userData: "" });
-                }
+            var digitoGerado = (soma1 * 10) + soma2;
+            if (digitoGerado != digitoDigitado) {
+                alert('CPF Invalido!');
+                this.setState({ userData: "" });
             }
         }
     }
 
-
-
     constructor(props) {
         super(props);
-        this.state = { open1: false };
-        this.state = { open2: false };
+        this.state = { open1: false ,
+                       open2: false,
+                       invites: [],
+                       matches: []
+        }
 
-        this.handleClose1 = this._handleClose1.bind(this);
+        this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
 
-        this.handleClose2 = this._handleClose2.bind(this);
+        this.handleCloseModalConvite = this._handleCloseModalConvite.bind(this);
 
+        let pathname = window.location.pathname
+        let pathnameVet = pathname.split("/")
 
+        // this.getAllMatchs(pathnameVet[3])
+        this.getAllInvites(pathnameVet[3])
+        this.getAllMatchs(pathnameVet[3])
     }
 
-    _handleClose1() {
+    getAllMatchs = (idChampionship) => {
+        championships.allMatchs(idChampionship)
+        .then(match => {
+
+            if(typeof(match) == "object" && match.length != 0){
+                let matchRender = []
+
+                for(let i = 0; i < match.length; i++){
+                    matchRender.push(this.dataPartida(match[i].idMatch,match[i].times[0].nmTime,match[i].times[1].nmTime))
+
+                }
+                this.setState({matches: matchRender})
+
+            }
+        })
+    }
+        dataPartida = (idPartida, nomeTime1, nomeTime2) => {
+
+        return { idPartida, nomeTime1, nomeTime2 };
+}
+    getAllInvites = (idChampionship) => {
+        championships.allInvites(idChampionship)
+        .then(invite => {
+            if(typeof(invite) == "object" && invite.length != 0){
+
+                this.setState({ invites: [] })
+                let invitesRender = []
+
+                for(let i = 0; i < invite.length; i++){
+                    invitesRender.push(this.dataInvite(invite[i].idPlayer, invite[i].idChampionship, invite[i].accepted))
+                }
+
+                this.setState({ invites: invitesRender })
+            }
+        })
+    }
+
+    dataInvite = (nomeJogador, campeonato, status) => {
+        return { nomeJogador, campeonato, status };
+    }
+
+    _handleCloseModalPartida() {
         this.setState({ open1: false });
     }
     _handleOpen1() {
         this.setState({ open1: true });
     }
-    _handleClose2() {
+    _handleCloseModalConvite() {
         this.setState({ open2: false });
     }
     _handleOpen2() {
@@ -209,7 +234,7 @@ class Campeonato extends Component {
     }
 
     redirectDetalhes = (link) => {
-        window.location.href = "/empresa/partida" + link;
+        window.location.href = "/empresa/partida/" + link;
     }
 
     render() {
@@ -219,7 +244,7 @@ class Campeonato extends Component {
             <Button
                 label="Cancel"
                 primary={true}
-                onClick={this.handleClose1}
+                onClick={this.handleCloseModalPartida}
             />,
             <Button
                 type="submit"
@@ -232,7 +257,7 @@ class Campeonato extends Component {
             <Button
                 label="Cancel"
                 primary={true}
-                onClick={this.handleClose2}
+                onClick={this.handleCloseModalConvite}
             />,
             <Button
                 type="submit"
@@ -246,35 +271,38 @@ class Campeonato extends Component {
                 <Grid container spacing={12}>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
-                            <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom: '5%' }}>PARTIDAS</p>
-                            <Paper className={classes.table}>
-                                <Table fullWidth >
-                                    <TableHead  >
-                                        <TableRow >
-                                            <TableCell style={{ borderColor: '#464D4E' }} className={classes.table} align="center">CAMPEONATO</TableCell>
-                                            <TableCell style={{ borderColor: '#464D4E' }} className={classes.table} align="right">GAME</TableCell>
-                                            <TableCell style={{ borderColor: '#464D4E' }} className={classes.table} align="right">XPTO</TableCell>
-                                            <TableCell style={{ borderColor: '#464D4E' }} className={classes.table} align="right"></TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {rows.map(row => (
-                                            <TableRow key={row.id} >
-                                                <TableCell style={{ borderColor: '#464D4E' }} align="center" className={classes.table}>{row.nomeJogador}</TableCell>
-                                                <TableCell style={{ borderColor: '#464D4E' }} align="right" className={classes.table}>{row.campeonato}</TableCell>
-                                                <TableCell style={{ borderColor: '#464D4E' }} align="center" className={classes.table}>{row.status}</TableCell>
-                                                <TableCell style={{ borderColor: '#464D4E' }}><IconButton component={NavLink} to={"/empresa/partida" + '#'} color="#ff3f3f" className={classes.button}><ChevronRight /></IconButton></TableCell>
+                            <CardContent>
+                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom: '7%' }}>Partidas</p>
+                                <Paper className={classes.table}>
+                                    <Table fullWidth >
+                                        <TableHead  >
+                                            <TableRow >
+                                                <TableCell className={classes.table} align="center">Partida</TableCell>
+                                                <TableCell className={classes.table} align="right">Time 1</TableCell>
+                                                <TableCell className={classes.table} align="right">Time 2</TableCell>
+                                                <TableCell className={classes.table} align="right"></TableCell>
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </Paper>
-                            {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
-                            <Fab className={classes.fab} aria-label="Add" onClick={() => this._handleOpen1()}>
-                                <AddIcon style={{ color: 'rgb(255,200,200)' }} />
-                            </Fab>
+                                        </TableHead>
+                                        <TableBody>
+                                            {this.state.matches.map(row => (
+                                                <TableRow  >
+                                                    <TableCell align="center" className={classes.table}>{row.idPartida}</TableCell>
+                                                    <TableCell align="right" className={classes.table}>{row.nomeTime1}</TableCell>
+                                                    <TableCell align="center" className={classes.table}>{row.nomeTime2}</TableCell>
+                                                    <TableCell><IconButton onClick={() => this.redirectDetalhes(row.idPartida)} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Paper>
+                                {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this._handleOpen1()}>
+                                    <AddIcon />
+                                </Fab>
+                            </CardContent>
                         </Card>
-                        <Dialog actions={actions1} onClose={this.handleClose1} modal={true} open={this.state.open1}>
+                        <Dialog actions={actions1} onClose={this.handleCloseModalPartida} modal={true} open={this.state.open1}>
                             <DialogTitle className={classes.dialogTitle} disableTypography  >Nova Partida</DialogTitle>
                             <DialogContent className={classes.dialog}>
                                 <FormControl style={{ width: '100%' }} className={classes.margin}>
@@ -300,10 +328,10 @@ class Campeonato extends Component {
                                     </NativeSelect>
                                 </FormControl>
                                 <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleClose1} disableTypography style={{ color: "#96a0a0" }}>
+                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="#96a0a0">
                                         Cancel
                                 </Button>
-                                    <Button onClick={this.handleClose1} disableTypography style={{ color: "#FF3F3F" }} >
+                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="secondary" >
                                         Enviar
                                 </Button>
                                 </DialogActions>
@@ -312,32 +340,36 @@ class Campeonato extends Component {
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
-                            <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom: '5%' }}>CONVITES ENVIADOS</p>
-                            <Paper className={classes.table}>
-                                <Table fullWidth >
-                                    <TableHead className={classes.table} >
-                                        <TableRow >
-                                            <TableCell style={{ borderColor: '#464D4E', height: '56px' }} className={classes.table} align="center">JOGADOR</TableCell>
-                                            <TableCell style={{ borderColor: '#464D4E', height: '56px' }} className={classes.table} align="right">CAMPEOANTO</TableCell>
-                                            <TableCell style={{ borderColor: '#464D4E', height: '56px' }} className={classes.table} align="right">STATUS</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {rows2.map(row => (
-                                            <TableRow key={row.id}>
-                                                <TableCell style={{ borderColor: '#464D4E', height: '56px' }} align="center" className={classes.table}>{row.nomeJogador}</TableCell>
-                                                <TableCell style={{ borderColor: '#464D4E', height: '56px' }} align="right" className={classes.table}>{row.campeonato}</TableCell>
-                                                <TableCell style={{ borderColor: '#464D4E', height: '56px' }} align="center" className={classes.table}>{row.status}</TableCell>
+                            <CardContent>
+                                <p style={{ background: '#383c42', color: '#ff3f3f', fontSize: '20px', marginBottom: '5%' }}>Convites Enviados</p>
+                                <Paper className={classes.table}>
+                                    <Table fullWidth >
+                                        <TableHead className={classes.table} >
+                                            <TableRow >
+                                                <TableCell className={classes.table} align="center">Jogador </TableCell>
+                                                <TableCell className={classes.table} align="right">Campeonato</TableCell>
+                                                <TableCell className={classes.table} align="right">Status</TableCell>
+
                                             </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </Paper>
-                            <Fab className={classes.fab} aria-label="Add" onClick={() => this._handleOpen2()}>
-                                <AddIcon style={{ color: 'rgb(255,200,200)' }} />
-                            </Fab>
+                                        </TableHead>
+                                        <TableBody>
+                                            {this.state.invites.map(row => (
+                                                <TableRow key={row.id}>
+                                                    <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
+                                                    <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
+                                                    <TableCell align="center" className={classes.table}>{row.status}</TableCell>
+
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </Paper>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this._handleOpen2()}>
+                                    <AddIcon />
+                                </Fab>
+                            </CardContent>
                         </Card>
-                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleClose2}>
+                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleCloseModalConvite}>
                             <DialogTitle className={classes.dialogTitle} style={{ paddingLeft: '35%' }} fullWidth disableTypography  >Convidar Jogador</DialogTitle>
                             <DialogContent className={classes.dialog}>
                                 <FormControl fullWidth className={classes.margin}>
@@ -347,10 +379,10 @@ class Campeonato extends Component {
                                     <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
                                 </FormControl>
                                 <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleClose2} disableTypography style={{ color: "#96a0a0" }}>
+                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="#96a0a0">
                                         Cancel
                                 </Button>
-                                    <Button onClick={this.handleClose2} disableTypography style={{ color: "#FF3F3F" }} >
+                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="secondary" >
                                         Enviar
                                 </Button>
                                 </DialogActions>
