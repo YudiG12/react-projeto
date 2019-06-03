@@ -8,6 +8,8 @@ import ChevronRight from '@material-ui/icons/ChevronRight'
 import './Championship.css'
 import championships from '../../scripts/http/championships'
 import data from '../../scripts/http/data'
+import { NavLink } from 'react-router-dom';
+import Loading from '../Loading';
 
 const styles = theme => ({
     root: {
@@ -34,7 +36,8 @@ class Admin extends Component {
         super(props)
 
         this.state = {
-            championships: []
+            championships: [],
+            makeResponse: false,
         }
 
         data.isLogOn(() => {
@@ -69,7 +72,7 @@ class Admin extends Component {
                     <div className={`championship`}>
                         <img style={{ width: '80px', height: '75px'}} alt=''  src="https://raw.githubusercontent.com/YudiG12/CarbonTowerEtc/master/Design/Logos-PNG/logo2-red.png"/>
                         <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', paddingLeft: '15px'}}>{nmChampionship}</Typography>
-                        <IconButton  onClick={() => this.redirectCampeonato(`/${idChampionship}`)} color="#ff3f3f"  className={classes.button} component="span"><ChevronRight /></IconButton>
+                        <IconButton component={NavLink} to={'/campeonato/partida/'+idChampionship} color="#ff3f3f"  className={classes.button}><ChevronRight /></IconButton>
                     </div>
                 </Card>
             </Grid>
@@ -83,16 +86,13 @@ class Admin extends Component {
     redirectCampeonato = (link) => {
         window.location.href = "/campeonato/partida" + link
     }
-
     render() {
-        const { classes } = this.props
+    console.log(this.state.makeResponse)
+    const { classes } = this.props
         return(
             <div className={classes.root}>
-                <Grid container>
+                <Grid container><Loading style={{marginTop:'30px'}} />
                         {this.renderChampionships()}
-                    <Link to='/login' className='redLink'>
-                        Sair
-                    </Link>
                 </Grid>
             </div>
         )

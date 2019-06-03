@@ -65,7 +65,7 @@ class NavBar extends Component {
             <List value={value} onChange={this.handleChange}>
                 <ListItem className='redLink' component={NavLink} to='/' button key={'Campeonatos'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Inicio</span>
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Voltar</span>
                 </ListItem>
                 {/* <ListItem className='redLink' component={NavLink} to='/empresa/criar/campeonato' button key={'Campeonato'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
