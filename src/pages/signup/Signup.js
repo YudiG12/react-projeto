@@ -80,7 +80,7 @@ class Signup extends Component {
   validateUserData = (data) => {
     let dataPerson = data.replace(/\D+/g, '');
     this.setState({userData:dataPerson});
-    
+
     if (dataPerson.length > 11) {
 
       var cnpj = dataPerson;
@@ -151,7 +151,7 @@ class Signup extends Component {
   signup = () => {
     alert(this.state.userData);
     if (this.state.userData !== "" && this.state.userName !== "" && this.state.password !== "" && this.state.passwordConfirm !== "") {
-      
+
       fetch('http://35.199.74.137:7000/signup', {
         method: 'post',
         headers:{
@@ -177,7 +177,7 @@ class Signup extends Component {
               console.log(error);
       });
 
-      
+
     }else(
       alert("Todos os campos devem ser preenchidos")
     )
@@ -199,21 +199,21 @@ class Signup extends Component {
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                CPF ou CNPJ 
+                CPF ou CNPJ
               </InputLabel>
               <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
             </FormControl>
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                Senha 
+                Senha
               </InputLabel>
               <Input inputProps={{ className: classes.input }} type="password" id="pass" classes={{ underline: classes.cssUnderline }} value={this.password} onChange={(text) => { this.handlePassword(text) }} />
             </FormControl>
 
             <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
               <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                Confirme sua Senha 
+                Confirme sua Senha
               </InputLabel>
               <Input inputProps={{ className: classes.input }} type="password" id="passwordCheck" classes={{ underline: classes.cssUnderline }} value={this.state.passwordConfirm} onBlur={(text) => { this.validatePassword(this.state.password) }} onChange={(text) => { this.handlePasswordConfirm(text) }} />
             </FormControl>

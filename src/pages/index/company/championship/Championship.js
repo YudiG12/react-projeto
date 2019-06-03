@@ -55,7 +55,7 @@ class Admin extends Component {
             }
         })
     }
-   
+
     renderChampionship = (nmChampionship, idChampionship) => {
         const { classes } = this.props
         return(
@@ -97,5 +97,5 @@ class Admin extends Component {
 Admin.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-  
+
 export default withStyles(styles)(Admin);

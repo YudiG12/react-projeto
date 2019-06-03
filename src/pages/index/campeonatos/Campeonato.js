@@ -184,7 +184,7 @@ class Campeonato extends Component {
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
 
-        this.getAllMatchs(pathnameVet[3])
+      
         this.getAllTeams(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
         this.getAllMatchs(pathnameVet[3])
