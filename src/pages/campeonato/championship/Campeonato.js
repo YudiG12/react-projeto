@@ -20,6 +20,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import championships from '../../../scripts/http/championships'
+import Loading from '../../Loading';
 
 const styles = theme => ({
     root: {
@@ -174,8 +175,9 @@ class Campeonato extends Component {
                        open2: false,
                        invites: [],
                        matches: [],
-                       teams: []
-        }
+                       teams: [],
+                       makeRequest: false,
+    }
 
         this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
 
@@ -204,6 +206,7 @@ class Campeonato extends Component {
                 this.setState({matches: matchRender})
 
             }
+        this.setState({makeRequest: true})
         })
     }
         dataPartida = (idPartida, nomeTime1, nomeTime2) => {
@@ -302,6 +305,8 @@ class Campeonato extends Component {
         ];
 
         return (
+            <div>
+                {this.state.makeRequest === false &&  <Loading/>}
             <div className={classes.root}>
                 <Grid container spacing={12}>
                     <Grid item xs={12} lg={6}>
@@ -424,6 +429,7 @@ class Campeonato extends Component {
                         </Dialog>
                     </Grid>
                 </Grid>
+            </div>
             </div>
         )
     }
