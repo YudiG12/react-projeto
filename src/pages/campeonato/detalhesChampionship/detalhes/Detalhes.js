@@ -39,7 +39,6 @@ class Detalhes extends Component {
 
   componentDidMount() {
     this.interval = setInterval(() => {
-<<<<<<< HEAD
       let random = Math.random() * 10
       let newUseCPU, newUseGPU, newTempCPU, newTempGPU, newUseRam, newUseDisc
       machine.getLastMetric()
@@ -79,25 +78,6 @@ class Detalhes extends Component {
         })
         .catch(err => { console.log(err) })
     }, 10000)
-=======
-      let newUseCPUDataUnit = Math.random() * 10
-      let newUseGPUDataUnit = Math.random() * 10
-      
-      this.setState(state => {
-        state.tempo++
-        let newUseCPUData = state.useCPUData.concat({ name: state.tempo, dataX: newUseCPUDataUnit })
-        let newUseGPUData = state.useGPUData.concat({ name: state.tempo, dataX: newUseGPUDataUnit })
-        if (state.tempo > 10) {
-          newUseCPUData.shift()
-          newUseGPUData.shift()
-        }
-        return {
-          useCPUData: newUseCPUData,
-          useGPUData: newUseGPUData,
-        };
-      });
-    }, 1000)
->>>>>>> a645eb52950d969e784684a7795c0e812ca77a82
   }
 
   componentWillUnmount() {
