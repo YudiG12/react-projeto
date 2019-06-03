@@ -4,9 +4,9 @@ import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography, Button } from '@material-ui/core'
 import { red } from '@material-ui/core/colors'
 import './Invite.css'
-import data from '../../../../scripts/http/data'
-import player from '../../../../scripts/http/player'
-import Loading from '../../../Loading'
+import data from '../../../scripts/http/data'
+import player from '../../../scripts/http/player'
+import Loading from '../../Loading'
 
 const styles = theme => ({
     root: {

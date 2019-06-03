@@ -5,16 +5,20 @@ import Login from './pages/login/Login'
 import Signup from './pages/signup/Signup'
 
 import Error from './pages/Error'
-import NavbarEmpresa from './pages/index/NavbarEmpresa'
-import NavbarJogador from './pages/index/NavbarJogador'
+import NavbarEmpresa from './pages/navbars/NavbarEmpresa'
+import NavbarJogador from './pages/navbars/NavbarJogador'
+import NavbarCampeonato from './pages/navbars/NavbarCampeonato'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
-import Partida from './pages/index/campeonato/Partida'
-import Detalhes from './pages/index/campeonato/detalhes/Detalhes'
-import Streams from './pages/index/company/streams/Streams'
-import Championship from './pages/index/company/championship/Championship'
-import Invite from './pages/index/player/invite/Invite'
-import Campeonato from './pages/index/campeonatos/Campeonato'
-import NovoTime from './pages/index/company/novoTime/NovoTime'
+import Partida from './pages/campeonato/detalhesChampionship/Partida'
+import Detalhes from './pages/campeonato/detalhesChampionship/detalhes/Detalhes'
+import Streams from './pages/empresa/streams/Streams'
+import Championship from './pages/campeonato/championships/Championship'
+import Invite from './pages/player/invite/Invite'
+import Campeonato from './pages/campeonato/championship/Campeonato'
+import CampeonatosParticipo from './pages/player/Campeonatos'
+import CampeonatosAdministro from './pages/player/CampeonatoAdministro'
+import NovoTime from './pages/empresa/novoTime/NovoTime'
+import CriarCampeonato from './pages/campeonato/championship/CriarCampeonato'
 import { Hidden, Grid } from '@material-ui/core'
 
 class App extends Component {
@@ -22,25 +26,30 @@ class App extends Component {
 		return (
 			<BrowserRouter>
 				<Route path="/(index)" exact component={Index} />
-				<Route path="/(player|administro|campeonatos|campeonato|partida|detalhes|novotime)" component={NavbarJogador}/>
-				<Route path="/empresa/(campeonatos|streams|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
+				<Route path="/(player|administro|campeonatos)" component={NavbarJogador}/>
+				<Route path="/campeonato/(index|times|campeonato|partida|detalhes|novotime)" component={NavbarCampeonato} />
+				<Route path="/empresa/(campeonatos|streams|criar/campeonato|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
 				<Switch>
 					<Route path='/login' component={Login}/>
 					<Route path='/signup' component={Signup}/>
 
+					{/* Campeonato */}
+					<Route path="/campeonato/index" component={Campeonato}/>
+					<Route path='/campeonato/partida' component={Partida}/>
+					<Route path='/campeonato/detalhes' component={Detalhes}/>
+
+
 					{/* Jogador */}
 					<Route path="/" exact component={Index} />
-					<Route path='/partida' component={Partida}/>
-					<Route path='/detalhes' component={Detalhes}/>
 					<Route path="/player" component={Invite} />
-					<Route path="/campeonato" component={Campeonato}/>
-					<Route path='/administro' component={Championship}/>
+					<Route path="/campeonatos" component={CampeonatosParticipo}/>
+					<Route path='/administro' component={CampeonatosAdministro}/>
 
 					{/* Empresa */}
-
 					<Route path='/empresa/partida' component={Partida}/>
 					<Route path='/empresa/detalhes' component={Detalhes}/>
 					<Route path="/empresa/streams" component={Streams}/>
+					<Route path="/empresa/criar/campeonato" componet={CriarCampeonato}/>
 					<Route path="/empresa/campeonato" component={Campeonato}/>
 					<Route path="/empresa/campeonatos" component={Championship}/>
 					<Route path="/convite" component={Invite}/>

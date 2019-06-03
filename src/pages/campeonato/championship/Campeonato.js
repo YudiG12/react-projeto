@@ -390,8 +390,7 @@ class Campeonato extends Component {
                                                 <TableRow key={row.id}>
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
-                                                    <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-
+                                                    <TableCell align="center" className={classes.table}>{row.status == 0 ? "Não Respondido" : "Respondido" }</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>

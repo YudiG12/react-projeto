@@ -22,7 +22,7 @@ class Index extends Component {
                 if(resultado === 'jogador') {
                     this.setState({route:"/player"})
                 } else if (resultado === 'empresa') {
-                    this.setState({route:'/empresa/campeonato'})
+                    this.setState({route:'/empresa/campeonatos'})
                 }
             })
             .catch(err => console.log(err));

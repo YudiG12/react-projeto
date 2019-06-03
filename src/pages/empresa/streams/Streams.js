@@ -4,11 +4,8 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography } from '@material-ui/core'
 import {RemoveRedEye} from '@material-ui/icons'
-import twitchLogo from './../../../../img/twitch.png'
-import youtubeLogo from './../../../../img/youtube.png'
-import smashcastLogo from './../../../../img/smashcast.png'
-import livestreamLogo from './../../../../img/livestream.png'
-import streams from './../../../../scripts/http/streams'
+import LoadingCircle from './../../LoadingCircle'
+import streams from './../../../scripts/http/streams'
 import './Streams.css'
 
 const styles = theme => ({
@@ -37,9 +34,8 @@ class Admin extends Component {
         let idChampionship = window.location.pathname.split('/')[3];
         streams.getStreamsChampionship(idChampionship)
             .then(streamsDb => {
-                console.log(streamsDb);
                 let streamsToState = []
-                if(streamsDb.length != 0) {
+                if(typeof(streamsDb) == "object") {
                     streamsDb.forEach(stream => {
                         streamsToState.push(this.renderStream(stream));
                     });
@@ -58,7 +54,6 @@ class Admin extends Component {
             <Grid item xs={12} sm={6}>
                 <Card className={`cardTwo ${classes.card}`}>
                     <div className={`streams`}>
-                        <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/>
                         {/* <img style={{ width: '80px', height: '75px'}} alt='' src={twitchLogo} className={`cardPart1`}/> */}
                         <RemoveRedEye style={{ color: '#96a0a0' }}/>
                         <Typography align='center' variant='subtitle1' style={{color:'#96a0a0'}} className={`cardPart1`}>{stream.title}</Typography>
@@ -89,7 +84,7 @@ class Admin extends Component {
                         }
             
                     </div>
-                    ) : ( <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Gray_circles_rotate.gif"/> )
+                    ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> )
                 }
             </Grid>
         </div>

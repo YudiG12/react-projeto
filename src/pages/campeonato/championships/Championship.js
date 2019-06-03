@@ -6,7 +6,8 @@ import { Grid, Card, Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import './Championship.css'
-import championships from '../../../../scripts/http/championships'
+import championships from '../../../scripts/http/championships'
+import data from '../../../scripts/http/data'
 
 const styles = theme => ({
     root: {
@@ -36,7 +37,11 @@ class Admin extends Component {
             championships: []
         }
 
-        this.getAllChampionships()
+        data.isLogOn(() => {
+            this.getAllChampionships()
+        }, () => {
+            window.location.href = "/login"
+        })
 
     }
 

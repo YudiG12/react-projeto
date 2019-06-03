@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { NavLink } from 'react-router-dom'
-import logoText from './txtlogo-deitado.png'
+import logoText from './../index/txtlogo-deitado.png'
 import { Grid, Hidden, CssBaseline, Drawer, List, ListItem } from '@material-ui/core'
 import { Person, StarBorderOutlined } from '@material-ui/icons'
 import NavbarMenu from './NavbarMenu'
@@ -65,25 +65,13 @@ class NavBar extends Component {
           <Drawer value={value} onChange={this.handleChange} className={classes.root} variant="permanent" classes={{ paper: classes.drawerPaper }}>
             <div style={{ height: '49px' }} />
             <List value={value} onChange={this.handleChange}>
-              {this.state.userType === 'admin' &&
                   <ListItem className='redLink' component={NavLink} to='/empresa/campeonatos' button key={'Campeonatos'}>
                     <StarBorderOutlined style={{ color: '#96a0a0' }} />
                     <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonatos</span>
                   </ListItem>
-              }
-
-                <ListItem className='redLink' component={NavLink} to='/empresa/streams' button key={'Streams'}>
+                <ListItem className='redLink' component={NavLink} to='/empresa/criar/campeonato' button key={'Campeonato'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Streams</span>
-                </ListItem>
-
-                <ListItem className='redLink' component={NavLink} to='/empresa/campeonato' button key={'Campeonato'}>
-                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Campeonato</span>
-                </ListItem>
-                <ListItem className='redLink' component={NavLink} to='/empresa/novotime' button key={'Novo time'}>
-                  <StarBorderOutlined style={{ color: '#96a0a0' }} />
-                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Novo Time</span>
+                  <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Criar Campeonato</span>
                 </ListItem>
             </List>
           </Drawer>
