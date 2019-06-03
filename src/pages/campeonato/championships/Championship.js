@@ -6,7 +6,10 @@ import { Grid, Card, Typography } from '@material-ui/core'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronRight from '@material-ui/icons/ChevronRight'
 import './Championship.css'
-import championships from '../../../../scripts/http/championships'
+import championships from '../../../scripts/http/championships'
+import data from '../../../scripts/http/data'
+import Loading from '../../Loading';
+import { NavLink } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -33,10 +36,15 @@ class Admin extends Component {
         super(props)
 
         this.state = {
-            championships: []
+            championships: [],
+            makeRequest: false,
         }
 
-        this.getAllChampionships()
+        data.isLogOn(() => {
+            this.getAllChampionships()
+        }, () => {
+            window.location.href = "/login"
+        })
 
     }
 
@@ -58,13 +66,14 @@ class Admin extends Component {
    
     renderChampionship = (nmChampionship, idChampionship) => {
         const { classes } = this.props
+        this.setState({makeRequest: true})
         return(
             <Grid item xs={12} sm={6}>
                 <Card className={`cardTwo ${classes.card}`}>
                     <div className={`championship`}>
                         <img style={{ width: '80px', height: '75px'}} alt=''  src="https://raw.githubusercontent.com/YudiG12/CarbonTowerEtc/master/Design/Logos-PNG/logo2-red.png"/>
                         <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', paddingLeft: '15px'}}>{nmChampionship}</Typography>
-                        <IconButton  onClick={() => this.redirectCampeonato(`/${idChampionship}`)} color="#ff3f3f"  className={classes.button} component="span"><ChevronRight /></IconButton>
+                        <IconButton component={NavLink} to={'/empresa/campeonato/'+idChampionship} color="#ff3f3f"  className={classes.button} ><ChevronRight /></IconButton>
                     </div>
                 </Card>
             </Grid>
@@ -82,14 +91,12 @@ class Admin extends Component {
     render() {
         const { classes } = this.props
         return(
+            this.state.makeRequest === true ? (
             <div className={classes.root}>
                 <Grid container>
                         {this.renderChampionships()}
-                    <Link to='/login' className='redLink'>
-                        Sair
-                    </Link>
                 </Grid>
-            </div>
+            </div> ) : ( <Loading /> )
         )
     }
 }

@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Person } from '@material-ui/icons';
+import logout from './../../scripts/http/login'
 
 function NavbarMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -14,6 +15,10 @@ function NavbarMenu() {
 
   function handleClose() {
     setAnchorEl(null);
+    // logout.logout()
+    var date = new Date();
+    document.cookie = "carbontower= ; expires = " + date
+    window.location.href = "/login"
   }
 
   return (

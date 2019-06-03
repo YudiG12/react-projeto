@@ -21,10 +21,13 @@ const styles = theme => ({
 });
 
 class Detalhes extends Component {
-  state = {
-    tempo: 0,
-    useCPUData: [],
-    useGPUData: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      tempo: 0,
+      useCPUData: [],
+      useGPUData: [],
+    };
   }
 
   componentDidMount() {
