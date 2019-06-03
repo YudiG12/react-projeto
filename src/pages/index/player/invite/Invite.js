@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Typography, Button } from '@material-ui/core'
@@ -7,19 +6,21 @@ import { red } from '@material-ui/core/colors'
 import './Invite.css'
 import data from '../../../../scripts/http/data'
 import player from '../../../../scripts/http/player'
+import Loading from '../../../Loading'
 
 const styles = theme => ({
     root: {
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: '250px',
+      },
       display: 'flex',
       flexWrap: 'wrap',
     },
     cardResponsive: {
-        backgroundColor: '#383c42',
-        padding: '30px',
-        [theme.breakpoints.only('xs')]: {
+      backgroundColor:'#383c42',
+      boxShadow: 'none',
+      [theme.breakpoints.only('xs')]: {
         backgroundColor: '#2d3035',
-        boxShadow: 'none',
-        padding: '0',
       },
     },
     margin: {
@@ -77,12 +78,13 @@ class Admin extends Component {
       
   }
 
+
   getAllInvitesAvailable = () => {
     player.invitesNotAnswered()
     .then(invites => {
       this.setState({ invites: [] })
       let invitesRender = []
-      if(invites.length == 0){
+      if(invites.length === 0){
         invitesRender.push(this.renderWithoutInvite())
       }else{
         for(let i = 0; i < invites.length; i++) {
@@ -125,7 +127,7 @@ class Admin extends Component {
     const { classes } = this.props
     return (
       
-      <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
+      <Grid className={classes.root} style={{marginTop: '100px'}} container direction="row" justify="center" alignItems="center">
         <Card className={classes.cardResponsive} style={{ paddingBottom:'0', maxWidth:'400px'}}>
             <Grid  container direction="row" justify="center" alignItems="center" style={{padding: '3%'}}>
 
@@ -133,15 +135,16 @@ class Admin extends Component {
 
                 <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', padding: '3%'}} className={`cardPart1`}>Você foi convidado para particpar do campeonato {invite.nmChampionship}</Typography>
 
-                <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', padding: '3%'}} >Que será no jogo: {invite.nmGame}</Typography>
-
-                <Button id='button' type='submit' onClick={() => {this.refuseInvite(invite.idChampionship)}} style={{fontWeight: '300', a: 'none', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f', margin: '3%'}} variant="contained" color="secondary">
-                    Não aceitar
-                </Button>
+                <Typography align='center' variant='subtitle1' style={{ width: '100%', color:'#96a0a0', padding: '3%'}} >Que será no jogo: {invite.nmGame}</Typography>
                 
-                <Button id='button' type='submit' onClick={() => {this.acceptInvite(invite.idChampionship)}} style={{fontWeight: '300', a: 'none', height:'50px', borderRadius:'0', boxShadow:'none', backgroundColor:'#00d52a', margin: '3%'}} variant="contained" color="secondary">
+                <Button id='button' type='submit' onClick={() => {this.acceptInvite(invite.idChampionship)}} style={{fontWeight: '300', a: 'none', height:'50px', width:'118px', borderRadius:'0', boxShadow:'none', backgroundColor:'#00d52a', margin: '3%'}} variant="contained" color="secondary">
                     Aceitar
                 </Button>
+
+                <Button id='button' type='submit' onClick={() => {this.refuseInvite(invite.idChampionship)}} style={{fontWeight: '300', a: 'none', height:'50px', width:'118px', borderRadius:'0', boxShadow:'none', backgroundColor:'#ff3f3f', margin: '3%'}} variant="contained" color="secondary">
+                    Não aceitar
+                </Button>
+
             </Grid>
         </Card>
       </Grid>
@@ -153,7 +156,7 @@ class Admin extends Component {
     const { classes } = this.props
     return (
       
-      <Grid style={{height: '100vh'}} container direction="row" justify="center" alignItems="center">
+      <Grid style={{marginTop: '100px'}} className={classes.root} container direction="row" justify="center" alignItems="center">
         <Card className={classes.cardResponsive} style={{ paddingBottom:'0', maxWidth:'400px'}}>
             <Grid  container direction="row" justify="center" alignItems="center" style={{padding: '3%'}}>
 
@@ -171,10 +174,10 @@ class Admin extends Component {
     render() {
         
         return(
-          this.state.makeRequest == true ? (
+          this.state.makeRequest === true ? (
             this.renderInvites()
           ) : (
-            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Gray_circles_rotate.gif"/> 
+            <Loading />
           )
         )
     }

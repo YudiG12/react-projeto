@@ -109,35 +109,17 @@ const styles = theme => ({
 
 let dataTime = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 let times = [];
-
 let idTime = 0;
 function dataNovaPartida(time) {
     idTime += 1;
     return { time };
 }
-
 for (let i = 0; dataTime.length > i; i++) {
     times.push(dataNovaPartida('time' + i));
 };
 
-let data = [1, 2, 3, 5];
-let rows = [];
-let rows2 = [];
-let id = 0;
-function dataPartida(nomeJogador, campeonato, status) {
-    id += 1;
-    return { nomeJogador, campeonato, status };
-}
-function dataConvite(nomeJogador, campeonato, status) {
-    id += 1;
-    return { nomeJogador, campeonato, status };
-}
-for (let i = 0; data.length > i; i++) {
-    rows.push(dataPartida('partida', 'times', 'xpto'));
-};
-for (let i = 0; data.length > i; i++) {
-    rows2.push(dataConvite('nomeJogador' + [i], 'campeonato', 'status'));
-};
+
+
 
 class Campeonato extends Component {
 
@@ -179,31 +161,44 @@ class Campeonato extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { open1: false };
-        this.state = { open2: false };
-        this.state = { 
-            invites: []
+        this.state = { open1: false ,
+                       open2: false,
+                       invites: [],
+                       matches: []
         }
 
-        this.handleClose1 = this._handleClose1.bind(this);
+        this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
 
-        this.handleClose2 = this._handleClose2.bind(this);
+        this.handleCloseModalConvite = this._handleCloseModalConvite.bind(this);
 
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
 
         // this.getAllMatchs(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
-
+        this.getAllMatchs(pathnameVet[3])
     }
 
     getAllMatchs = (idChampionship) => {
         championships.allMatchs(idChampionship)
         .then(match => {
-            console.log(match)
+
+            if(typeof(match) == "object" && match.length != 0){
+                let matchRender = []
+
+                for(let i = 0; i < match.length; i++){
+                    matchRender.push(this.dataPartida(match[i].idMatch,match[i].times[0].nmTime,match[i].times[1].nmTime))
+
+                }
+                this.setState({matches: matchRender})
+
+            }
         })
     }
+        dataPartida = (idPartida, nomeTime1, nomeTime2) => {
 
+        return { idPartida, nomeTime1, nomeTime2 };
+}
     getAllInvites = (idChampionship) => {
         championships.allInvites(idChampionship)
         .then(invite => {
@@ -225,13 +220,13 @@ class Campeonato extends Component {
         return { nomeJogador, campeonato, status };
     }
 
-    _handleClose1() {
+    _handleCloseModalPartida() {
         this.setState({ open1: false });
     }
     _handleOpen1() {
         this.setState({ open1: true });
     }
-    _handleClose2() {
+    _handleCloseModalConvite() {
         this.setState({ open2: false });
     }
     _handleOpen2() {
@@ -239,7 +234,7 @@ class Campeonato extends Component {
     }
 
     redirectDetalhes = (link) => {
-        window.location.href = "/empresa/partida" + link;
+        window.location.href = "/empresa/partida/" + link;
     }
 
     render() {
@@ -249,7 +244,7 @@ class Campeonato extends Component {
             <Button
                 label="Cancel"
                 primary={true}
-                onClick={this.handleClose1}
+                onClick={this.handleCloseModalPartida}
             />,
             <Button
                 type="submit"
@@ -262,7 +257,7 @@ class Campeonato extends Component {
             <Button
                 label="Cancel"
                 primary={true}
-                onClick={this.handleClose2}
+                onClick={this.handleCloseModalConvite}
             />,
             <Button
                 type="submit"
@@ -282,19 +277,19 @@ class Campeonato extends Component {
                                     <Table fullWidth >
                                         <TableHead  >
                                             <TableRow >
-                                                <TableCell className={classes.table} align="center">Campeonato</TableCell>
-                                                <TableCell className={classes.table} align="right">Game</TableCell>
-                                                <TableCell className={classes.table} align="right">XPTO</TableCell>
+                                                <TableCell className={classes.table} align="center">Partida</TableCell>
+                                                <TableCell className={classes.table} align="right">Time 1</TableCell>
+                                                <TableCell className={classes.table} align="right">Time 2</TableCell>
                                                 <TableCell className={classes.table} align="right"></TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {rows.map(row => (
-                                                <TableRow key={row.id} >
-                                                    <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
-                                                    <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
-                                                    <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-                                                    <TableCell><IconButton onClick={() => this.redirectDetalhes('#')} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+                                            {this.state.matches.map(row => (
+                                                <TableRow  >
+                                                    <TableCell align="center" className={classes.table}>{row.idPartida}</TableCell>
+                                                    <TableCell align="right" className={classes.table}>{row.nomeTime1}</TableCell>
+                                                    <TableCell align="center" className={classes.table}>{row.nomeTime2}</TableCell>
+                                                    <TableCell><IconButton onClick={() => this.redirectDetalhes(row.idPartida)} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}
@@ -307,7 +302,7 @@ class Campeonato extends Component {
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions1} onClose={this.handleClose1} modal={true} open={this.state.open1}>
+                        <Dialog actions={actions1} onClose={this.handleCloseModalPartida} modal={true} open={this.state.open1}>
                             <DialogTitle className={classes.dialogTitle} disableTypography  >Nova Partida</DialogTitle>
                             <DialogContent className={classes.dialog}>
                                 <FormControl style={{ width: '100%' }} className={classes.margin}>
@@ -333,10 +328,10 @@ class Campeonato extends Component {
                                     </NativeSelect>
                                 </FormControl>
                                 <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleClose1} disableTypography color="#96a0a0">
+                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="#96a0a0">
                                         Cancel
                                 </Button>
-                                    <Button onClick={this.handleClose1} disableTypography color="secondary" >
+                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="secondary" >
                                         Enviar
                                 </Button>
                                 </DialogActions>
@@ -374,7 +369,7 @@ class Campeonato extends Component {
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleClose2}>
+                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleCloseModalConvite}>
                             <DialogTitle className={classes.dialogTitle} style={{ paddingLeft: '35%' }} fullWidth disableTypography  >Convidar Jogador</DialogTitle>
                             <DialogContent className={classes.dialog}>
                                 <FormControl fullWidth className={classes.margin}>
@@ -384,10 +379,10 @@ class Campeonato extends Component {
                                     <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
                                 </FormControl>
                                 <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleClose2} disableTypography color="#96a0a0">
+                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="#96a0a0">
                                         Cancel
                                 </Button>
-                                    <Button onClick={this.handleClose2} disableTypography color="secondary" >
+                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="secondary" >
                                         Enviar
                                 </Button>
                                 </DialogActions>

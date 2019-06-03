@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, MenuItem,Select, Input, CardContent } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 
@@ -108,11 +108,11 @@ class NovoTime extends Component {
               soma2 += Number(cpf.charAt(i) * vlr);
               vlr--;
             }
-            soma1 = (((soma1 * 10) % 11) == 10 ? 0 : ((soma1 * 10) % 11));
+            soma1 = (((soma1 * 10) % 11) === 10 ? 0 : ((soma1 * 10) % 11));
             soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
 
             var digitoGerado = (soma1 * 10) + soma2;
-            if (digitoGerado != digitoDigitado) {
+            if (digitoGerado !== digitoDigitado) {
               alert('CPF Invalido!');
             }
           }
@@ -122,7 +122,7 @@ class NovoTime extends Component {
         const { classes } = this.props
         return (
             <div className={classes.root}>
-                <Grid container spacing={12} style={{ height: '50vh' }} container direction="row" justify="center" alignItems="center">
+                <Grid container spacing={12} style={{ height: '50vh' }} direction="row" justify="center" alignItems="center">
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent >

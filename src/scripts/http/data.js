@@ -7,7 +7,7 @@ const data = {
         return fetch(baseURL + 'data/validate', baseGET)
             .then(res => res.json())
             .then(isLogado => {
-                if(isLogado == true) 
+                if(isLogado === true) 
                 {
                     return logado();
                 } 
@@ -25,7 +25,7 @@ const data = {
         return fetch(baseURL + 'data/idrole-jogador', baseGET)
             .then(res => res.json())
             .then(idPlayerRole => {
-                if(idPlayerRole == 0) {
+                if(idPlayerRole === 0) {
                     isNotAPlayer();
                 } else {
                     isPlayer(idPlayerRole);
