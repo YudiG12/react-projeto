@@ -33,6 +33,14 @@ const championships = {
                 return res.json()
             })
     },
+    newTeam: (idChampionship,nmTeam,users) => {
+        basePOST.body = {
+            "nmTime":nmTeam,
+            "idChampionship":idChampionship,
+            "idsPlayers":users
+        }
+        return fetch(baseURL + "player/time" , basePOST)
+    },
     insertChampionship: (nmChampionship, idGame) => {
         const body = basePOST;
         body.body = {

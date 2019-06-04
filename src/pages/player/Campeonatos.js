@@ -60,7 +60,7 @@ class CampeonatosParticipo extends Component {
             }
         })
     }
-   
+
     renderChampionship = (nmChampionship, idChampionship) => {
         const { classes } = this.props
         return(
