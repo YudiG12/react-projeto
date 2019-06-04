@@ -4,8 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent, NativeSelect } from '@material-ui/core'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
-import baseURL from '../../../../scripts/baseurl'
-import basePOST from '../../../../scripts/basePOST'
+
 import championships from '../../../../scripts/http/championships'
 
 
@@ -120,6 +119,10 @@ class NovoTime extends Component {
         userData2: '',
         userData3: '',
         userData4: '',
+        userData5: '',
+        users:[]
+        
+
     }
       this.getAllChampionships()
     }
@@ -143,9 +146,7 @@ class NovoTime extends Component {
     handleUserData5(text) {
         this.setState({ userData5: text.target.value })
     }
-    handleUserData6(text) {
-        this.setState({ userData6: text.target.value })
-    }
+    
     validateUserData = (data) => {
       let dataPerson = data.replace(/\D+/g, '');
       this.setState({userData:dataPerson});
@@ -198,13 +199,25 @@ class NovoTime extends Component {
         renderChampionship = (nmChampionship,idChampionship) => {
             return { nmChampionship,idChampionship }
         }
-        handleChampionship(championship) {
-            this.setState({ Championship: championship.target.value })
+        handleChampionship(id) {
+            this.setState({ championship: id.target.value   })
         }
 
 
         submit = () => {
-          alert(this.state.championship)
+            
+            this.state.users.push(this.state.userData1);
+            this.state.users.push(this.state.userData2);
+            this.state.users.push(this.state.userData3);
+            this.state.users.push(this.state.userData4);
+            this.state.users.push(this.state.userData5);
+            
+            championships.newTeam(this.state.championship, this.state.teamName, this.state.users).then(
+                res => console.log(res)
+            )
+            
+
+          
 
         }
 
@@ -223,10 +236,10 @@ class NovoTime extends Component {
                                     <InputLabel  classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                         Campeonato
                                   </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline} inputProps={{ className: classes.input }}  onChange={(text) => { this.handleChampionship(text) }} >
+                                    <NativeSelect className={classes.cssUnderline} inputProps={{ className: classes.input }}  onChange = {(value) =>{this.handleChampionship(value)}}  >
                                         <option classes={{ root: classes.cssLabel }} value=""></option>
                                         {this.state.championshipsRender.map(champ => (
-                                            <option  classes={{ root: classes.cssLabel }} value={champ.idChampionship}>{champ.nmChampionship}</option>
+                                            <option  classes={{ root: classes.cssLabel }} value={champ.idChampionship}  >{champ.nmChampionship}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>
@@ -267,12 +280,7 @@ class NovoTime extends Component {
                                     </InputLabel>
                                     <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData5} onChange={(text) => { this.handleUserData5(text) }} onBlur={(text) => { this.validateUserData(this.state.userData5) }}/>
                                 </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                      CPF do Jogador 6
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData6} onChange={(text) => { this.handleUserData6(text) }} onBlur={(text) => { this.validateUserData(this.state.userData6) }}/>
-                                </FormControl>
+                                
                                 <CardActions>
                                     <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.submit()} >
                                         Enviar
