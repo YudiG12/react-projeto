@@ -20,6 +20,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import championships from '../../../scripts/http/championships'
+import Loading from '../../Loading';
 
 const styles = theme => ({
     root: {
@@ -174,8 +175,9 @@ class Campeonato extends Component {
                        open2: false,
                        invites: [],
                        matches: [],
-                       teams: []
-        }
+                       teams: [],
+                       makeRequest: false,
+    }
 
         this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
 
@@ -204,6 +206,7 @@ class Campeonato extends Component {
                 this.setState({matches: matchRender})
 
             }
+        this.setState({makeRequest: true})
         })
     }
         dataPartida = (idPartida, nomeTime1, nomeTime2) => {
@@ -253,6 +256,8 @@ class Campeonato extends Component {
         return { team }
     }
 
+    
+
     _handleCloseModalPartida() {
         this.setState({ open1: false });
     }
@@ -300,6 +305,8 @@ class Campeonato extends Component {
         ];
 
         return (
+            <div>
+                {this.state.makeRequest === false &&  <Loading/>}
             <div className={classes.root}>
                 <Grid container spacing={12}>
                     <Grid item xs={12} lg={6}>
@@ -345,7 +352,7 @@ class Campeonato extends Component {
                                     <NativeSelect className={classes.cssUnderline}  >
                                         <option classes={{ root: classes.cssLabel }} value=""></option>
                                         {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
+                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam1(value) }}>{team.team}</option>
                                         ))}
                                     </NativeSelect>
                                 </FormControl>
@@ -390,8 +397,7 @@ class Campeonato extends Component {
                                                 <TableRow key={row.id}>
                                                     <TableCell align="center" className={classes.table}>{row.nomeJogador}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.campeonato}</TableCell>
-                                                    <TableCell align="center" className={classes.table}>{row.status}</TableCell>
-
+                                                    <TableCell align="center" className={classes.table}>{row.status == 0 ? "Não Respondido" : "Respondido" }</TableCell>
                                                 </TableRow>
                                             ))}
                                         </TableBody>
@@ -423,6 +429,7 @@ class Campeonato extends Component {
                         </Dialog>
                     </Grid>
                 </Grid>
+            </div>
             </div>
         )
     }

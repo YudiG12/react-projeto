@@ -5,7 +5,7 @@ import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent, Native
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 
-import championships from '../../../../scripts/http/championships'
+import championships from '../../../scripts/http/championships'
 
 
 const styles = theme => ({
