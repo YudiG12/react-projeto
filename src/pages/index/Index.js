@@ -21,13 +21,13 @@ class Index extends Component {
                 console.log(resultado);
                 if(resultado === 'jogador') {
                     this.setState({route:"/player"})
-                } else if (resultado === 'empresa') {
+                }if (resultado === 'empresa') {
                     this.setState({route:'/empresa/campeonatos'})
                 }
             })
             .catch(err => console.log(err));
     }
-    
+
     render() {
         return (
             <div>

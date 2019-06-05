@@ -177,6 +177,9 @@ class Campeonato extends Component {
                        matches: [],
                        teams: [],
                        makeRequest: false,
+                       selectTeam:[],
+                       idChampionship:""
+
     }
 
         this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
@@ -186,12 +189,27 @@ class Campeonato extends Component {
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
 
-      
+
+
+
+
         this.getAllTeams(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
         this.getAllMatchs(pathnameVet[3])
     }
+    newMatch =() => {
+      let pathname = window.location.pathname
+      let pathnameVet = pathname.split("/")
+      let idChampionship = pathnameVet[3]
+      let date = new Date()
+      let formatDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+      let time = date.toLocaleTimeString()
 
+      championships.newMatch(idChampionship,formatDate,time)
+        .then(res =>{
+          console.log(res);
+        })
+    }
     getAllMatchs = (idChampionship) => {
         championships.allMatchs(idChampionship)
         .then(match => {
@@ -207,6 +225,7 @@ class Campeonato extends Component {
 
             }
         this.setState({makeRequest: true})
+
         })
     }
         dataPartida = (idPartida, nomeTime1, nomeTime2) => {
@@ -248,6 +267,8 @@ class Campeonato extends Component {
         })
     }
 
+
+
     dataInvite = (nomeJogador, campeonato, status) => {
         return { nomeJogador, campeonato, status };
     }
@@ -255,8 +276,6 @@ class Campeonato extends Component {
     dataNewMatch = (team) => {
         return { team }
     }
-
-    
 
     _handleCloseModalPartida() {
         this.setState({ open1: false });
@@ -337,46 +356,12 @@ class Campeonato extends Component {
                                     </Table>
                                 </Paper>
                                 {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this._handleOpen1()}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.newMatch()}>
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions1} onClose={this.handleCloseModalPartida} modal={true} open={this.state.open1}>
-                            <DialogTitle className={classes.dialogTitle} disableTypography  >Nova Partida</DialogTitle>
-                            <DialogContent className={classes.dialog}>
-                                <FormControl style={{ width: '100%' }} className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                        Time 1
-                                  </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline}  >
-                                        <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam1(value) }}>{team.team}</option>
-                                        ))}
-                                    </NativeSelect>
-                                </FormControl>
-                                <FormControl style={{ width: '100%' }} className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                        Time 2
-                                  </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline}  >
-                                        <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
-                                        ))}
-                                    </NativeSelect>
-                                </FormControl>
-                                <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="#96a0a0">
-                                        Cancel
-                                </Button>
-                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="secondary" >
-                                        Enviar
-                                </Button>
-                                </DialogActions>
-                            </DialogContent >
-                        </Dialog>
+
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>

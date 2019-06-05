@@ -41,6 +41,14 @@ const championships = {
         }
         return fetch(baseURL + "player/time" , basePOST)
     },
+    newMatch: (idChampionship,date,time) => {
+        basePOST.body = {
+            "date": date,
+            "time": time,
+            "idChampionship": idChampionship
+        }
+        return fetch(baseURL + "match" , basePOST)
+    },
     insertChampionship: (nmChampionship, idGame) => {
         const body = basePOST;
         body.body = {
