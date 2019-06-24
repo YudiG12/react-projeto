@@ -63,7 +63,7 @@ class NavBar extends Component {
           <Drawer value={value} onChange={this.handleChange} className={classes.root} variant="permanent" classes={{ paper: classes.drawerPaper }}>
             <div style={{ height: '49px' }} />
             <List value={value} onChange={this.handleChange}>
-                <ListItem className='redLink' component={NavLink} to='/' button key={'Campeonatos'}>
+                <ListItem className='redLink' component={NavLink} to='/administro' button key={'Campeonatos'}>
                   <StarBorderOutlined style={{ color: '#96a0a0' }} />
                   <span style={{ color: '#96a0a0' }}>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Voltar</span>
                 </ListItem>

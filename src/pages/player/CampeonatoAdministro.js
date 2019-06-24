@@ -72,7 +72,7 @@ class Admin extends Component {
                     <div className={`championship`}>
                         <img style={{ width: '80px', height: '75px'}} alt=''  src="https://raw.githubusercontent.com/YudiG12/CarbonTowerEtc/master/Design/Logos-PNG/logo2-red.png"/>
                         <Typography align='center' variant='subtitle1' style={{color:'#96a0a0', paddingLeft: '15px'}}>{nmChampionship}</Typography>
-                        <IconButton component={NavLink} to={'/campeonato/partida/'+idChampionship} color="#ff3f3f"  className={classes.button}><ChevronRight /></IconButton>
+                        <IconButton component={NavLink} to={'/campeonato-administro/'+idChampionship} color="#ff3f3f"  className={classes.button}><ChevronRight /></IconButton>
                     </div>
                 </Card>
             </Grid>

@@ -24,6 +24,13 @@ import CriarConvite from './pages/campeonato/convite/CriarConvite'
 import CriarTime from './pages/campeonato/team/CriarTeam'
 import { Hidden, Grid } from '@material-ui/core'
 import Slack from './pages/campeonato/championship/Slack'
+import CampeonatoAdministrador from './pages/administrador/Campeonato'
+import PartidaAdministrador from './pages/administrador/Partida'
+import DetalhesAdministrador from './pages/administrador/Detalhes'
+import CriarConviteAdministrador from './pages/administrador/CriarConvite'
+import CriarTimeAdministrador from './pages/administrador/CriarTime'
+import CriarPartidaAdministrador from './pages/administrador/CriarPartida'
+
 
 class App extends Component {
 	render() {
@@ -31,16 +38,20 @@ class App extends Component {
 			<BrowserRouter>
 				<Route path="/(index)" exact component={Index} />
 				<Route path="/(player|administro|campeonatos)" component={NavbarJogador}/>
-				<Route path="/campeonato/(index|times|campeonato|partida|detalhes|novotime)" component={NavbarCampeonato} />
+				<Route path="/campeonato-administro" component={NavbarCampeonato}/>
+				<Route path="/campeonato/(|partida|detalhes|criar/convite|criar/time|criar/partida)" component={NavbarCampeonato} />
 				<Route path="/empresa/(campeonatos|slack|streams|criar/convite|criar/time|criar/campeonato|criar/partida|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
 				<Switch>
 					<Route path='/login' component={Login}/>
 					<Route path='/signup' component={Signup}/>
 
-					{/* Campeonato */}
-					<Route path="/campeonato/index" component={Campeonato}/>
-					<Route path='/campeonato/partida' component={Partida}/>
-					<Route path='/campeonato/detalhes' component={Detalhes}/>
+					{/* Administrador */}
+					<Route path="/campeonato-administro/" component={CampeonatoAdministrador}/>
+					<Route path='/campeonato/partida' component={PartidaAdministrador}/>
+					<Route path='/campeonato/detalhes' component={DetalhesAdministrador}/>
+					<Route path='/campeonato/criar/convite' component={CriarConviteAdministrador}/>
+					<Route path='/campeonato/criar/time' component={CriarTimeAdministrador}/>
+					<Route path='/campeonato/criar/partida' component={CriarPartidaAdministrador}/>
 
 
 					{/* Jogador */}
