@@ -84,33 +84,33 @@ class CriarPartida extends Component {
 
         let pathname = window.location.pathname;
         let pathnameVet = pathname.split("/");
-        console.log(pathnameVet);
         this.state.championship = pathnameVet[4];
         Championship.allTeams(this.state.championship)
             .then(teamsDb => {
-                console.log("asdads");
+                console.log(teamsDb)
                 this.setState({
                     teams: teamsDb,
                     makeRequest: true
                 })
-                console.log(teamsDb);
             })
+            .catch(err => console.log(err));
     }
 
-    handleNmCampeonato(text){
-        this.setState({ campeonatoName: text.target.value })
-        console.log(this.state.campeonatoName);
-    }
+    insertPartida = () => {
+        console.log(this.state);
+        if(this.state.idTeam1 == 0 || this.state.idTeam2 == 0 || this.state.idWinner == 0) return;
 
-    insertCampeonato = () => {
-        console.log("asdasdsa");
-        console.log(this.state.idGame);
-        console.log(this.state.campeonatoName);
-        if(this.state.idGame == -1) return;
+        let body = `{
+            "date": "",
+            "time": "",
+            "winner": ${this.state.winner},
+            "idChampionship": ${this.state.championship},
+            "idsTeams": [${this.state.idTeam1}, ${this.state.idTeam2}]
+            }`;
 
-        Championship.insertChampionship(this.state.campeonatoName, this.state.idGame)
+        Championship.insertPartida(body)
             .then(res => {
-                window.location.href = "/empresa/criar/campeonato"
+                window.location.href = "/empresa/campeonato/" + this.state.championship
             })
             .catch(err => console(err))
     }
@@ -140,6 +140,10 @@ class CriarPartida extends Component {
                 winner: selectedWinner
             })
         }
+    }
+
+    insertTeam = () => {
+        window.location.href = "/empresa/criar/time/" + this.state.championship;
     }
 
     render() {
@@ -206,14 +210,19 @@ class CriarPartida extends Component {
                                             ) : ( <div> </div> )
                                         }
 
+                                    <CardActions>
+                                        <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertPartida()} >
+                                            Enviar
+                                        </Button>
+                                    </CardActions>
+                                    <CardActions>
+                                        <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertTeam()} >
+                                            Criar Time
+                                        </Button>
+                                    </CardActions>
                                     </div>
                                 ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> )
                                 } 
-                                <CardActions>
-                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >
-                                        Enviar
-                                    </Button>
-                                </CardActions>
                             </CardContent>
                         </Card>
                     </Grid>

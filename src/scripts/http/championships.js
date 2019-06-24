@@ -42,15 +42,52 @@ const championships = {
         return fetch(baseURL + "player/time" , basePOST)
     },
     insertChampionship: (nmChampionship, idGame) => {
-        const body = basePOST;
-        body.body = {
-            "nameChampionship": nmChampionship,
-            "idGame": idGame
-        }
-        return fetch(baseURL + "campeonato/signup", basePOST)
+        const base = basePOST;
+        base.body = `{
+            "nameChampionship": "${nmChampionship}",
+            "idGame": ${idGame}
+        }`;
+        return fetch(baseURL + "campeonato/signup", base)
             .then(res => {
                 return res.json()
             })
+    },
+    insertInvite: (cpf, idChampionship) => {
+        let base = basePOST;
+        base.body = `{ "cpf": "${cpf}" }`;
+        return fetch(`${baseURL}campeonato/invite/${idChampionship}/create`, base)
+            .then(res => {
+                return res.json();
+            })
+    },
+    insertPartida: (body) => {
+        let base = basePOST;
+        base.body = body;
+        console.log(body);
+        return fetch(`${baseURL}player/match`, base)
+            .then(res => {
+                return res.json();
+            })
+    },
+    getPlayersChampionship: (idChampionship) => {
+        return fetch(baseURL + "campeonato/" + idChampionship + "/players", baseGET)
+            .then(res => {
+                return res.json()
+            })
+    },
+    insertTeam: (body) => {
+        let base = basePOST;
+        base.body = body;
+        return fetch(`${baseURL}player/time`, base)
+            .then(res => {
+                return res.json();
+            });
+    },
+    insertSlack: (body) => {
+        let base = basePOST;
+        base.body = body;
+        return fetch(baseURL + 'campeonato/slack', base)
+            .then(res => res.json())
     }
 }
 

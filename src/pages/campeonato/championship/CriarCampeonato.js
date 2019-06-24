@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { Grid, Card, Button, FormControl, InputLabel, Input, CardContent, NativeSelect } from '@material-ui/core'
+import { Grid, Card, Button, FormControl, InputLabel, Select, Input, CardContent, NativeSelect } from '@material-ui/core'
+import MenuItem from '@material-ui/core/MenuItem'
 import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 import Championship from './../../../scripts/http/championships'
@@ -78,7 +79,6 @@ class CriarCampeonato extends Component {
 
     handleNmCampeonato(text){
         this.setState({ campeonatoName: text.target.value })
-        console.log(this.state.campeonatoName);
     }
     handleIdGame(text) {
         this.setState({ idGame: text.target.value })
@@ -112,14 +112,11 @@ class CriarCampeonato extends Component {
         }
 
     insertCampeonato = () => {
-        console.log("asdasdsa");
-        console.log(this.state.idGame);
-        console.log(this.state.campeonatoName);
-        if(this.state.idGame == -1) return;
+        if(this.state.idGame == -1 || this.state.campeonatoName.length == 0) return;
 
         Championship.insertChampionship(this.state.campeonatoName, this.state.idGame)
             .then(res => {
-                window.location.href = "/empresa/criar/campeonato"
+                window.location.href = "/empresa/campeonatos"
             })
             .catch(err => console(err))
     }
@@ -143,19 +140,19 @@ class CriarCampeonato extends Component {
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                         Jogos
                                     </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline}  >
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="-1"></option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="1">Dota 2</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="2">Fifa 19</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="3">Fortnite</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="4">Hearthstone</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="5">League of Legends</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="6">Overwatch</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="7">PUBG</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="8">Rainbow Six Siege</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="9">Street Fighter V</option>
-                                        <option classes={{ root: classes.cssLabel }} onChange={(value) => {this.handleIdGame(value)}} value="10">Starcraft 2</option>
-                                    </NativeSelect>
+                                    <Select className={classes.cssUnderline} value={this.state.idGame} onChange={ (value) => {this.handleIdGame(value)} }  >
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"-1"}></MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"1"}>Dota 2</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"2"}>Fifa 19</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"3"}>Fortnite</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"4"}>Hearthstone</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"5"}>League of Legends</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"6"}>Overwatch</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"7"}>PUBG</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"8"}>Rainbow Six Siege</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"9"}>Street Fighter V</MenuItem>
+                                        <MenuItem classes={{ root: classes.cssLabel }}value={"10"}>Starcraft 2</MenuItem>
+                                    </Select>
                                 </FormControl>
                                 <CardActions>
                                     <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >

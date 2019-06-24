@@ -6,7 +6,6 @@ import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 import Championship from '../../../scripts/http/championships'
 
-
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -71,47 +70,75 @@ class Slack extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            campeonatoName:'',
-            idGame: -1,
+            urlWorkSpace: "",
+            maxUseCPU: 0.0,
+            maxUseGPU: 0.0,
+            maxUseRam: 0.0,
+            maxUseDisc: 0.0,
+            maxTempCPU: 0.0,
+            maxTempGPU: 0.0,
         }
     }
 
-    handleNmCampeonato(text){
-        this.setState({ campeonatoName: text.target.value })
-        console.log(this.state.campeonatoName);
-    }
-    handleIdGame(text) {
-        this.setState({ idGame: text.target.value })
+    setUrlWorkSpace = (value) => {
+        this.setState({ urlWorkSpace : value.target.value })
     }
 
-    validateUserData = (data) => {
-      let dataPerson = data.replace(/\D+/g, '');
-      this.setState({userData:dataPerson});
+    setMaxUseCPU = (value) => {
+        this.setState({ maxUseCPU : value.target.value })
+    }
+    
+    setMaxUseGPU = (value) => {
+        this.setState({ maxUseGPU : value.target.value })
+    }
+    
+    setMaxUseRam = (value) => {
+        this.setState({ maxUseRam : value.target.value })
+    }
+    
+    setMaxUseDisc = (value) => {
+        this.setState({ maxUseDisc : value.target.value })
+    }
+    
+    setMaxTempCPU = (value) => {
+        this.setState({ maxTempCPU : value.target.value })
+    }
+    
+    setMaxTempGPU = (value) => {
+        this.setState({ maxTempGPU : value.target.value })
+    }
 
-      if (dataPerson.length > 11) {
-        alert('CPF inválido');
-        }else{
-            var cpf = dataPerson;
-            var digitoDigitado = Number(cpf.charAt(9) + cpf.charAt(10));
-            var soma1 = 0, soma2 = 0;
-            var vlr = 11;
+    insertSlack = () => {
+        if(this.state.urlWorkSpace.length == 0
+            || !this.validValueNumber(this.state.maxUseCPU)
+            || !this.validValueNumber(this.state.maxUseGPU)
+            || !this.validValueNumber(this.state.maxUseRam)
+            || !this.validValueNumber(this.state.maxUseDisc)
+            || !this.validValueNumber(this.state.maxTempCPU)
+            || !this.validValueNumber(this.state.maxTempGPU))
+            return;
 
-            for (let i = 0; i < 9; i++) {
-              soma1 += Number(cpf.charAt(i) * (vlr - 1));
-              soma2 += Number(cpf.charAt(i) * vlr);
-              vlr--;
-            }
-            soma1 = (((soma1 * 10) % 11) === 10 ? 0 : ((soma1 * 10) % 11));
-            soma2 = (((soma2 + (2 * soma1)) * 10) % 11);
+        let body = `{
+            "urlWorkspace": "${this.state.urlWorkSpace}",
+            "maxUseCPU": ${this.state.maxUseCPU},
+            "maxUseGPU": ${this.state.maxUseGPU},
+            "maxUseRam": ${this.state.maxUseRam},
+            "maxUseDisc": ${this.state.maxUseDisc},
+            "maxTempCPU": ${this.state.maxTempCPU},
+            "maxTempGPU": ${this.state.maxTempGPU}
+        }`;
 
-            var digitoGerado = (soma1 * 10) + soma2;
-            if (digitoGerado !== digitoDigitado) {
-              alert('CPF Invalido!');
-            }
-          }
-        }
+        console.log(body);
 
-    insertCampeonato = () => {
+        Championship.insertSlack(body)
+            .then(res => {
+                window.location.href = "/empresa/slack"
+            })
+            .catch(err => console.log(err));
+    }
+
+    validValueNumber = (value) => {
+        return value >= 0 && value <= 100;
     }
 
     render() {
@@ -127,46 +154,46 @@ class Slack extends Component {
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       URL Workspace Slack
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="text" value={this.state.urlWorkSpace}  onChange={(value) => { this.setUrlWorkSpace(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                     Máximo Uso CPU
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxUseCPU}  onChange={(value) => { this.setMaxUseCPU(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                     Máximo Uso GPU
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxUseGPU}  onChange={(value) => { this.setMaxUseGPU(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       Máximo Uso Ram
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxUseRam}  onChange={(value) => { this.setMaxUseRam(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       Máximo Uso Disco
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxUseDisc}  onChange={(value) => { this.setMaxUseDisc(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       Máxima Temperatura CPU
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxTempCPU}  onChange={(value) => { this.setMaxTempCPU(value) }} />
                                 </FormControl>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       Máxima Temperatura GPU
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} classes={{ underline: classes.cssUnderline }} type="number" value={this.state.maxTempGPU}  onChange={(value) => { this.setMaxTempGPU(value) }} />
                                 </FormControl>
                                 <CardActions>
-                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >
+                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertSlack()} >
                                         Enviar
                                     </Button>
                                 </CardActions>

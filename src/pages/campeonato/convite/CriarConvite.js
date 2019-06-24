@@ -89,7 +89,13 @@ class CriarConvite extends Component {
     }
 
     insertConvite = () => {
-        if(this.state.cpf.length == 14 || this.state.cpf.length == 11) return;
+        if(this.state.cpf.length != 14 && this.state.cpf.length != 11) return;
+
+        Championship.insertInvite(this.state.cpf, this.state.championship)
+            .then(res => {
+                window.location.href = "/empresa/campeonato/" + this.state.championship;
+            })
+            .catch(err => console.log(err));
 
     }
 
@@ -101,7 +107,7 @@ class CriarConvite extends Component {
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
                             <CardContent >
-                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Nova Convite</p>
+                                <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo Convite</p>
                                 <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       CPF
