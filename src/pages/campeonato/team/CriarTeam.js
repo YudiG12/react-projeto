@@ -21,7 +21,7 @@ const styles = theme => ({
 
     card: {
         backgroundColor: '#383c42',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 5,
         margin: theme.spacing.unit * 2,
         textAlign: 'center',
         width: 'inherit',
@@ -164,12 +164,12 @@ class CriarTeam extends Component {
                             <CardContent >
                                 <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Criar Time</p>
                                 { this.state.makeRequest === true ? (
-                                    <div>
-                                        <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
+                                    <div style={{position:'relative'}}>
+                                        <FormControl style={{ marginTop: 'px' }} fullWidth className={classes.margin}>
                                             <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                             Nome Time
                                             </InputLabel>
-                                            <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} 
+                                            <Input inputProps={{ className: classes.input }}
                                             id="userData" classes={{ underline: classes.cssUnderline }} type="text" 
                                             value={this.state.nmTime}  onChange={(value) => { this.setNomeTime(value) }} />
                                         </FormControl>
@@ -190,19 +190,19 @@ class CriarTeam extends Component {
                                             </Select>
                                         </FormControl>
                                         ))}
-                                        <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.addPlayer()}>
+                                        <Button aria-label="Add" style={{left:'0', borderRadius: '0', marginTop:'7%', boxShadow:'none', width:'33%', backgroundColor:'#ff3f3f', color:'white', marginBottom:'7%'}} onClick={() => this.addPlayer()}>
                                             <AddIcon />
-                                        </Fab>
-                                        <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.removePlayer()}>
+                                        </Button>
+                                        <Button aria-label="Add" style={{right:'0', borderRadius: '0', marginTop:'7%', boxShadow:'none', width:'33%', color:'white', marginBottom:'7%', borderColor:'#ff3f3f'}} variant='outlined' onClick={() => this.removePlayer()}>
                                             <RemoveIcon />
-                                        </Fab>
+                                        </Button>
                                         <CardActions>
-                                            <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '0%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertTeam()} >
+                                            <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', marginBottom: '0%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertTeam()} >
                                                 Enviar
                                             </Button>
                                         </CardActions>
                                     </div>
-                                ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> )
+                                ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'30vh'}}><LoadingCircle/> </Grid> )
                                 } 
                             </CardContent>
                         </Card>

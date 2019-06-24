@@ -18,7 +18,7 @@ const styles = theme => ({
 
     card: {
         backgroundColor: '#383c42',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 5,
         margin: theme.spacing.unit * 2,
         textAlign: 'center',
         width: 'inherit',
@@ -130,17 +130,17 @@ class CriarCampeonato extends Component {
                         <Card className={classes.card}>
                             <CardContent >
                                 <p style={{ color: '#ff3f3f', fontSize: '20px', marginTop: '-10' }}>Novo Campeonato</p>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
+                                <FormControl style={{ marginTop: 'px' }} fullWidth className={classes.margin}>
+                                    <InputLabel fullWidth classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                       Nome do Campeonato
                                     </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} style={{marginRight:'23%'}} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
+                                    <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.teamName}  onChange={(value) => { this.handleNmCampeonato(value) }} />
                                 </FormControl>
-                                <FormControl style={{ marginLeft: '11%', marginRight: '11%', marginTop: 'px' }} fullWidth className={classes.margin}>
+                                <FormControl style={{ marginTop: 'px' }} fullWidth className={classes.margin}>
                                     <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
                                         Jogos
                                     </InputLabel>
-                                    <Select className={classes.cssUnderline} value={this.state.idGame} onChange={ (value) => {this.handleIdGame(value)} }  >
+                                    <Select style={{widht:'10px'}} className={classes.cssUnderline} value={this.state.idGame} onChange={ (value) => {this.handleIdGame(value)} }  >
                                         <MenuItem classes={{ root: classes.cssLabel }}value={"-1"}></MenuItem>
                                         <MenuItem classes={{ root: classes.cssLabel }}value={"1"}>Dota 2</MenuItem>
                                         <MenuItem classes={{ root: classes.cssLabel }}value={"2"}>Fifa 19</MenuItem>
@@ -155,7 +155,7 @@ class CriarCampeonato extends Component {
                                     </Select>
                                 </FormControl>
                                 <CardActions>
-                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >
+                                    <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertCampeonato()} >
                                         Enviar
                                     </Button>
                                 </CardActions>

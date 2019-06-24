@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom'
 import { Grid, Card, Button, CardContent, Icon, FormControl, Input, InputLabel, NativeSelect } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 import Table from '@material-ui/core/Table';
@@ -344,7 +345,7 @@ class Campeonato extends Component {
                                     </Table>
                                 </Paper>
                                 {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}  onClick={() => this.criarPartida()} >
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} component={Link} to={'/empresa/criar/partida/' + this.state.championship}>
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
@@ -375,7 +376,7 @@ class Campeonato extends Component {
                                         </TableBody>
                                     </Table>
                                 </Paper>
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.criarConvite()}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} component={Link} to={'/empresa/criar/convite/' + this.state.championship} >
                                     <AddIcon />
                                 </Fab>
                             </CardContent>

@@ -7,6 +7,7 @@ import { red } from '@material-ui/core/colors';
 import CardActions from '@material-ui/core/CardActions';
 import Championship from '../../../scripts/http/championships'
 import LoadingCircle from '../../LoadingCircle'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const styles = theme => ({
     root: {
@@ -18,7 +19,7 @@ const styles = theme => ({
 
     card: {
         backgroundColor: '#383c42',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing.unit * 5,
         margin: theme.spacing.unit * 2,
         textAlign: 'center',
         width: 'inherit',
@@ -210,18 +211,18 @@ class CriarPartida extends Component {
                                             ) : ( <div> </div> )
                                         }
 
+                                    <CardActions style={{position:'relative'}}>
+                                    <Link to={'/empresa/criar/time/'+this.state.championship} className='redLink' type='submit' style={{fontSize:'15px', color:'#ff3f3f', position: 'absolute', right: '0', marginTop:'10px'}} variant="outlined" color="secondary" >
+                                            Criar Time
+                                        </Link>
+                                    </CardActions>
                                     <CardActions>
-                                        <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertPartida()} >
+                                        <Button size="small" type='submit' style={{ fontWeight: '300', a: 'none', marginTop: '10%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertPartida()} >
                                             Enviar
                                         </Button>
                                     </CardActions>
-                                    <CardActions>
-                                        <Button size="small" id='button' type='submit' style={{ fontWeight: '300', a: 'none', margin: '11%', marginTop: '10%', marginBottom: '3%', height: '50px', borderRadius: '0', boxShadow: 'none', backgroundColor: '#ff3f3f' }} fullWidth variant="contained" color="secondary" onClick={() => this.insertTeam()} >
-                                            Criar Time
-                                        </Button>
-                                    </CardActions>
                                     </div>
-                                ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'100vh'}}><LoadingCircle/> </Grid> )
+                                ) : ( <Grid  container direction="row" justify="center" alignItems="center" style={{width:'100%', height:'30vh'}}><LoadingCircle/> </Grid> )
                                 } 
                             </CardContent>
                         </Card>
