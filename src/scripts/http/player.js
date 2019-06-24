@@ -28,6 +28,10 @@ const player = {
     refuseInvite: (idChampionship) => {
         return fetch(baseURL + "player/invites/"+idChampionship+"/refuse", baseGET)
             .then(res => res.json());
+    },
+    matchDetail: (idMatch) => {
+        return fetch(baseURL + "player/match/detail/"+idMatch, baseGET)
+            .then(res => res.json());
     }
 }
 

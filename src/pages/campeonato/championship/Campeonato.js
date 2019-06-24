@@ -127,7 +127,7 @@ class Campeonato extends Component {
     state = {
         userData: '',
         open1: '',
-        open2: '',
+        open2: ''
     };
     handleUserData(text) {
         this.setState({ userData: text.target.value })
@@ -177,6 +177,7 @@ class Campeonato extends Component {
                        matches: [],
                        teams: [],
                        makeRequest: false,
+                       championship: "0"
     }
 
         this.handleCloseModalPartida = this._handleCloseModalPartida.bind(this);
@@ -185,8 +186,7 @@ class Campeonato extends Component {
 
         let pathname = window.location.pathname
         let pathnameVet = pathname.split("/")
-
-      
+        this.state.championship = pathnameVet[3]
         this.getAllTeams(pathnameVet[3])
         this.getAllInvites(pathnameVet[3])
         this.getAllMatchs(pathnameVet[3])
@@ -270,6 +270,13 @@ class Campeonato extends Component {
     _handleOpen2() {
         this.setState({ open2: true });
     }
+    criarPartida = () => {
+        window.location.href = '/empresa/criar/partida/' + this.state.championship;
+    }
+
+    criarConvite = () => {
+        window.location.href = '/empresa/criar/convite/' + this.state.championship;
+    }
 
     redirectDetalhes = (link) => {
         window.location.href = "/empresa/partida/" + link;
@@ -337,46 +344,11 @@ class Campeonato extends Component {
                                     </Table>
                                 </Paper>
                                 {/* <Button  style={{  align:'left', fontWeight: '300', a: 'none', margin: '10%',padding:'5px',  height: '25px', borderRadius: '100', boxShadow: 'none', backgroundColor: '#ff3f3f' }}  variant="contained" color="secondary">teste</Button> */}
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this._handleOpen1()}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab}  onClick={() => this.criarPartida()} >
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions1} onClose={this.handleCloseModalPartida} modal={true} open={this.state.open1}>
-                            <DialogTitle className={classes.dialogTitle} disableTypography  >Nova Partida</DialogTitle>
-                            <DialogContent className={classes.dialog}>
-                                <FormControl style={{ width: '100%' }} className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                        Time 1
-                                  </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline}  >
-                                        <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam1(value) }}>{team.team}</option>
-                                        ))}
-                                    </NativeSelect>
-                                </FormControl>
-                                <FormControl style={{ width: '100%' }} className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                        Time 2
-                                  </InputLabel>
-                                    <NativeSelect className={classes.cssUnderline}  >
-                                        <option classes={{ root: classes.cssLabel }} value=""></option>
-                                        {this.state.teams.map(team => (
-                                            <option inputProps={{ className: classes.input }} value={team.team} onChange={(value) => { this.handleTeam2(value) }}>{team.team}</option>
-                                        ))}
-                                    </NativeSelect>
-                                </FormControl>
-                                <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="#96a0a0">
-                                        Cancel
-                                </Button>
-                                    <Button onClick={this.handleCloseModalPartida} disableTypography color="secondary" >
-                                        Enviar
-                                </Button>
-                                </DialogActions>
-                            </DialogContent >
-                        </Dialog>
                     </Grid>
                     <Grid item xs={12} lg={6}>
                         <Card className={classes.card}>
@@ -403,30 +375,11 @@ class Campeonato extends Component {
                                         </TableBody>
                                     </Table>
                                 </Paper>
-                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this._handleOpen2()}>
+                                <Fab className={classes.fab} aria-label="Add" className={classes.fab} onClick={() => this.criarConvite()}>
                                     <AddIcon />
                                 </Fab>
                             </CardContent>
                         </Card>
-                        <Dialog actions={actions2} fullWidth modal={true} open={this.state.open2} onClose={this.handleCloseModalConvite}>
-                            <DialogTitle className={classes.dialogTitle} style={{ paddingLeft: '35%' }} fullWidth disableTypography  >Convidar Jogador</DialogTitle>
-                            <DialogContent className={classes.dialog}>
-                                <FormControl fullWidth className={classes.margin}>
-                                    <InputLabel classes={{ root: classes.cssLabel, focused: classes.cssFocused }}>
-                                        CPF do Jogador
-                                    </InputLabel>
-                                    <Input inputProps={{ className: classes.input }} id="userData" classes={{ underline: classes.cssUnderline }} type="text" value={this.state.userData} onBlur={(text) => { this.validateUserData(this.state.userData) }} onChange={(text) => { this.handleUserData(text) }} />
-                                </FormControl>
-                                <DialogActions className={classes.dialog}>
-                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="#96a0a0">
-                                        Cancel
-                                </Button>
-                                    <Button onClick={this.handleCloseModalConvite} disableTypography color="secondary" >
-                                        Enviar
-                                </Button>
-                                </DialogActions>
-                            </DialogContent >
-                        </Dialog>
                     </Grid>
                 </Grid>
             </div>

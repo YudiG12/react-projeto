@@ -6,6 +6,7 @@ import { Grid, Card, Typography, Divider, Button, Hidden } from '@material-ui/co
 import MachineMetricData from '../../../models/MachineMetricData'
 import machine from './../../../scripts/http/machine'
 import LoadingCircle from './../../LoadingCircle'
+import player from './../../../scripts/http/player';
 
 const styles = theme => ({
   root: {
@@ -29,102 +30,96 @@ class Admin extends Component {
     this.state = {
       value: Math.random() * 100,
       alreadyMakeRequest: false,
-      metric: {}
+      loadTeamsData: false,
+      metric: {},
+      idMatch: "0",
+      match: {},
+      idsTeamOne: [],
+      idsTeamTwo: [],
+      metricsOne: [],
+      metricsTwo: []
     };
-    this.rendersTeams();
+    let pathname = window.location.pathname;
+    let pathnameVet = pathname.split("/");
+    this.state.idMatch = pathnameVet[3];
+    this.loadTeamsData();
   }
   
   componentDidMount() {
     this.interval = setInterval(()=> {
-      // let randomVar = Math.random()*100
-      this.rendersTeams();
-      // this.setState({value: randomVar}) 
+      this.loadTeamsData();
     }, 10000)
   }
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
-  rendersTeams = () => {
-    machine.getLastMetric()
-      .then(resultado => {
-        console.log(resultado);
-        this.setState({alreadyMakeRequest: true})
-        this.setState({metric: resultado})
+  loadTeamsData = () => {
+    if(this.state.loadTeamsData == false) {
+      player.matchDetail(this.state.idMatch)
+      .then(match => {
+        let teams = match.times;
+        let teamOne = teams[0];
+        let teamTwo = teams[1];
+        let idsOne = [];
+        let idsTwo = [];
+        for (let i = 0; i < teamOne.players.length; i++) {
+          let player = teamOne.players[i];
+          idsOne.push(player.idUserRole);
+        }        
+        for (let i = 0; i < teamTwo.players.length; i++) {
+          let player = teamTwo.players[i];
+          idsTwo.push(player.idUserRole);
+        }
+        this.setState({
+          loadTeamsData: true,
+          match: match,
+          idsTeamOne: idsOne,
+          idsTeamTwo: idsTwo
+        })
+      });
+    } else {
+      this.loadMetricsDataTeams();
+    }
+  }
+
+  loadMetricsDataTeams = () => {
+    let newMetricsOne = [];
+    let newMetricsTwo = [];
+    machine.getMetricsByIdsUserRole(this.state.idsTeamOne)
+      .then(metrics => {
+        newMetricsOne = metrics;
+        return machine.getMetricsByIdsUserRole(this.state.idsTeamTwo);
+      })
+      .then(metrics => {
+        newMetricsTwo = metrics;
+        this.setState({
+          metricsOne: newMetricsOne,
+          metricsTwo: newMetricsTwo,
+          alreadyMakeRequest: true
+        })
       })
   }
-  
-  renderTeam1 = () => {
-    let metric = this.state.metric;
-    console.log(metric.useGPU);
-    console.log(metric.useCPU);
-    let final = []
-    let playerDatas = []
-    for(let j = 0; j < 5; j++) {
-      let useGPU = metric.useGPU + ((Math.random() > .5) ? Math.random() * 20 : -1 * Math.random() * 20 );
-      if(useGPU < 0) useGPU = 0
-      if(useGPU > 100) useGPU = 100
-      let useCPU = metric.useCPU + ((Math.random() > .5) ? Math.random() * 20 : -1 * Math.random() * 20 );
-      if(useCPU < 0) useCPU = 0
-      if(useCPU > 100) useCPU = 100
-        playerDatas.push(new MachineMetricData(33,33,useCPU.toFixed(2),useGPU.toFixed(2),33,33,33,
-          'usbDevice',
-          'metricDate',
-          'metricTime',1,1)
-          )
-    }    
 
-    final = playerDatas.map((metrics,index) => {
+  renderTeam = (metrics) => {
+    if(metrics.length == 0 || metrics == "Não foi possível processar esse pedido.")
+      return null
+
+    let final = metrics.map((metric,index) => {
       return (
         <div style={{position:'relative'}}>
           <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>
-          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metric.useCPU+'%'}<br/></Typography>
           <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
-          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
-          <Hidden smDown><Button component={NavLink} to={'/campeonato/detalhes/'+metrics.idMachine} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', width:'36px', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
+          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metric.useGPU+'%'}</Typography>
+          <Hidden smDown><Button component={NavLink} to={'/campeonato/detalhes/'+metric.idMachine} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', width:'36px', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
           <br/>
-          {!(index === playerDatas.length - 1) &&
+          {!(index === metrics.length - 1) &&
             <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
           }
         </div>
         )
       })
-    return final
-  }
-
-  renderTeam2 = () => {
-    let metric = this.state.metric;
-    let final = []
-    let playerDatas = []
-    for (let i = 0; i < 5; i++) {
-      let useGPU = metric.useGPU + ((Math.random() > .5) ? Math.random() * 20 : -1 * Math.random() * 20 );
-      if(useGPU < 0) useGPU = 0
-      if(useGPU > 100) useGPU = 100
-      let useCPU = metric.useCPU + ((Math.random() > .5) ? Math.random() * 20 : -1 * Math.random() * 20 );
-      if(useCPU < 0) useCPU = 0
-      if(useCPU > 100) useCPU = 100
-      playerDatas.push(new MachineMetricData(33,33,useCPU.toFixed(2),useGPU.toFixed(2),33,33,33,
-        'usbDevice',
-        'metricDate',
-        'metricTime',1,1))
-    }
-
-    final = playerDatas.map((metrics,index) => {
-      return (
-        <div style={{position: 'relative'}}>
-          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>GPU&nbsp;</Typography>
-          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useCPU+'%'}<br/></Typography>
-          <Typography inline style={{color:'#96a0a0', fontSize: '1.06rem', fontFamily: 'inherit'}}>CPU&nbsp;</Typography>
-          <Typography inline style={{color:'rgba(255,255,255,0.8)', fontSize: '1.2rem', fontFamily: 'inherit'}}>{metrics.useGPU+'%'}</Typography>
-          <Hidden smDown><Button component={NavLink} to={'detalhes/'+metrics.useCPU} style={{position:'absolute', top:'19%', right:'5%', borderRadius:'50%', width:'36px', minWidth:'0px', color: '#96a0a0'}} variant='outlined'> > </Button> </Hidden>
-          <br/>
-          {!(index === playerDatas.length - 1) &&
-            <Divider style={{margin: '16px', marginLeft:'15%', marginRight:'15%', backgroundColor:'rgba(255,255,255,0.15)', widht:'60%'}}/>
-          }
-        </div>
-        )
-      })
-
     return final
   }
 
@@ -137,13 +132,13 @@ class Admin extends Component {
               <Grid item xs={6}>
                 <Typography align='center' variant='h5' style={{color:'#ff3f3f'}}>Time 1</Typography>
                   <Card className={classes.card}>
-                    {this.renderTeam1()}
+                    {this.renderTeam(this.state.metricsOne)}
                   </Card>
               </Grid>
               <Grid item xs={6}>
                 <Typography align='center' variant='h5' style={{color:'rgb(45,112,193'}}>Time 2</Typography>
                   <Card className={classes.card}>
-                    {this.renderTeam2()}
+                    {this.renderTeam(this.state.metricsTwo)}
                   </Card>
               </Grid>
             </Grid>

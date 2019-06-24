@@ -19,6 +19,8 @@ import CampeonatosParticipo from './pages/player/Campeonatos'
 import CampeonatosAdministro from './pages/player/CampeonatoAdministro'
 import NovoTime from './pages/empresa/novoTime/NovoTime'
 import CriarCampeonato from './pages/campeonato/championship/CriarCampeonato'
+import CriarPartida from './pages/campeonato/partida/CriarPartida'
+import CriarConvite from './pages/campeonato/convite/CriarConvite'
 import { Hidden, Grid } from '@material-ui/core'
 import Slack from './pages/campeonato/championship/Slack'
 
@@ -29,7 +31,7 @@ class App extends Component {
 				<Route path="/(index)" exact component={Index} />
 				<Route path="/(player|administro|campeonatos)" component={NavbarJogador}/>
 				<Route path="/campeonato/(index|times|campeonato|partida|detalhes|novotime)" component={NavbarCampeonato} />
-				<Route path="/empresa/(campeonatos|slack|streams|criar/campeonato|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
+				<Route path="/empresa/(campeonatos|slack|streams|criar/convite|criar/campeonato|criar/partida|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
 				<Switch>
 					<Route path='/login' component={Login}/>
 					<Route path='/signup' component={Signup}/>
@@ -51,6 +53,8 @@ class App extends Component {
 					<Route path="/empresa/slack" component={Slack}/>
 					<Route path="/empresa/streams" component={Streams}/>
 					<Route path="/empresa/criar/campeonato" component={CriarCampeonato}/>
+					<Route path="/empresa/criar/partida" component={CriarPartida}/>
+					<Route path="/empresa/criar/convite" component={CriarConvite}/>
 					<Route path="/empresa/campeonato" component={Campeonato}/>
 					<Route path="/empresa/campeonatos" component={Championship}/>
 					<Route path="/convite" component={Invite}/>

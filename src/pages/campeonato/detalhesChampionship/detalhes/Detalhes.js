@@ -34,16 +34,28 @@ class Detalhes extends Component {
       useDisc: 0,
       useCPUData: [],
       useGPUData: [],
+      idMachine: ""
     };
+    let pathname = window.location.pathname;
+    let pathnameVet = pathname.split("/");
+    let idMachine = pathnameVet[3].replace('%20', ' ');
+    while(true) {
+      if(idMachine.search("%") > -1) {
+        idMachine = idMachine.replace('%20', ' ');
+      } else {
+        break;
+      }
+    }
+    this.state.idMachine = idMachine;
+    console.log(idMachine);
   }
 
   componentDidMount() {
     this.interval = setInterval(() => {
-      let random = Math.random() * 10
-      let newUseCPU, newUseGPU, newTempCPU, newTempGPU, newUseRam, newUseDisc
-      machine.getLastMetric()
+      let newUseCPU, newUseGPU, newTempCPU, newTempGPU, newUseRam, newUseDisc;
+      // machine.getLastMetric()
+      machine.getLastMachineMetricById(this.state.idMachine)
         .then(res => {
-          console.log(res)
           if (res.tempCPU == 0)
             res.tempCPU = 48
           if (!res.useDisc > 0)
@@ -54,7 +66,6 @@ class Detalhes extends Component {
           newTempGPU = res.tempGPU
           newUseRam = res.useRam
           newUseDisc = res.useDisc
-          console.log(res.useCPU)
           this.setState(state => {
             state.tempo++
             let newUseCPUData = state.useCPUData.concat({ name: state.tempo, data1: newUseCPU, data2: newUseGPU, data3: newUseDisc, data4: newUseRam })
@@ -87,7 +98,6 @@ class Detalhes extends Component {
   renderMetrics = () => {
     machine.getLastMetric()
       .then(resultado => {
-        console.log(resultado)
         this.setState({ metric: resultado })
         return resultado
       }) 
