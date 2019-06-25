@@ -23,7 +23,7 @@ const styles = theme => ({
     },
 });
 
-class Admin extends Component {
+class Stream extends Component {
 
     constructor(props) {
         super(props);
@@ -34,6 +34,7 @@ class Admin extends Component {
         let idChampionship = window.location.pathname.split('/')[3];
         streams.getStreamsChampionship(idChampionship)
             .then(streamsDb => {
+                console.log(streamsDb);
                 let streamsToState = []
                 if(typeof(streamsDb) == "object") {
                     streamsDb.forEach(stream => {
@@ -83,8 +84,8 @@ class Admin extends Component {
   }
 }
 
-Admin.propTypes = {
+Stream.propTypes = {
     classes: PropTypes.object.isRequired,
 };
   
-export default withStyles(styles)(Admin);
+export default withStyles(styles)(Stream);
