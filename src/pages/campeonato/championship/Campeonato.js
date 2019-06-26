@@ -22,6 +22,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import championships from '../../../scripts/http/championships'
 import Loading from '../../Loading';
+import { NavLink } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -337,7 +338,7 @@ class Campeonato extends Component {
                                                     <TableCell align="center" className={classes.table}>{row.idPartida}</TableCell>
                                                     <TableCell align="right" className={classes.table}>{row.nomeTime1}</TableCell>
                                                     <TableCell align="center" className={classes.table}>{row.nomeTime2}</TableCell>
-                                                    <TableCell><IconButton onClick={() => this.redirectDetalhes(row.idPartida)} color="#ff3f3f" className={classes.button} component="span"><ChevronRight /></IconButton></TableCell>
+                                                    <TableCell><IconButton component={Link} to={"/empresa/partida/" + row.idPartida} color="#ff3f3f" className={classes.button} ><ChevronRight /></IconButton></TableCell>
 
                                                 </TableRow>
                                             ))}

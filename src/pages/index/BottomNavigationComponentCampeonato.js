@@ -18,7 +18,7 @@ const styles = {
   selected: {},
 }
 
-class BottomNavigationComponent extends React.Component {
+class BottomNavigationComponentCampeonato extends React.Component {
   state = {
     value: this.props.location.pathname
   };
@@ -31,18 +31,18 @@ class BottomNavigationComponent extends React.Component {
     const actionClasses = this.props.classes;
     const { classes } = this.props;
     const { value } = this.state;
-
     return (
       <BottomNavigation style={{position: 'fixed',bottom:'0'}} value={value} onChange={this.handleChange} className={classes.root}>
-        <BottomNavigationAction component={NavLink} to='/player' label="Convites" value="/player" classes={actionClasses} icon={<StarBorderOutlined />} />
-        <BottomNavigationAction component={NavLink} to='/administro' label="Administrados" value="/administro" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/empresa/campeonatos' label="Campeonato" value="/empresa/campeonatos" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/empresa/criar/campeonato' label="Criar" value="/empresa/criar/campeonato" classes={actionClasses} icon={<StarBorderOutlined />} />
+        <BottomNavigationAction component={NavLink} to='/empresa/slack' label="Slack" value="/empresa/slack" classes={actionClasses} icon={<StarBorderOutlined />} />
       </BottomNavigation>
     );
   }
 }
 
-BottomNavigationComponent.propTypes = {
+BottomNavigationComponentCampeonato.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BottomNavigationComponent);
+export default withStyles(styles)(BottomNavigationComponentCampeonato);

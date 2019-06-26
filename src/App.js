@@ -9,6 +9,7 @@ import NavbarEmpresa from './pages/navbars/NavbarEmpresa'
 import NavbarJogador from './pages/navbars/NavbarJogador'
 import NavbarCampeonato from './pages/navbars/NavbarCampeonato'
 import BottomNavigationComponent from './pages/index/BottomNavigationComponent'
+import BottomNavigationComponentCampeonato from './pages/index/BottomNavigationComponentCampeonato'
 import Partida from './pages/campeonato/detalhesChampionship/Partida'
 import Detalhes from './pages/campeonato/detalhesChampionship/detalhes/Detalhes'
 import Streams from './pages/empresa/streams/Streams'
@@ -74,8 +75,8 @@ class App extends Component {
 					<Route path="/empresa/novotime"component={NovoTime}/>
 					<Route component={Error} />
 				</Switch>
-				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|administro|campeonatos|campeonato|partida|detalhes|novotime)" component={BottomNavigationComponent}/></Grid></Hidden>
-				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/empresa/(campeonatos|streams|times|campeonato|partida|detalhes|novotime)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/(player|administro|campeonatos)" component={BottomNavigationComponent}/></Grid></Hidden>
+				<Hidden smUp><div style={{height:'56px',widht:'100%'}} /><Grid container direction="row" justify="center" alignItems="flex-end"><Route path="/empresa/(campeonatos|slack|streams|criar/convite|criar/time|criar/campeonato|criar/partida|times|campeonato|partida|detalhes|novotime)" component={BottomNavigationComponentCampeonato}/></Grid></Hidden>
 			</BrowserRouter>
 		)
 	}
