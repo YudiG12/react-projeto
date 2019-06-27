@@ -32,7 +32,7 @@ function NavbarMenu() {
           height:'100%',
         }}
       >
-        Lucas
+        
         <Person style={{ marginLeft: '5px' }} />
       </Button>
       <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>

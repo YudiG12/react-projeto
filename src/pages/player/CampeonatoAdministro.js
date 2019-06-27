@@ -54,13 +54,16 @@ class Admin extends Component {
             if(typeof(championship) == "object" && championship.length !== 0){
                 this.setState({ championships: [] })
                 let championshipsRender = []
-
+                
+                console.log("skjasljaklsjal")
                 for(let i = 0; i < championship.length; i++){
                     championshipsRender.push(this.renderChampionship(championship[i].nmChampionship, championship[i].idChampionship))
                 }
 
-                this.setState({ championships: championshipsRender })
+                this.setState({ championships: championshipsRender,
+                    makeResponse: true })
             }
+            console.log("skjasljaklsjaasdkjaskdlal")
         })
     }
    
@@ -91,9 +94,15 @@ class Admin extends Component {
     const { classes } = this.props
         return(
             <div className={classes.root}>
-                <Grid container><Loading style={{marginTop:'30px'}} />
-                        {this.renderChampionships()}
-                </Grid>
+                    {
+                        this.state.makeResponse === true ? (
+                            <Grid container>
+                                {this.renderChampionships()}
+                            </Grid>
+                            ) : (
+                                <Loading />
+                            )
+                    }
             </div>
         )
     }

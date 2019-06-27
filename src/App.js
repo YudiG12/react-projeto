@@ -41,7 +41,7 @@ class App extends Component {
 				<Route path="/(player|administro|campeonatos)" component={NavbarJogador}/>
 				<Route path="/campeonato-administro" component={NavbarCampeonato}/>
 				<Route path="/campeonato/(|partida|detalhes|criar/convite|criar/time|criar/partida)" component={NavbarCampeonato} />
-				<Route path="/empresa/(campeonatos|slack|streams|criar/convite|criar/time|criar/campeonato|criar/partida|times|campeonato|partida|detalhes|novotime)" component={NavbarEmpresa}/>
+				<Route path="/empresa/(campeonatos|slack|streams|criar/convite|criar/time|criar/campeonato|criar/partida|times|campeonato|partida|detalhes|novotime|detalhes)" component={NavbarEmpresa}/>
 				<Switch>
 					<Route path='/login' component={Login}/>
 					<Route path='/signup' component={Signup}/>
@@ -71,6 +71,7 @@ class App extends Component {
 					<Route path="/empresa/criar/time" component={CriarTime}/>
 					<Route path="/empresa/campeonato" component={Campeonato}/>
 					<Route path="/empresa/campeonatos" component={Championship}/>
+					<Route path="/empresa/detalhes" component={DetalhesAdministrador}/>
 					<Route path="/convite" component={Invite}/>
 					<Route path="/empresa/novotime"component={NovoTime}/>
 					<Route component={Error} />
